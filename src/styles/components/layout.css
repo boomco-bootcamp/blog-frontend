@@ -1,0 +1,47 @@
+.header {
+    height:60px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding: 10px;
+    background:#daddd0;
+}
+
+
+.main_container {
+    min-height: calc(100vh - 120px);
+}
+
+.footer {
+    height:60px;
+    background:#daddd0;
+}
+
+.flex {
+    display: flex;
+    gap:16px;
+}
+
+
+.flex-wrap {
+    display: flex;
+    gap:16px;
+    flex-wrap:wrap;
+}
+
+.flex-col {
+    display:flex;
+    gap:16px;
+    flex-direction:column;
+}
+
+.flex-center {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.flex-between {
+    display:flex;
+    justify-content:space-between;
+}

@@ -1,0 +1,1 @@
+export const listSample = ["JavaScript", "React", "CSS", "HTML", "Node.js", "Python"];

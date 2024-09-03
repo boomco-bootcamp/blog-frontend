@@ -1,0 +1,31 @@
+.tag-list-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    height:64px;
+}
+
+.tag-list {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto; /* 가로 스크롤 활성화 */
+    padding: 10px 0;
+}
+
+.tag-button {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 2px solid gray;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    flex-shrink: 0; /* 버튼 크기가 줄어들지 않도록 고정 */
+}
+
+.tag-button.selected {
+    border: 2px solid blue;
+    background-color: #e0f7fa;
+}
+
+.selected-tag-container {
+    margin-top: 20px;
+}

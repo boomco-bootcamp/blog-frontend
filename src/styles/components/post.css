@@ -1,0 +1,52 @@
+.post_wrapper{
+    width:300px;
+    height:150px;
+    border: solid 0.5px gray;
+    display:flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding:8px;
+    border-radius:10px;
+}
+
+.post_img{
+    height:120px;
+    padding:8px;
+}
+
+.post_title{
+    text-overflow: ellipsis;
+}
+
+.post_desc{
+    overflow: hidden;
+    font-size:12px;
+    margin:0;
+    text-overflow: ellipsis;
+    height:108px;
+}
+
+.item_wrapper{
+    margin-top:16px;
+    width:400px;
+    height:60px;
+    border: solid 0.5px gray;
+    display:flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding:16px;
+    border-radius:10px;
+}
+
+.item_title{
+    text-overflow: ellipsis;
+}
+
+.item_desc{
+    font-size:12px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    height:108px;
+}
