@@ -10,6 +10,7 @@ import BlogCreate from '../pages/blog/BlogCreate';
 import BlogEdit from '../pages/blog/BlogEdit';
 import BlogDetail from '../pages/blog/BlogDetail';
 import Blog from '../pages/blog/Blog';
+import BlogAdmin from "../pages/blog/BlogAdmin";
 
 const Router = () => {
     return (
@@ -30,6 +31,9 @@ const Router = () => {
                     {/* 블로그 글 작성 & 수정 */}
                     <Route path="/blog/post/:id/create" element={<BlogCreate />} />
                     <Route path="/blog/post/:id/edit" element={<BlogEdit />} />
+
+                    {/* 블로그 관리 */}
+                    <Route path="/blog/admin" element={<BlogAdmin />} />
                 </Routes>
             </Layout>
         </BrowserRouter>

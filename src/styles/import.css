@@ -3,6 +3,8 @@
 @import './components/typography.css';
 @import './components/tag.css';
 @import './pages/main.css';
+@import './pages/mypage.css';
 @import './pages/sign.css';
+@import './pages/blog.css';
 @import './reset.css';
 
