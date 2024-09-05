@@ -1,86 +1,98 @@
 import banner from '../../assets/img/til_banner.png';
-import { useState } from "react";
-
-
+import { useRef, useState } from "react";
 
 const AdminData = [
   {
-    visitor : [
-      {
-        date: '2024-01-01',
-        visit : '30',
-      },
-      {
-        date: '2024-01-02',
-        visit : '55',
-      },
-      {
-        date: '2024-01-03',
-        visit : '333',
-      }
-      ,{
-        date: '2024-01-04',
-        visit : '111',
-      }
+    visitor: [
+      { date: '2024-01-01', visit: '30' },
+      { date: '2024-01-02', visit: '55' },
+      { date: '2024-01-03', visit: '333' },
+      { date: '2024-01-04', visit: '111' }
     ],
     engagement: [
-      {
-        view : '555',
-        like : '22'
-      }
+      { view: '555', like: '22' }
     ],
     reply: [
-      {
-        title : '도움이 잘 되었어요. 감사합니다.',
-        userId : 'mjkim93'
-      },
-      {
-        title : '맞아요. 자바스크립트는 어려워요',
-        userId : 'hisong99'
-      },
-      {
-        title : '좋은글입니다.',
-        userId : 'ms_kim87'
-      },
+      { title: '도움이 잘 되었어요. 감사합니다.', userId: 'mjkim93' },
+      { title: '맞아요. 자바스크립트는 어려워요', userId: 'hisong99' },
+      { title: '좋은글입니다.', userId: 'ms_kim87' },
     ]
   }
-]
-
-
+];
 
 const BlogAdmin = () => {
-
   const [activeTab, setActiveTab] = useState(0);
   const [edit, setEdit] = useState(false);
+  const [bannerImage, setBannerImage] = useState(banner);
+  const [text, setText] = useState('저의 블로그에 오신것을 환영합니다. 반가워요')
+
+
+  const fileInputRef = useRef(null);
 
   const handleEdit = () => {
     setEdit(true);
-  }
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setBannerImage(reader.result); // 상태를 업데이트하여 이미지 변경
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleButtonClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click(); // 파일 입력 클릭 이벤트 트리거
+    }
+  };
+
+  const handleTextChange = (event) => {
+    setText(event.target.value);
+  };
+
+  const handleSave = () => {
+    setEdit(false); // 저장 후 수정 상태 종료
+  };
 
   return (
     <div className="blog_admin_wrap">
       <div className="img_banner">
-        <img src={banner} alt="banner" />
+        <img src={bannerImage} alt="banner" /> {/* bannerImage 상태를 사용 */}
       </div>
       <div className="admin_cover">
         <div className="admin_wrap">
           <div className="admin_inner">
-            <button>메인 이미지 배너 업로드</button>
+            <button onClick={handleButtonClick}>메인 이미지 배너 업로드</button>
+            <label htmlFor="fileupload" className='visually-hidden'></label>
+            <input
+              type="file"
+              style={{ display: 'none' }}
+              ref={fileInputRef}
+              onChange={handleFileChange}
+              id="fileupload"
+            />
           </div>
           <div className="text_wrap">
-            {
-              !edit ? (
-                <>
-                  <p className="text">저의 블로그에 오신것을 환영합니다. 반가워요</p>
-                  <button onClick={handleEdit}>수정하기</button>
-                </>
-              ) : (
-                <>
-                  <input type="text" placeholder={'한 줄 소개를 입력해주세요'} />
-                  <button>저장하기</button>
-                </>
-              )
-            }
+            {!edit ? (
+              <>
+                <p className="text">{text}</p>
+                <button onClick={handleEdit}>수정하기</button>
+              </>
+            ) : (
+              <>
+                <input
+                  type="text"
+                  value={text}
+                  onChange={handleTextChange}
+                  placeholder={'한 줄 소개를 입력해주세요'}
+                />
+                <button onClick={handleSave}>저장하기</button>
+              </>
+            )}
           </div>
         </div>
 
@@ -108,7 +120,6 @@ const BlogAdmin = () => {
                 </tr>
                 </thead>
                 <tbody>
-
                 {
                   AdminData.map((data, idx) => (
                     data.visitor.map((item, idx) => (
@@ -159,7 +170,6 @@ const BlogAdmin = () => {
           {activeTab === 2 && (
             <div className="content_item">
               <div className="apply_wrap">
-
                 {
                   AdminData.map((data, idx) => (
                     data.reply.map((item, idx) => (
@@ -176,7 +186,7 @@ const BlogAdmin = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default BlogAdmin
+export default BlogAdmin;
