@@ -1,10 +1,10 @@
 import React from 'react'
 import banner from '../../assets/img/til_banner.png';
 import { bannerText } from '../../data/text';
-import RecommendArticle from './RecommendArticle';
-import NewArticle from './NewArticle';
-import CategoryArticle from './CategoryArticle';
-import TagArticle from './TagArticle';
+import RecommendArticle from '../../components/articles/RecommendArticle';
+import NewArticle from '../../components/articles/NewArticle';
+import CategoryArticle from '../../components/articles/CategoryArticle';
+import TagArticle from '../../components/articles/TagArticle';
 
 const Main = () => {
     return (

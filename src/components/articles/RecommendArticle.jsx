@@ -1,5 +1,5 @@
 import { postList } from '../../data/post';
-import Post from '../../components/common/post/Post';
+import Post from '../common/post/Post';
 import React from 'react'
 import 'swiper/css';
 import 'swiper/css/pagination';

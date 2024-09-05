@@ -118,10 +118,10 @@ const BlogAdmin = () => {
               <table>
                 <caption>방문자 수 통계</caption>
                 <thead>
-                <tr>
-                  <th scope="col">날짜</th>
-                  <th scope="col">방문자 수</th>
-                </tr>
+                  <tr>
+                    <th scope="col">날짜</th>
+                    <th scope="col">방문자 수</th>
+                  </tr>
                 </thead>
                 <tbody>
                 {
@@ -149,10 +149,10 @@ const BlogAdmin = () => {
               <table>
                 <caption>조회수 / 좋아요 테이블</caption>
                 <thead>
-                <tr>
-                  <th scope="col">총 조회수</th>
-                  <th scope="col">총 좋아요수</th>
-                </tr>
+                  <tr>
+                    <th scope="col">총 조회수</th>
+                    <th scope="col">총 좋아요수</th>
+                  </tr>
                 </thead>
                 <tbody>
                   <tr>
