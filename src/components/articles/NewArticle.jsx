@@ -1,15 +1,13 @@
 import { postList } from '../../data/post';
 import React from 'react'
-import Item from '../../components/common/post/Item';
-import TagList from '../../components/common/tag/TagList';
-import { listSample } from '../../data/main';
+import Item from '../common/post/Item';
 
 
-const CategoryArticle = () => {
+const NewArticle = () => {
     return (
         <div className='article_wrapper'>
-            <h3 className='sub'>카테고리 별 게시글</h3>
-            <TagList initialTags={listSample} />
+            <h3 className='sub'>최근 게시글</h3>
+            <p className='recommend_desc'>따끈따근한 소식을 알아봐요!</p>
             <div className='flex-col'>
 
                 {postList.slice(0, 6).map(post => (
@@ -21,4 +19,4 @@ const CategoryArticle = () => {
     )
 }
 
-export default CategoryArticle
+export default NewArticle

@@ -114,28 +114,28 @@ const BlogAdmin = () => {
               <table>
                 <caption>방문자 수 통계</caption>
                 <thead>
-                <tr>
-                  <th scope="col">날짜</th>
-                  <th scope="col">방문자 수</th>
-                </tr>
+                  <tr>
+                    <th scope="col">날짜</th>
+                    <th scope="col">방문자 수</th>
+                  </tr>
                 </thead>
                 <tbody>
-                {
-                  AdminData.map((data, idx) => (
-                    data.visitor.map((item, idx) => (
-                      <tr key={idx}>
-                        <td>{item.date}</td>
-                        <td>{item.visit}</td>
-                      </tr>
+                  {
+                    AdminData.map((data, idx) => (
+                      data.visitor.map((item, idx) => (
+                        <tr key={idx}>
+                          <td>{item.date}</td>
+                          <td>{item.visit}</td>
+                        </tr>
+                      ))
                     ))
-                  ))
-                }
+                  }
                 </tbody>
                 <tfoot>
-                <tr>
-                  <th scope="row">총 방문자 수</th>
-                  <td>1500명</td>
-                </tr>
+                  <tr>
+                    <th scope="row">총 방문자 수</th>
+                    <td>1500명</td>
+                  </tr>
                 </tfoot>
               </table>
             </div>
@@ -146,22 +146,22 @@ const BlogAdmin = () => {
               <table>
                 <caption>조회수 / 좋아요 테이블</caption>
                 <thead>
-                <tr>
-                  <th scope="col">총 조회수</th>
-                  <th scope="col">총 좋아요수</th>
-                </tr>
+                  <tr>
+                    <th scope="col">총 조회수</th>
+                    <th scope="col">총 좋아요수</th>
+                  </tr>
                 </thead>
                 <tbody>
-                {
-                  AdminData.map((data, idx) => (
-                    data.engagement.map((item, idx) => (
-                      <tr key={idx}>
-                        <td>{item.view}</td>
-                        <td>{item.like}</td>
-                      </tr>
+                  {
+                    AdminData.map((data, idx) => (
+                      data.engagement.map((item, idx) => (
+                        <tr key={idx}>
+                          <td>{item.view}</td>
+                          <td>{item.like}</td>
+                        </tr>
+                      ))
                     ))
-                  ))
-                }
+                  }
                 </tbody>
               </table>
             </div>
