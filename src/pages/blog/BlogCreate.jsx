@@ -27,6 +27,10 @@ const formats = [
 const BlogCreate = () => {
 
   const [values, setValues] = useState();
+  const [tags, setTags] = useState([]);
+  const [tagInput, setTagInput] = useState('');
+
+
   const modules = useMemo(() => {
     return {
       toolbar: {
@@ -47,6 +51,21 @@ const BlogCreate = () => {
     };
   }, []);
 
+  const handleTagInputChange = (event) => {
+    setTagInput(event.target.value);
+  };
+
+  const handleAddTag = () => {
+    if (tagInput && !tags.includes(tagInput)) {
+      setTags([...tags, tagInput]);
+      setTagInput('');
+    }
+  };
+
+  const handleTagClick = (tag) => {
+    setTags(tags.filter(t => t !== tag));
+  };
+
 
 
 
@@ -57,10 +76,23 @@ const BlogCreate = () => {
         </div>
         <div className="tag">
           <ul className="tag_list">
-            <li className="tag_item">tag01</li>
-            <li className="tag_item">tag02</li>
+            {tags.map((tag, index) => (
+              <li key={index} className="tag_item" onClick={() => handleTagClick(tag)}>
+                {tag}
+              </li>
+            ))}
           </ul>
-          <input type="text" placeholder={"태그를 입력하세요"}/>
+          <input
+            type="text"
+            placeholder={"태그를 입력하세요"}
+            value={tagInput}
+            onChange={handleTagInputChange}
+            onKeyPress={(event) => {
+              if (event.key === 'Enter') {
+                handleAddTag();
+              }
+            }}
+          />
         </div>
         <ReactQuill
           theme="snow"

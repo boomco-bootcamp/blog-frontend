@@ -1,30 +1,34 @@
 import banner from '../../assets/img/til_banner.png';
 import { useRef, useState } from "react";
 
-const AdminData = [
+export const AdminData =
   {
+    introduce: '저의 블로그에 오신것을 환영합니다. 반가워요',
     visitor: [
       { date: '2024-01-01', visit: '30' },
       { date: '2024-01-02', visit: '55' },
       { date: '2024-01-03', visit: '333' },
       { date: '2024-01-04', visit: '111' }
     ],
-    engagement: [
+    total: 15000,
+    engagement:
       { view: '555', like: '22' }
-    ],
+    ,
     reply: [
       { title: '도움이 잘 되었어요. 감사합니다.', userId: 'mjkim93' },
       { title: '맞아요. 자바스크립트는 어려워요', userId: 'hisong99' },
       { title: '좋은글입니다.', userId: 'ms_kim87' },
     ]
   }
-];
+
+
+
 
 const BlogAdmin = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [edit, setEdit] = useState(false);
   const [bannerImage, setBannerImage] = useState(banner);
-  const [text, setText] = useState('저의 블로그에 오신것을 환영합니다. 반가워요')
+  const [text, setText] = useState(AdminData.introduce)
 
 
   const fileInputRef = useRef(null);
@@ -38,7 +42,7 @@ const BlogAdmin = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setBannerImage(reader.result); // 상태를 업데이트하여 이미지 변경
+        setBannerImage(reader.result);
       };
       reader.readAsDataURL(file);
     }
@@ -46,7 +50,7 @@ const BlogAdmin = () => {
 
   const handleButtonClick = () => {
     if (fileInputRef.current) {
-      fileInputRef.current.click(); // 파일 입력 클릭 이벤트 트리거
+      fileInputRef.current.click();
     }
   };
 
@@ -55,13 +59,13 @@ const BlogAdmin = () => {
   };
 
   const handleSave = () => {
-    setEdit(false); // 저장 후 수정 상태 종료
+    setEdit(false);
   };
 
   return (
     <div className="blog_admin_wrap">
       <div className="img_banner">
-        <img src={bannerImage} alt="banner" /> {/* bannerImage 상태를 사용 */}
+        <img src={bannerImage} alt="banner" />
       </div>
       <div className="admin_cover">
         <div className="admin_wrap">
@@ -120,22 +124,21 @@ const BlogAdmin = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {
-                    AdminData.map((data, idx) => (
-                      data.visitor.map((item, idx) => (
-                        <tr key={idx}>
-                          <td>{item.date}</td>
-                          <td>{item.visit}</td>
-                        </tr>
-                      ))
-                    ))
-                  }
+                {
+                  AdminData.visitor.map((item, idx) => (
+                    <tr key={idx}>
+                      <td>{item.date}</td>
+                      <td>{item.visit}</td>
+                    </tr>
+                    )
+                  )
+                }
                 </tbody>
                 <tfoot>
-                  <tr>
-                    <th scope="row">총 방문자 수</th>
-                    <td>1500명</td>
-                  </tr>
+                <tr>
+                  <th scope="row">총 방문자 수</th>
+                  <td>{AdminData.total}명</td>
+                </tr>
                 </tfoot>
               </table>
             </div>
@@ -152,16 +155,10 @@ const BlogAdmin = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {
-                    AdminData.map((data, idx) => (
-                      data.engagement.map((item, idx) => (
-                        <tr key={idx}>
-                          <td>{item.view}</td>
-                          <td>{item.like}</td>
-                        </tr>
-                      ))
-                    ))
-                  }
+                  <tr>
+                    <td>{AdminData.engagement.view}</td>
+                    <td>{AdminData.engagement.like}</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -171,14 +168,13 @@ const BlogAdmin = () => {
             <div className="content_item">
               <div className="apply_wrap">
                 {
-                  AdminData.map((data, idx) => (
-                    data.reply.map((item, idx) => (
-                      <div className="apply_item" key={idx}>
-                        <div className="apply_title">{item.title}</div>
-                        <div className="apply_user">{item.userId}</div>
-                      </div>
-                    ))
-                  ))
+                  AdminData.reply.map((item, idx) => (
+                    <div className="apply_item" key={idx}>
+                      <div className="apply_title">{item.title}</div>
+                      <div className="apply_user">{item.userId}</div>
+                    </div>
+                    )
+                  )
                 }
               </div>
             </div>
