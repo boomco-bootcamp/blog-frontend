@@ -6,7 +6,6 @@ import BlogTempImage04 from '../../assets/sample/img/bg_img04.png'
 import BlogTempImage05 from '../../assets/sample/img/bg_img05.png'
 
 
-
 const BlogData = [
   {
     image: BlogTempImage01,
@@ -67,6 +66,11 @@ const BlogList = () => {
             <li className="cate_item">카테고리</li>
             <li className="cate_item">태그</li>
           </ul>
+          
+          <div className="blog_search">
+            <input type="text" placeholder='검색어를 입력하세요'/>
+            <button>검색</button>
+          </div>
 
           <select name="" id="">
             <option value="">최신순</option>

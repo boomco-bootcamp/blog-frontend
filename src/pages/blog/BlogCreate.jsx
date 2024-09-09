@@ -2,6 +2,7 @@ import React, {useMemo, useState} from 'react'
 
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
+import {DeleteIcon} from "../../assets/svg/Icon";
 
 
 const formats = [
@@ -78,7 +79,7 @@ const BlogCreate = () => {
           <ul className="tag_list">
             {tags.map((tag, index) => (
               <li key={index} className="tag_item">
-                <div className="close" onClick={() => handleTagClick(tag)}>X</div>
+                <div className="close" onClick={() => handleTagClick(tag)}><DeleteIcon /></div>
                 {tag}
               </li>
             ))}
