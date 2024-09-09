@@ -46,18 +46,8 @@ const LoginForm = () => {
                     </div>
                     <ul className='social_menu'>
                         <li className='social_item'>
-                            <Link to='/' className='link facebook'>
-                                <span className="visually-hidden">페이스북으로 로그인</span>
-                            </Link>
-                        </li>
-                        <li className='social_item'>
-                            <Link to='/' className='link twitter'>
-                                <span className="visually-hidden">트위터로 로그인</span>
-                            </Link>
-                        </li>
-                        <li className='social_item'>
-                            <Link to='/' className='link linkedin'>
-                                <span className="visually-hidden">링크드인으로 로그인</span>
+                            <Link to='/' className='link google'>
+                                <span className="visually-hidden">구글로 로그인</span>
                             </Link>
                         </li>
                     </ul>
