@@ -1,13 +1,11 @@
 import React from 'react'
 
-const Post = ({ src, title, desc }) => {
+const Post = ({ src, title, author }) => {
     return (
         <div className='post_wrapper'>
-            <h3 className='post_title'>{title}</h3>
-            <div className='flex-between'>
-                <img className='post_img' src={src} />
-                <p className='post_desc'>{desc}</p>
-            </div>
+            <img className='post_img' src={src} />
+            <h3 className='post_title'>"<br />{title}<br />"</h3>
+            <h3 className='post_author'>{author}</h3>
         </div>
     )
 }

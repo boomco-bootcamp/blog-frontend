@@ -5,7 +5,11 @@
 
 .sub {
     font-size:24px;
-    font-weight:semi-bold;
+    font-weight:bold;
+    display:flex;
+    justify-content:center;
+    gap:4px;
+    cursor:pointer;
 }
 
 .mini {
