@@ -22,7 +22,7 @@ const RecommendArticle = () => {
                 >
                     {postList.slice(0, 6).map(post => (
                         <SwiperSlide>
-                            <Link to={`blog/1/1`}>
+                            <Link to={`/blog/1/1`}>
                                 <Post title={post.title} src={post.src} author={post.author} />
                             </Link>
                         </SwiperSlide>

@@ -6,7 +6,7 @@ const Header = () => {
     const { user, login, logout } = useUser();
     return (
         <header className='header'>
-            <Link to=''><span>Header</span></Link>
+            <Link to='/'><span>Header</span></Link>
             {
                 user.loginStatus ? <ul className='flex'>
                     <Link to='/blog/admin'>
