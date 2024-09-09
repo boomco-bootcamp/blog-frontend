@@ -14,13 +14,14 @@ const RecommendArticle = () => {
             <h3 className='sub'>추천 게시글</h3>
             <div className='flex-wrap swiper_wrapper'>
                 <Swiper
-                    slidesPerView={2}
+                    slidesPerView={1}
                     spaceBetween={16}
                     pagination={{ clickable: true }}
+                    autoplay
                 >
                     {postList.slice(0, 6).map(post => (
                         <SwiperSlide>
-                            <Post title={post.title} desc={post.desc} src={post.src} />
+                            <Post title={post.title} src={post.src} author={post.author} />
                         </SwiperSlide>
                     ))}
                 </Swiper>
