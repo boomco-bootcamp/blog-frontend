@@ -218,7 +218,6 @@
 }
 .blog_admin_wrap .text_wrap {
   padding-bottom: 20px;
-  border-bottom: 1px solid grey;
   display: flex;
   flex-direction: column;
 }
@@ -252,7 +251,9 @@
 .blog_admin_wrap .content_wrap {
   margin-top: 20px;
 }
-.blog_admin_wrap .content_item {}
+.blog_admin_wrap .content_item {
+  width:fit-content;
+}
 
 .blog_admin_wrap table {
   width: 100%;

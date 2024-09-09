@@ -1,9 +1,10 @@
 import { useUser } from '../../context/UserContext';
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const LoginForm = () => {
     const { user, login, logout } = useUser();
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         id: "",
         pw: ""
@@ -11,12 +12,21 @@ const LoginForm = () => {
 
     const handleChangeInput = (e) => {
         setFormData({
+            ...formData,
             [e.target.name]: e.target.value
         })
     }
 
-    const handleClickLogin = () => {
 
+
+    const handleClickLogin = () => {
+        if (formData.id && formData.pw) {
+            login({
+                name: formData.id,
+                userId: formData.pw,
+            })
+            navigate('/')
+        }
     }
 
     return (
@@ -39,7 +49,7 @@ const LoginForm = () => {
                         <Link to='/signup'>회원가입</Link>
                     </li>
                 </ul>
-                <button type="submit" className="btn_submit">로그인</button>
+                <button type="button" className="btn_submit" onClick={handleClickLogin}>로그인</button>
                 <div className='social_wrap'>
                     <div className='social_tit'>
                         <span className='tit_name'>소셜 로그인</span>
