@@ -26,8 +26,8 @@ const Router = () => {
                     {/* 유저 별 블로그 홈 */}
                     <Route path="/blog/:userId" element={<Blog />} />
                     {/* 블로그 글 리스트 & 상세 */}
-                    <Route path="/blog/post/list" element={<BlogList />} />
-                    <Route path="/blog/post/:id" element={<BlogDetail />} />
+                    <Route path="/blog/:userId/list" element={<BlogList />} />
+                    <Route path="/blog/:userId/:id" element={<BlogDetail />} />
                     {/* 블로그 글 작성 & 수정 */}
                     <Route path="/blog/post/:id/create" element={<BlogCreate />} />
                     <Route path="/blog/post/:id/edit" element={<BlogEdit />} />

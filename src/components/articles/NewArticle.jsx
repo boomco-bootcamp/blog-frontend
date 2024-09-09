@@ -1,6 +1,7 @@
 import { postList } from '../../data/post';
 import React from 'react'
 import Item from '../common/post/Item';
+import { Link } from 'react-router-dom';
 
 
 const NewArticle = () => {
@@ -9,9 +10,11 @@ const NewArticle = () => {
             <div className='flex-col'>
 
                 {postList.slice(0, 6).map(post => (
-                    <Item title={post.title} desc={post.desc} author={post.author}
-                        src={post.src} date={post.date} like={post.like} comments={post.comments}
-                    />
+                    <Link to={`blog/1/1`}>
+                        <Item title={post.title} desc={post.desc} author={post.author}
+                            src={post.src} date={post.date} like={post.like} comments={post.comments}
+                        />
+                    </Link>
                 ))}
 
             </div>

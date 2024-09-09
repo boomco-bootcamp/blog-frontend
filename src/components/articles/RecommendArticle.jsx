@@ -6,6 +6,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Link } from 'react-router-dom';
 
 
 const RecommendArticle = () => {
@@ -21,7 +22,9 @@ const RecommendArticle = () => {
                 >
                     {postList.slice(0, 6).map(post => (
                         <SwiperSlide>
-                            <Post title={post.title} src={post.src} author={post.author} />
+                            <Link to={`blog/1/1`}>
+                                <Post title={post.title} src={post.src} author={post.author} />
+                            </Link>
                         </SwiperSlide>
                     ))}
                 </Swiper>

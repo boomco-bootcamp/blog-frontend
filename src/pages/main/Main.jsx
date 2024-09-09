@@ -30,7 +30,9 @@ const Main = () => {
                         {user.loginStatus &&
                             <div className='flex-center'>
                                 <Link to={`blog/${user.userId}`}>
-                                    <button className='blog_btn'>내 블로그</button></Link></div>}
+                                    <button className='blog_btn'>내 블로그</button>
+                                </Link>
+                            </div>}
                     </p>
                 </div>
                 <RecommendArticle />
