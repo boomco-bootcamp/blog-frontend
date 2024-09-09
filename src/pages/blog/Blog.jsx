@@ -1,15 +1,22 @@
-import { userRow } from '../../data/db/db';
 import banner from '../../assets/img/til_banner.png';
-import React from 'react'
+import React, { useState } from 'react'
 import { AdminData } from '../../data/db/text';
 import RecommendArticle from '../../components/articles/RecommendArticle';
 import NewArticle from '../../components/articles/NewArticle';
 import CategoryArticle from '../../components/articles/CategoryArticle';
 import TagArticle from '../../components/articles/TagArticle';
+import { useUser } from '../../context/UserContext';
+import { listSample } from '../../data/main';
+import TagList from '../../components/common/tag/TagList';
 
 const Blog = () => {
-    return (
+    const { user, login, logout } = useUser();
+    const [tab, setTab] = useState('tag')
 
+    const handleClickTab = (value) => () => {
+        setTab(value)
+    }
+    return (
         <div className="blog_admin_wrap">
             <div className="img_banner">
                 <img src={banner} alt="banner" /> {/* bannerImage 상태를 사용 */}
@@ -17,55 +24,43 @@ const Blog = () => {
             {/* <img src={banner} className='banner_img' alt='main_banner_img' /> */}
             <section className='flex'>
                 <div>
-                    <h3 className='banner_title'>{userRow[0].name}님의 블로그</h3>
+                    <h3 className='banner_title'>{user.name}님의 블로그</h3>
+
                     <div className="text_wrap">
                         <p className='banner_text'>{AdminData.introduce}</p>
+                        <p className='banner_text'>오늘 방문자 : 10 / 전체 방문자 : 200</p>
                     </div>
                 </div>
                 {/* <RecommendArticle /> */}
+                <div className="content_item">
+                    <RecommendArticle />
+                </div>
             </section>
             <section>
-                <div>
-                    <div className="content_item">
-                        <RecommendArticle />
-                        <table>
-                            <caption>방문자 수 통계</caption>
-                            <thead>
-                                <tr>
-                                    <th scope="col">날짜</th>
-                                    <th scope="col">방문자 수</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    AdminData.visitor.map((item, idx) => (
-                                        <tr key={idx}>
-                                            <td>{item.date}</td>
-                                            <td>{item.visit}</td>
-                                        </tr>
-                                    ))
-                                }
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th scope="row">총 방문자 수</th>
-                                    <td>1500명</td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                    <section>
-                        <div>
-                            <input type="text" placeholder={"게시글 검색하기"} />
-                        </div>
-                        <div className='flex'>
 
+                <section>
+                    <div>
+                        <input type="text" placeholder={"게시글 검색하기"} />
+                    </div>
+                    <div className='flex'>
+                        <div>
+                            <h3 className='sub'>최근 게시글</h3>
+                            <p className='recommend_desc'>따끈따근한 소식을 알아봐요!</p>
                             <NewArticle />
-                            <CategoryArticle />
-                            <TagArticle />
                         </div>
-                    </section>
-                </div>
+                        <div>
+                            <h3 className='sub'><span onClick={handleClickTab('tag')}
+                                style={{ color: tab === 'category' ? 'gray' : "" }}
+                            >태그 별 게시글</span>/<span onClick={handleClickTab('category')}
+                                style={{ color: tab === 'tag' ? 'gray' : "" }}
+                            >카테고리 별 게시글</span></h3>
+                            <TagList initialTags={tab === 'tag' ? listSample : listSample} />
+                            {tab === 'category' ? <CategoryArticle /> :
+                                <TagArticle />}
+                        </div>
+                    </div>
+                </section>
+
             </section>
         </div>
 
