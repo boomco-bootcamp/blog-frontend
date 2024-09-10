@@ -126,6 +126,39 @@
 }
 
 
+.mypage_wrap .chip_item.active {
+  background: black;
+  transition: all .3s;
+}
+
+.mypage_wrap .category_item {
+  margin-top: 40px;
+}
+
+
+.mypage_wrap .category_item:first-child {
+  margin-top: 0;
+}
+
+.mypage_wrap .category_title {
+  font-size: 24px;
+  font-weight: bold;
+  position: relative;
+}
+
+.mypage_wrap .category_title:after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -20px;
+  width: 100%;
+  height: 1px;
+  background: grey;
+}
+
+.mypage_wrap .category_item .chip_item {
+  cursor: pointer;
+}
 
 .mypage_wrap .blog_list {
   margin-top: 40px;

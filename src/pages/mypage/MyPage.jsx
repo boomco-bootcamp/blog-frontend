@@ -51,6 +51,161 @@ const BlogData = [
   }
 ]
 
+
+const BlogCategoryData = [
+  {
+    category: "요리",
+    topics: [
+      "레시피",
+      "혼밥",
+      "닭볶음탕",
+      "김치찌개",
+      "두부김치",
+      "제육볶음",
+      "떡볶이",
+      "라면",
+      "파스타",
+      "김밥",
+      "삼겹살",
+      "된장찌개",
+      "부대찌개",
+      "해물찜",
+      "비빔밥",
+      "불고기",
+      "칼국수",
+      "순두부찌개",
+      "고등어조림",
+      "소불고기"
+    ]
+  },
+  {
+    category: "개발",
+    topics: [
+      "javascript",
+      "css",
+      "react",
+      "python",
+      "html",
+      "node.js",
+      "typescript",
+      "docker",
+      "kubernetes",
+      "flutter",
+      "angular",
+      "vue.js",
+      "graphql",
+      "mongodb",
+      "sql",
+      "aws",
+      "firebase",
+      "next.js",
+      "tailwindcss",
+      "web accessibility"
+    ]
+  },
+  {
+    category: "운동",
+    topics: [
+      "헬스",
+      "데드리프트",
+      "벤치프레스",
+      "다이어트",
+      "축구",
+      "야구",
+      "족구",
+      "배드민턴",
+      "농구",
+      "달리기",
+      "자전거",
+      "마라톤",
+      "등산",
+      "요가",
+      "필라테스",
+      "수영",
+      "스쿼트",
+      "케틀벨",
+      "체조",
+      "웨이트 트레이닝"
+    ]
+  },
+  {
+    category: "여행",
+    topics: [
+      "국내여행",
+      "해외여행",
+      "혼행",
+      "유럽여행",
+      "아시아여행",
+      "동남아 여행",
+      "미국여행",
+      "호캉스",
+      "캠핑",
+      "트래킹",
+      "차박",
+      "배낭여행",
+      "렌터카 여행",
+      "패키지여행",
+      "항공권 예약",
+      "숙소 추천",
+      "여행 팁",
+      "여행 준비물",
+      "문화 탐방",
+      "자연경관"
+    ]
+  },
+  {
+    category: "자기계발",
+    topics: [
+      "독서",
+      "명상",
+      "시간 관리",
+      "목표 설정",
+      "일기 쓰기",
+      "자기반성",
+      "긍정적인 사고",
+      "효율적인 공부",
+      "언어 학습",
+      "온라인 강의",
+      "코딩 학습",
+      "자격증 취득",
+      "퍼블릭 스피킹",
+      "리더십",
+      "커뮤니케이션 스킬",
+      "멘탈 관리",
+      "스트레스 관리",
+      "생활 습관 개선",
+      "성장 마인드셋",
+      "새로운 기술 배우기"
+    ]
+  },
+  {
+    category: "음악",
+    topics: [
+      "K-pop",
+      "힙합",
+      "발라드",
+      "락",
+      "재즈",
+      "클래식",
+      "EDM",
+      "인디 음악",
+      "R&B",
+      "영화 음악",
+      "OST",
+      "뮤지컬",
+      "아이돌",
+      "콘서트",
+      "악기 연주",
+      "기타",
+      "피아노",
+      "작곡",
+      "음악 감상",
+      "플레이리스트"
+    ]
+  }
+];
+
+
 const MyPage = () => {
   const [activeTab, setActiveTab] = useState(0);
 
@@ -68,6 +223,15 @@ const MyPage = () => {
   const [inputValue, setInputValue] = useState('');
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState('');
+  const [chipActive, setChipActive] = useState([])
+
+  const handleChipClick = (idx) => {
+    if (chipActive.includes(idx)) {
+      setChipActive(chipActive.filter((chipIdx) => chipIdx !== idx));
+    } else {
+      setChipActive([...chipActive, idx]);
+    }
+  };
 
 
 
@@ -273,25 +437,29 @@ const MyPage = () => {
         {activeTab === 1 && (
           <div className="category_wrap">
             <h3>관심 카테고리 설정</h3>
-            <div className="edit_wrap">
-              <div className="chip_input_wrap">
-                <input
-                  type="text"
-                  placeholder="관심 카테고리를 입력하세요"
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                />
-                <button onClick={addCategory}><PlusIcon /></button>
-              </div>
-              <div className="chip_list">
-                {categories.map((category, index) => (
-                  <div className="chip_item" key={index}>
-                    {category}
-                    <button onClick={() => removeCategory(index)}><DeleteIcon /></button>
+
+
+
+            <div className="category_list">
+
+              {BlogCategoryData.map((item, index) => {
+                return (
+                  <div className="category_item" key={`${item.category} +  ${index}`}>
+                    <div className="category_title" key={index}>{item.category}</div>
+                    <div className="chip_list">
+                      {item.topics.map((topic, idx) => (
+                        <div
+                          className={`chip_item ${chipActive.includes(`${item.category} + ${idx}`) ? 'active' : ''}`}
+                          key={`${item.category} + ${idx}`}
+                          onClick={() => handleChipClick(`${item.category} + ${idx}`)}
+                        >
+                          {topic}
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                ))}
-              </div>
+                )
+              })}
             </div>
           </div>
         )}
