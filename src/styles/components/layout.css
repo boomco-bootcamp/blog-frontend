@@ -4,7 +4,10 @@
     justify-content:space-between;
     align-items:center;
     padding: 10px;
-    background:#daddd0;
+    color:#E67E22;
+    border-bottom: solid 2px #F39C12;
+    font-weight:bold;
+    /* background:#F39C12; */
 }
 
 
@@ -13,8 +16,13 @@
 }
 
 .footer {
-    height:60px;
-    background:#daddd0;
+    margin-top:60px;
+    padding:24px;
+    text-align:center;
+    color:white;
+    font-size:14px;
+    line-height:1.5;
+    background:#F39C12;
 }
 
 .flex {

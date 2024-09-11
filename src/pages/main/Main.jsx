@@ -41,7 +41,7 @@ const Main = () => {
                 <div className='flex'>
                     <div>
                         <h3 className='sub'>최근 게시글</h3>
-                        <p className='recommend_desc'>따끈따근한 소식을 알아봐요!</p>
+                        <p className='recommend_desc'>새콤달콤한 소식을 알아봐요!</p>
                         <NewArticle />
                     </div>
                     <div>
