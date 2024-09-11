@@ -10,44 +10,49 @@ import BlogTempImage05 from "../../assets/sample/img/bg_img05.png";
 
 const BlogData = [
   {
+    blog_post_id: 'blog_post_id_1',
     image: BlogTempImage01,
-    title: 'React로 시작하는 웹 개발',
-    content_text: 'React는 현대 웹 개발에서 가장 인기 있는 라이브러리 중 하나입니다. 이 글에서는 React를 사용하여 첫 웹 애플리케이션을 만드는 방법을 소개합니다.',
-    date: '2024-01-01',
+    blog_post_title: 'React로 시작하는 웹 개발',
+    blog_post_con: 'React는 현대 웹 개발에서 가장 인기 있는 라이브러리 중 하나입니다. 이 글에서는 React를 사용하여 첫 웹 애플리케이션을 만드는 방법을 소개합니다.',
+    rgsn_ts: '2024-01-01',
     like: '3',
-    tagList: ['javascript', 'react', 'web development']
+    blog_tag_con: ['javascript', 'react', 'web development']
   },
   {
+    blog_post_id: 'blog_post_id_2',
     image: BlogTempImage02,
-    title: 'CSS Grid와 Flexbox의 차이점',
-    content_text: 'CSS Grid와 Flexbox는 레이아웃을 만들기 위한 강력한 도구입니다. 이 글에서는 두 가지의 차이점과 각각의 사용 사례에 대해 알아봅니다.',
-    date: '2024-01-05',
+    blog_post_title: 'CSS Grid와 Flexbox의 차이점',
+    blog_post_con: 'CSS Grid와 Flexbox는 레이아웃을 만들기 위한 강력한 도구입니다. 이 글에서는 두 가지의 차이점과 각각의 사용 사례에 대해 알아봅니다.',
+    rgsn_ts: '2024-01-05',
     like: '5',
-    tagList: ['css', 'layout', 'design']
+    blog_tag_con: ['css', 'layout', 'design']
   },
   {
+    blog_post_id: 'blog_post_id_3',
     image: BlogTempImage03,
-    title: 'JavaScript 비동기 처리 이해하기',
-    content_text: 'JavaScript에서 비동기 처리는 필수적인 개념입니다. 콜백, 프로미스, 그리고 async/await을 통해 비동기 처리를 쉽게 이해할 수 있습니다.',
-    date: '2024-01-10',
+    blog_post_title: 'JavaScript 비동기 처리 이해하기',
+    blog_post_con: 'JavaScript에서 비동기 처리는 필수적인 개념입니다. 콜백, 프로미스, 그리고 async/await을 통해 비동기 처리를 쉽게 이해할 수 있습니다.',
+    rgsn_ts: '2024-01-10',
     like: '7',
-    tagList: ['javascript', 'async', 'programming']
+    blog_tag_con: ['javascript', 'async', 'programming']
   },
   {
+    blog_post_id: 'blog_post_id_4',
     image: BlogTempImage04,
-    title: 'React Hooks 완벽 가이드',
-    content_text: 'React Hooks를 사용하면 상태 관리와 라이프사이클 메소드를 훨씬 간단하게 구현할 수 있습니다. 이 가이드는 Hooks의 기본부터 심화까지 다룹니다.',
-    date: '2024-01-15',
+    blog_post_title: 'React Hooks 완벽 가이드',
+    blog_post_con: 'React Hooks를 사용하면 상태 관리와 라이프사이클 메소드를 훨씬 간단하게 구현할 수 있습니다. 이 가이드는 Hooks의 기본부터 심화까지 다룹니다.',
+    rgsn_ts: '2024-01-15',
     like: '10',
-    tagList: ['react', 'hooks', 'state management']
+    blog_tag_con: ['react', 'hooks', 'state management']
   },
   {
+    blog_post_id: 'blog_post_id_5',
     image: BlogTempImage05,
-    title: '프런트엔드 개발자를 위한 Git 사용법',
-    content_text: 'Git은 모든 개발자가 반드시 알아야 할 도구입니다. 이 글에서는 Git의 기본 명령어와 워크플로우를 소개합니다.',
-    date: '2024-01-20',
+    blog_post_title: '프런트엔드 개발자를 위한 Git 사용법',
+    blog_post_con: 'Git은 모든 개발자가 반드시 알아야 할 도구입니다. 이 글에서는 Git의 기본 명령어와 워크플로우를 소개합니다.',
+    rgsn_ts: '2024-01-20',
     like: '8',
-    tagList: ['git', 'version control', 'frontend']
+    blog_tag_con: ['git', 'version control', 'frontend']
   }
 ]
 
@@ -504,16 +509,16 @@ const MyPage = () => {
                           <img src={item.image} alt="image"/>
                         </div>
                         <div className="content_wrap">
-                          <p className="title">{item.title}</p>
-                          <p className="content_text">{item.content_text}</p>
-                          <p className="date">{item.date}</p>
+                          <p className="title">{item.blog_post_title}</p>
+                          <p className="content_text">{item.blog_post_con}</p>
+                          <p className="date">{item.rgsn_ts}</p>
                         </div>
                         <div className="text_wrap">
                           <div className="like">좋아요 {item.like}</div>
                         </div>
                         <div className="tag_list">
                           {
-                            item.tagList.map((tag, idx) => (
+                            item.blog_tag_con.map((tag, idx) => (
                               <div className="tag" key={idx}>{tag}</div>
                             ))
                           }
