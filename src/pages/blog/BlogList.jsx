@@ -94,12 +94,12 @@ const BlogList = () => {
                   </div>
                   <div className="content_wrap">
                     <p className="title">{item.blog_post_title}</p>
-                    <p className="content_text">{item.blog_tag_con}</p>
+                    <p className="content_text">{item.blog_post_con}</p>
                     <p className="date">{item.rgsn_ts}</p>
                   </div>
                   <div className="text_wrap">
-                    <div className="like">좋아요 {item.like}</div>
-                    <div className="view">조회수 {item.view}</div>
+                    <div className="like">♥ {item.like}</div>
+                    <div className="view">✍🏻 {item.view}</div>
                   </div>
                   <div className="tag_list">
                     {

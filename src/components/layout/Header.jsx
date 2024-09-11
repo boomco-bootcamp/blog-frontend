@@ -1,12 +1,15 @@
 import { useUser } from '../../context/UserContext';
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Logo from "../../assets/img/blogyul.png"
 
 const Header = () => {
     const { user, login, logout } = useUser();
     return (
         <header className='header'>
-            <Link to='/'><span>Header</span></Link>
+            <Link to='/'>
+              <img src={Logo} alt="로고"/>
+            </Link>
             {
                 user.loginStatus ? <ul className='flex'>
                     <Link to='/blog/admin'>

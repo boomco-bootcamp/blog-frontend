@@ -514,7 +514,7 @@ const MyPage = () => {
                           <p className="date">{item.rgsn_ts}</p>
                         </div>
                         <div className="text_wrap">
-                          <div className="like">좋아요 {item.like}</div>
+                          <div className="like">♥ {item.like}</div>
                         </div>
                         <div className="tag_list">
                           {

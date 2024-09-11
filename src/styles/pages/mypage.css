@@ -20,8 +20,8 @@
   padding: 0 20px;
 }
 .mypage_wrap .mypage_item.active {
-  background: #d7d7d7;
-  color: black;
+  background: #F39C12;
+  color: white;
 }
 
 
@@ -74,7 +74,7 @@
   margin-top: 20px;
   width: 120px;
   height: 40px;
-  background: black;
+  background: #F39C12;
   color:white;
   border-radius: 4px;
   display: flex;
@@ -115,10 +115,10 @@
   gap: 16px;
   margin: 0 16px 16px 0;
   padding: 12px;
-  background: grey;
-  border-radius: 2px;
-  color: white;
+  background: white;
+  color: black;
   border-radius: 4px;
+  border: 1px solid black;
 }
 .mypage_wrap .chip_item button {
   display: inline-flex;
@@ -127,7 +127,9 @@
 
 
 .mypage_wrap .chip_item.active {
-  background: black;
+  background: #F39C12;
+  color: white;
+  border: 1px solid #F39C12;
   transition: all .3s;
 }
 
@@ -232,7 +234,13 @@
 .mypage_wrap .tag {
   border-radius: 2px;
   padding: 4px 8px;
-  background: grey;
+  background: #F39C12;
   font-size: 12px;
+  color: white;
+}
+
+.mypage_wrap .tag_wrap .chip_item {
+  background: #F39C12;
+  border: 1px solid #F39C12;
   color: white;
 }

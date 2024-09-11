@@ -9,10 +9,10 @@ const BlogDetail = () => {
           <p className="writer">jk_kim99</p>
           <div className="date">2024-01-05</div>
         </div>
-        <div className="info_right">
-          <div className="view">조회수 50</div>
-          <div className="like">좋아요 5</div>
-        </div>
+      </div>
+      <div className="info_sec">
+        <div className="view">✍🏻 50</div>
+        <div className="like">♥ 5</div>
       </div>
       <div className="tag_list">
         <div className="tag_item">태그01</div>

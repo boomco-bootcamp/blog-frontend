@@ -103,8 +103,8 @@ const BlogCreate = () => {
           onChange={setValues}
         />
         <div className='btn_wrap'>
-          <button>나가기</button>
-          <button>저장하기</button>
+          <button className="red">나가기</button>
+          <button className="default">저장하기</button>
         </div>
       </div>
     )
