@@ -11,6 +11,8 @@ import BlogEdit from '../pages/blog/BlogEdit';
 import BlogDetail from '../pages/blog/BlogDetail';
 import Blog from '../pages/blog/Blog';
 import BlogAdmin from "../pages/blog/BlogAdmin";
+import BlogRecent from "../pages/blog/BlogRecent";
+import BlogRecommend from "../pages/blog/BlogRecommend";
 
 const Router = () => {
     return (
@@ -28,6 +30,11 @@ const Router = () => {
                     {/* 블로그 글 리스트 & 상세 */}
                     <Route path="/blog/:userId/list" element={<BlogList />} />
                     <Route path="/blog/:userId/:id" element={<BlogDetail />} />
+
+                    <Route path="/blog/:userId/list/recent" element={<BlogRecent />} />
+                    <Route path="/blog/:userId/list/recommend" element={<BlogRecommend />} />
+
+
                     {/* 블로그 글 작성 & 수정 */}
                     <Route path="/blog/post/:id/create" element={<BlogCreate />} />
                     <Route path="/blog/post/:id/edit" element={<BlogEdit />} />
