@@ -79,8 +79,8 @@ const BlogCreate = () => {
           <ul className="tag_list">
             {tags.map((tag, index) => (
               <li key={index} className="tag_item">
-                <div className="close" onClick={() => handleTagClick(tag)}><DeleteIcon /></div>
                 {tag}
+                <button className="close" onClick={() => handleTagClick(tag)}><DeleteIcon /></button>
               </li>
             ))}
           </ul>

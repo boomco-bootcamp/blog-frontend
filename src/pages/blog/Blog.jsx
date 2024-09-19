@@ -42,8 +42,11 @@ const Blog = () => {
                 <section>
 
                     <section>
-                        <div>
-                            <input type="text" placeholder={"게시글 검색하기"} />
+                        <div className="search_input_wrap">
+                            <div className="search_input">
+                                <input type="text" placeholder='게시글을 검색하세요.'/>
+                                <button>검색</button>
+                            </div>
                         </div>
                         <div className='flex'>
                             <div>
