@@ -5,11 +5,22 @@
     height:64px;
 }
 
+
 .tag-list {
     display: flex;
     gap: 10px;
-    overflow-x: auto; /* 가로 스크롤 활성화 */
+    overflow-x: auto;
     padding: 10px 0;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+}
+
+.tag-list::-webkit-scrollbar {
+    width: 0px;
+}
+
+.tag-list::-webkit-scrollbar-thumb {
+    background: transparent;
 }
 
 .tag-button {

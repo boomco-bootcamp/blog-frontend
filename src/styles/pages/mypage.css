@@ -84,7 +84,23 @@
 
 
 .mypage_wrap .category_wrap {}
-.mypage_wrap .edit_wrap {}
+.mypage_wrap .edit_wrap {
+  position: relative;
+}
+
+.mypage_wrap .tag_btn {
+  width: 120px;
+  height: 40px;
+  background: #F39C12;
+  color: white;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -25px;
+  right: 0px;
+}
 .mypage_wrap .chip_input_wrap {
   display: inline-flex;
   padding: 16px;
@@ -131,6 +147,24 @@
   color: white;
   border: 1px solid #F39C12;
   transition: all .3s;
+}
+
+.mypage_wrap .category_list {
+  position: relative;
+}
+
+.mypage_wrap .category_btn {
+  width: 120px;
+  height: 40px;
+  background: #F39C12;
+  color: white;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -25px;
+  right: 0px;
 }
 
 .mypage_wrap .category_item {

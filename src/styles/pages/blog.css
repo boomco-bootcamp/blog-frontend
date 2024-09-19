@@ -242,6 +242,8 @@
 .blog_admin_wrap .text {
   font-size: 20px;
   color: black;
+  height: 30px;
+  line-height: 30px;
 }
 .blog_admin_wrap .text_wrap button {
   width: 100px;
@@ -254,6 +256,8 @@
 
 .blog_admin_wrap .text_wrap input {
   font-size: 20px;
+  height: 30px;
+  line-height: 30px;
 }
 
 .blog_admin_wrap .tab_list {
