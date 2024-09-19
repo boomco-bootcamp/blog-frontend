@@ -446,8 +446,7 @@ const MyPage = () => {
 
             <div className="category_list">
 
-              {/*수정하기 클릭 >> 저장하기*/}
-              <button className="category_btn">수정하기</button>
+              <button className="category_btn">저장</button>
 
               {BlogCategoryData.map((item, index) => {
                 return (
@@ -476,8 +475,7 @@ const MyPage = () => {
           <div className="tag_wrap">
             <h3>관심 태그 설정</h3>
             <div className="edit_wrap">
-              {/*수정하기 클릭 >> 저장하기*/}
-              <button className="tag_btn">수정하기</button>
+              <button className="tag_btn">저장</button>
               
               <div className="chip_input_wrap">
                 <input
