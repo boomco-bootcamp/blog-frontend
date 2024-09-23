@@ -516,3 +516,98 @@
   font-size: 14px;
   padding: 0 20px;
 }
+
+
+
+/*추천 게시글*/
+.blog_recommend_wrap ,
+.blog_recent_wrap {
+  width: 1200px;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+.blog_recommend_wrap .blog_list,
+.blog_recent_wrap .blog_list {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 20px;
+}
+.blog_recommend_wrap .blog_item .blog_item_inner,
+.blog_recent_wrap .blog_item .blog_item_inner {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,.1);
+}
+
+.blog_recommend_wrap .img_wrap ,
+.blog_recent_wrap .img_wrap {
+  width: 100%;
+  height: 200px;
+}
+.blog_recommend_wrap .img_wrap img ,
+.blog_recent_wrap .img_wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+}
+.blog_recommend_wrap .content_wrap ,
+.blog_recent_wrap .content_wrap {
+  padding: 10px;
+}
+.blog_recommend_wrap .title ,
+.blog_recent_wrap .title {
+  font-size: 24px;
+  line-height: 30px;
+  min-height: 60px;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.blog_recommend_wrap .content_text ,
+.blog_recent_wrap .content_text {
+  padding-top: 10px;
+  color: grey;
+  line-height: 20px;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+
+}
+.blog_recommend_wrap .date ,
+.blog_recent_wrap .date {
+  padding-top: 10px;
+}
+
+.blog_recommend_wrap .text_wrap,
+.blog_recent_wrap .text_wrap {
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+}
+.blog_recommend_wrap .tag_list ,
+.blog_recent_wrap .tag_list {
+  padding: 10px;
+  display: flex;
+  gap: 4px;
+  flex-wrap : wrap;
+}
+.blog_recommend_wrap .tag ,
+.blog_recent_wrap .tag {
+  border-radius: 2px;
+  padding: 4px 8px;
+  background: #F39C12;
+  font-size: 12px;
+  color: white;
+}
