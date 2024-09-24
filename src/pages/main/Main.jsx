@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { bannerText } from '../../data/text';
 import RecommendArticle from '../../components/articles/RecommendArticle';
 import NewArticle from '../../components/articles/NewArticle';
@@ -8,11 +8,24 @@ import { listSample } from '../../data/main';
 import TagList from '../../components/common/tag/TagList';
 import { useUser } from '../../context/UserContext';
 import { Link } from 'react-router-dom';
+import { getCategoryList } from '../../api/blog';
 
 
 const Main = () => {
     const { user, login, logout } = useUser();
     const [tab, setTab] = useState('tag')
+    const [categoryList, setCategoryList] = useState([])
+
+    useEffect(() => {
+        const getCategory = async () => {
+            let result = await getCategoryList()
+            setCategoryList(result.data)
+
+            // setCategoryList(result)
+        }
+        getCategory()
+    }, [])
+
 
     const handleClickTab = (value) => () => {
         setTab(value)
@@ -41,10 +54,7 @@ const Main = () => {
                 <div className='flex'>
                     <div>
                         <h3 className='sub'>최근 게시글</h3>
-
-                        <Link to={`blog/${user.userId}/list/recent`} className="to_link">
-                            새콤달콤한 소식을 알아봐요!
-                        </Link>
+                        <p className='recommend_desc'>새콤달콤한 소식을 알아봐요!</p>
                         <NewArticle />
                     </div>
                     <div>
@@ -53,7 +63,7 @@ const Main = () => {
                         >태그 별 게시글</span>/<span onClick={handleClickTab('category')}
                             style={{ color: tab === 'tag' ? 'gray' : "" }}
                         >카테고리 별 게시글</span></h3>
-                        <TagList initialTags={tab === 'tag' ? listSample : listSample} />
+                        <TagList initialTags={tab === 'tag' ? listSample : categoryList.map(ele => ele.blogPostCatNm)} />
                         {tab === 'category' ? <CategoryArticle /> :
                             <TagArticle />}
                     </div>

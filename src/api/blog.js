@@ -77,3 +77,8 @@ export const updateComment = async (postId, commentId) => {
         }
     );
 };
+
+
+export const getCategoryList = async () => {
+    return await Axios.get(`/api/category/list/all`)
+};
