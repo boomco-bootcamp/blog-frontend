@@ -15,9 +15,9 @@ export const getBlogList = async (params) => {
 };
 
 // blog detail 가져오기 -> tag category 에 따라서 파라미터 추가
-export const getBlogArticle = async (postId) => {
+export const getBlogDetail = async (postId) => {
     // return await Axios.get(`/blog/post/${postId}`);
-    return await Axios.get(`https://koreanjson.com/posts/${postId}`);
+    return await Axios.get(`/api/post/detail?blogPostId=${postId}`);
 
 };
 

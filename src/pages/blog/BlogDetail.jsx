@@ -1,33 +1,45 @@
-import React from 'react'
+import { formatDate } from '../../util/date'
+import { getBlogDetail } from '../../api/blog'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 
 const BlogDetail = () => {
+  const [detail, setDetail] = useState([])
+  const { userId, id } = useParams();
+
+  useEffect(() => {
+
+    const getBlog = async () => {
+      let result = await getBlogDetail(id)
+      setDetail(result.data)
+    }
+    getBlog()
+  }, [])
   return (
     <div className="blog_detail_wrap">
-      <h2 className="detail_title">CSS Grid와 Flexbox의 차이점</h2>
+      <h2 className="detail_title">{detail.blogPostTitle}</h2>
       <div className="detail_info">
         <div className="info_left">
-          <p className="writer">jk_kim99</p>
-          <div className="date">2024-01-05</div>
+          <p className="writer">{detail.blogNm ?? ""}</p>
+          <div className="date">{formatDate(detail.rgsnTs)}</div>
         </div>
       </div>
       <div className="info_sec">
-        <div className="view">✍🏻 50</div>
-        <div className="like">♥ 5</div>
+        <div className="view">✍🏻 {detail.postCommentCnt}</div>
+        <div className="like">♥ {detail.postLikeCnt}</div>
       </div>
       <div className="tag_list">
-        <div className="tag_item">태그01</div>
-        <div className="tag_item">태그02</div>
+        {
+          detail.tagList && detail.tagList.map(ele => (
+            <div className="tag_item">{ele.blogTagCon}</div>
+          ))
+        }
       </div>
       <div className="content_wrap">
-        CSS Grid는 2차원(2D) 레이아웃을 다루는 데 적합하여 행과 열을 모두 제어할 수 있습니다. 이를 통해 복잡한 레이아웃을 쉽게 구성할 수 있으며, 전체 페이지의 구조를 설계할 때 유리합니다.
-        반면에 Flexbox는 1차원(1D) 레이아웃 시스템으로, 주로 요소를 한 줄(row) 또는 한 열(column) 안에서 배치하는 데 적합합니다. Flexbox는 컨텐츠의 정렬과 배치에 유연성을
-        제공하며, 간단한 구성과 정렬에 효과적입니다.
-        따라서 Grid는 전체 레이아웃 설계에, Flexbox는 개별 요소의 정렬과 배치에 적합합니다.
+        {detail.blogPostCon}
       </div>
       <div className="button_wrap">
-        <button className="btn">이전글</button>
         <button className="btn">목록</button>
-        <button className="btn">다음글</button>
       </div>
 
 

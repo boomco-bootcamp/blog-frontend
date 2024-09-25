@@ -1,3 +1,4 @@
+import { formatDate } from '../../../util/date'
 import React from 'react'
 
 const Item = ({ title, desc, author, src, like, comments, date }) => {
@@ -9,12 +10,12 @@ const Item = ({ title, desc, author, src, like, comments, date }) => {
                     <h3 className='item_title'>{title}</h3>
                     <p className='item_desc'>{desc}</p>
                 </div>
-                <img src={src} className='item_img' />
+                {src && <img src={src} className='item_img' />}
             </div>
             <div className='sub_wrapper'>
                 <p>♥{like}</p>
                 <p>✍🏻{comments}</p>
-                <p>{date}</p>
+                <p>{formatDate(date)}</p>
             </div>
         </div>
     )
