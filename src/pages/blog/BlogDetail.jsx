@@ -54,30 +54,35 @@ const BlogDetail = () => {
           </div>
         </div>
         <div className="reply_list">
-          <div className="reply_item"><p className="writer">김철수</p><p className="date">2024-08-09</p>
-            <div className="content">좋은 게시글입니다 !</div>
-            <div className="reply_form">
-              <div className="button_wrap">
-                <button className="button">댓글달기</button>
+          {detail.commentList && detail.commentList.map((com) => (
+            <div className="reply_item"><p className="writer">{com.rgsnUserNm ? com.rgsnUserNm : com.rgsmUserId}</p><p className="date">{formatDate(com.rgsnTs)}</p>
+              <div className="content">{com.blogCommentCon}</div>
+              <div className="reply_form">
+                <div className="button_wrap">
+                  <button className="button">댓글달기</button>
+                </div>
+                <div className="textarea_button_wrap"><textarea className="textarea" placeholder="댓글을 등록해보세요"></textarea>
+                  <button className="button">댓글등록</button>
+                </div>
               </div>
-              <div className="textarea_button_wrap"><textarea className="textarea" placeholder="댓글을 등록해보세요"></textarea>
-                <button className="button">댓글등록</button>
-              </div>
+              {com.blogChildCommentList.map((recom) => (
+                <div className="re_reply_item">
+                  <div className="top_wrap"><p className="writer">{recom.rgsnUserNm ? recom.rgsnUserNm : recom.rgsmUserId}</p></div>
+                  <p className="date">{formatDate(recom.rgsnTs)}</p>
+                  <div className="content">{recom.blogCommentCon}</div>
+                </div>
+              ))}
             </div>
-            <div className="re_reply_item">
-              <div className="top_wrap"><p className="writer">jk_kim99</p></div>
-              <p className="date">2024-08-10</p>
-              <div className="content">감사합니다.</div>
-            </div>
-          </div>
-          <div className="reply_item"><p className="writer">정수진</p><p className="date">2024-08-09</p>
+          ))
+          }
+          {/* <div className="reply_item"><p className="writer">정수진</p><p className="date">2024-08-09</p>
             <div className="content">css에 대해 자세히 알게되었습니다.</div>
             <div className="reply_form">
               <div className="button_wrap">
                 <button className="button">댓글달기</button>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
