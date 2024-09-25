@@ -12,7 +12,7 @@ export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(initialUserState);
 
     useEffect(() => {
-        const storedUser = localStorage.getItem('user');
+        const storedUser = localStorage.getItem('authToken');
         if (storedUser) {
             setUser(JSON.parse(storedUser));
         }
@@ -21,12 +21,12 @@ export const UserProvider = ({ children }) => {
     const login = (userInfo) => {
         const updatedUser = { ...userInfo, loginStatus: true };
         setUser(updatedUser);
-        localStorage.setItem('user', JSON.stringify(updatedUser));
+        localStorage.setItem('authToken', JSON.stringify(updatedUser));
     };
 
     const logout = () => {
         setUser(initialUserState);
-        localStorage.removeItem('user');
+        localStorage.removeItem('authToken');
     };
 
     const value = {

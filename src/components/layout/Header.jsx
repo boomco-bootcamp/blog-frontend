@@ -8,7 +8,7 @@ const Header = () => {
     return (
         <header className='header'>
             <Link to='/'>
-              <img src={Logo} alt="로고"/>
+                <img src={Logo} alt="로고" />
             </Link>
             {
                 user.loginStatus ? <ul className='flex'>

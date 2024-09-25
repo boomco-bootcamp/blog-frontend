@@ -3,13 +3,13 @@ import Axios from "./api";
 // blog list 가져오기 -> tag category recommend 에 따라서 파라미터 추가
 export const getBlogList = async (params) => {
     if (params) {
-        return await Axios.get(`/blog/list`, {
+        return await Axios.get(`/api/post/list`, {
             params
         })
     }
     else {
         return await (
-            await Axios.get(`/blog/list`)
+            await Axios.get(`/api/post/list`)
         )
     }
 };
