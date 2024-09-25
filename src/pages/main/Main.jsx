@@ -26,7 +26,6 @@ const Main = () => {
         getCategory()
     }, [])
 
-
     const handleClickTab = (value) => () => {
         setTab(value)
     }
