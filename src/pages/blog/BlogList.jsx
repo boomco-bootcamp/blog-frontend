@@ -30,17 +30,19 @@ const BlogList = () => {
     totalPage: ""
   })
 
-  const handlePaging =  (current) => {
-    setPaging({...paging,page:current.page})
+  const handlePaging = (current) => {
+    setPaging({ ...paging, page: current.page })
   }
 
   useEffect(() => {
     const getBlog = async () => {
-      let result = await getBlogList({ orderType:orderType, page: paging.page })
+
+      let result = await getBlogList({ orderType: orderType, page: paging.page })
+
       let data = result.data
       setPostList(data.list)
       setFilterList(data.list)
-
+      console.log(result, paging, paging.page, '@@@@@@@@', data.page)
       setPaging({
         endPage: data.endPage,
         next: data.next,
@@ -55,9 +57,26 @@ const BlogList = () => {
     getBlog()
   }, [orderType, paging.page])
 
-  const handleSearch = () => {
-    const filtered = postList.filter((item) => item.blogPostTitle.includes(searchText) || item.blogPostCon.includes(searchText))
-    setFilterList(filtered)
+  const handleSearch = async () => {
+    // const filtered = postList.filter((item) => item.blogPostTitle.includes(searchText) || item.blogPostCon.includes(searchText))
+    // setFilterList(filtered)
+
+    let result = await getBlogList({ orderType: orderType, page: paging.page, searchCon: searchText })
+
+    let data = result.data
+    setPostList(data.list)
+    setFilterList(data.list)
+
+    setPaging({
+      endPage: data.endPage,
+      next: data.next,
+      page: data.page,
+      prev: data.prev,
+      record: data.record,
+      startPage: data.startPage,
+      total: data.total,
+      totalPage: data.totalPage,
+    })
   }
 
   const handleKeyPress = (e) => {
@@ -128,7 +147,7 @@ const BlogList = () => {
                 </Link>
               ))
             }
-          </ul> : <NoResult text={'게시글이 존재하지 않습니다.'}/>
+          </ul> : <NoResult text={'게시글이 존재하지 않습니다.'} />
       }
 
 
