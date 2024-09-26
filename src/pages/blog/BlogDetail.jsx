@@ -17,7 +17,12 @@ const BlogDetail = () => {
   }, [])
   return (
     <div className="blog_detail_wrap">
-      <h2 className="detail_title">{detail.blogPostTitle}</h2>
+      <div className="detail_title_wrap">
+        <h2 className="detail_title">{detail.blogPostTitle}</h2>
+        <div className="like_wrap">
+          <button className="like">♥ {detail.postLikeCnt}</button>
+        </div>
+      </div>
       <div className="detail_info">
         <div className="info_left">
           <p className="writer">{detail.blogNm ?? ""}</p>
@@ -26,7 +31,6 @@ const BlogDetail = () => {
       </div>
       <div className="info_sec">
         <div className="view">✍🏻 {detail.postCommentCnt}</div>
-        <div className="like">♥ {detail.postLikeCnt}</div>
       </div>
       <div className="tag_list">
         {

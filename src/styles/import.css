@@ -4,6 +4,8 @@
 @import './components/post.css';
 @import './components/typography.css';
 @import './components/tag.css';
+@import './components/pagination.css';
+@import './components/noresult.css';
 @import './pages/main.css';
 @import './pages/mypage.css';
 @import './pages/sign.css';

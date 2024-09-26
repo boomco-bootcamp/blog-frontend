@@ -4,7 +4,7 @@ import Axios from "./api";
 export const getBlogList = async (params) => {
     if (params) {
         return await Axios.get(`/api/post/list`, {
-            params
+            params,
         })
     }
     else {

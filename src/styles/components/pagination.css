@@ -1,0 +1,42 @@
+.paging_wrap {
+  width: 100%;
+  margin-top: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paging_wrap .number {
+  border: 1px solid #F39C12;
+  margin: 0 6px;
+  color: #F39C12;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+}
+
+.paging_wrap .first,
+.paging_wrap .prev,
+.paging_wrap .next,
+.paging_wrap .last {
+  margin: 0 6px;
+}
+
+.paging_wrap .number {
+  padding: 0;
+}
+
+.paging_wrap > button:disabled {
+  cursor: not-allowed;
+}
+
+.paging_wrap .number.active {
+  color: #fff;
+  background: #F39C12;
+  border-color: #F39C12;
+}
+
+.paging_wrap {
+  display: inline-flex;
+  align-items: center;
+}
