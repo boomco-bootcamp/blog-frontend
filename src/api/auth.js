@@ -3,8 +3,8 @@ import Axios from "./api";
 
 // 로그인
 export const postSignIn = async (loginData) => {
-    return await Axios.post('/auth/login', {
-        loginData
+    return await Axios.post('/api/user/login', {
+        ...loginData
     });
 };
 
@@ -22,8 +22,8 @@ export const postFindPassword = async (mail) => {
 
 // 회원가입
 export const postSignUp = async (signData) => {
-    return await Axios.post('/auth/signup', {
-        signData
+    return await Axios.post('/api/user/add', {
+        ...signData
     });
 };
 

@@ -1,10 +1,12 @@
 // import { userRow } from '@/data/db/db'
+import { postSignUp } from '../../api/auth'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const SignUpForm = () => {
     const [formData, setFormData] = useState({
         id: "",
+        name: "",
         pw: "",
         pwCheck: "",
         em: "",
@@ -13,18 +15,33 @@ const SignUpForm = () => {
 
     const handleChangeInput = (e) => {
         setFormData({
+            ...formData,
             [e.target.name]: e.target.value
         })
     }
 
-    const handleClickSign = () => {
-        let result = {
-            userId: "woojin222",
-            userPswd: "우진123",
-            userNm: "김우진",
-            userEml: "woo4266@boomco.org",
-            userTel: "010-2239-4266",
+    const handleClickSign = async () => {
+        if (formData.pw !== formData.pwCheck) {
+            alert('비밀번호를 확인해주세요.')
+            return
         }
+
+        let result = {
+            userId: formData.id,
+            userPswd: formData.pw,
+            userNm: formData.name,
+            userEml: formData.em,
+            userTel: formData.phone,
+        }
+        try {
+            await postSignUp(result)
+            alert('회원가입이 완료되었습니다. 로그인 후 이용해주세요.')
+            window.location.href = '/'
+        }
+        catch (err) {
+            alert('입력하신 정보를 다시 확인해주세요.')
+        }
+
     }
 
     return (
@@ -37,7 +54,7 @@ const SignUpForm = () => {
                 </div>
                 <div className='input_wrap'>
                     <label htmlFor='name' className='form_label'>이름</label>
-                    <input type='text' id='name' name='이름' onChange={handleChangeInput} value={formData.id} placeholder='Name' className='form_input' />
+                    <input type='text' id='name' name='이름' onChange={handleChangeInput} value={formData.name} placeholder='Name' className='form_input' />
                 </div>
                 <div className='input_wrap'>
                     <label htmlFor='pw' className='form_label'>비밀번호</label>
@@ -55,7 +72,7 @@ const SignUpForm = () => {
                     <label htmlFor='phone' className='form_label'>연락처</label>
                     <input type='text' id='phone' name='phone' onChange={handleChangeInput} value={formData.phone} placeholder='phone' className='form_input' />
                 </div>
-                <button type="submit" className="btn_submit">회원가입</button>
+                <button type="button" className="btn_submit" onClick={handleClickSign}>회원가입</button>
                 <div className='social_wrap'>
                     <div className='social_tit'>
                         <span className='tit_name'>소셜 회원가입</span>

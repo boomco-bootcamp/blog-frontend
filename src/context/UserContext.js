@@ -15,14 +15,14 @@ export const UserProvider = ({ children }) => {
     useEffect(() => {
         const storedUser = localStorage.getItem('authToken');
         if (storedUser) {
-            setUser(JSON.parse(storedUser));
+            setUser({ ...user, loginStatus: true });
         }
     }, []);
 
     const login = (userInfo) => {
         const updatedUser = { ...userInfo, loginStatus: true };
         setUser(updatedUser);
-        localStorage.setItem('authToken', JSON.stringify(updatedUser));
+        localStorage.setItem('userInfo', JSON.stringify(updatedUser));
     };
 
     const logout = () => {
