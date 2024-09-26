@@ -4,7 +4,6 @@ import RecommendArticle from '../../components/articles/RecommendArticle';
 import NewArticle from '../../components/articles/NewArticle';
 import CategoryArticle from '../../components/articles/CategoryArticle';
 import TagArticle from '../../components/articles/TagArticle';
-import TagList from '../../components/common/tag/TagList';
 import { useUser } from '../../context/UserContext';
 import { Link } from 'react-router-dom';
 
@@ -51,7 +50,7 @@ const Main = () => {
                         >태그 별 게시글</span>/<span onClick={handleClickTab('category')}
                             style={{ color: tab === 'tag' ? 'gray' : "" }}
                         >카테고리 별 게시글</span></h3>
-                        {tab === 'tag' ? <TagList /> : <TagList />}
+                        {/* {tab === 'tag' ? <TagList /> : <TagList />} */}
                         {tab === 'category' ? <CategoryArticle /> :
                             <TagArticle />}
                     </div>

@@ -8,7 +8,7 @@ const Item = ({ title, desc, author, src, like, comments, date }) => {
                 <div className='content-wrapper'>
                     <p className='item_author'>{author}</p>
                     <h3 className='item_title'>{title}</h3>
-                    <p className='item_desc'>{desc}</p>
+                    <p className='item_desc' dangerouslySetInnerHTML={{ __html: desc }} />
                 </div>
                 {src && <img src={src} className='item_img' />}
             </div>
