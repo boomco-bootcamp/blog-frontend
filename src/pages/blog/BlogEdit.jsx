@@ -102,6 +102,7 @@ const BlogEdit = () => {
         onChange={setValues}
       />
       <div className='btn_wrap'>
+        <button className='red'>게시글 삭제</button>
         <button className='red'>수정취소</button>
         <button className="default">수정완료</button>
       </div>

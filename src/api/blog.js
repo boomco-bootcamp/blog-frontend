@@ -24,9 +24,9 @@ export const getBlogDetail = async (postId) => {
 // blog 작성하기
 export const createArticle = async (data) => {
     return await Axios.post(
-        `/blog/create`,
+        `/api/post/save`,
         {
-            data
+            ...data
         }
     );
 };
@@ -34,7 +34,7 @@ export const createArticle = async (data) => {
 // blog 수정하기
 export const updateArticle = async (data) => {
     return await Axios.patch(
-        `/blog/update`,
+        `/api/post/save`,
         {
             data
         }
@@ -44,7 +44,7 @@ export const updateArticle = async (data) => {
 // blog 삭제하기
 export const deleteArticle = async (postId) => {
     return await Axios.delete(
-        `/blog/delete/${postId}`
+        `/api/post/delete/${postId}`
     );
 };
 

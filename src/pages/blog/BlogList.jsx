@@ -109,7 +109,7 @@ const BlogList = () => {
                       </div>
                       <div className="content_wrap">
                         <p className="title">{item.blogPostTitle}</p>
-                        <p className="content_text">{item.blogPostCon}</p>
+                        <p className="content_text" dangerouslySetInnerHTML={{ __html: item.blogPostCon }}></p>
                         <p className="date">{formatDate(item.rgsnTs)}</p>
                       </div>
                       <div className="text_wrap">

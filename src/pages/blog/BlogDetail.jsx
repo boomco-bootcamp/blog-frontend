@@ -39,8 +39,7 @@ const BlogDetail = () => {
           ))
         }
       </div>
-      <div className="content_wrap">
-        {detail.blogPostCon}
+      <div className="content_wrap" dangerouslySetInnerHTML={{ __html: detail.blogPostCon }}>
       </div>
       <div className="button_wrap">
         <button className="btn">목록</button>
