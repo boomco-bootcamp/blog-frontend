@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Item from '../common/post/Item';
-import TagList from '../common/tag/TagList';
 import { Link } from 'react-router-dom';
 import { getBlogList, getCategoryList } from '../../api/blog';
+import CategoryList from '../common/tag/CategoryList';
 
 
 const CategoryArticle = () => {
@@ -31,13 +31,13 @@ const CategoryArticle = () => {
     }, [currentCategory])
     return (
         <div>
-            <TagList categoryList={categoryList} onClick={(curr) => setCurrentCategory(curr)} />
+            <CategoryList categoryList={categoryList} onClick={(curr) => setCurrentCategory(curr)} />
             <div className='article_wrapper'>
                 <div className='flex-col'>
                     {postList.slice(0, 6).map(post => (
-                        <Link to={`/blog/1/1`}>
-                            <Item title={post.title} desc={post.desc} author={post.author}
-                                src={post.src} date={post.date} like={post.like} comments={post.comments}
+                        <Link to={`/blog/${post.blogId}/${post.blogPostId}`}>
+                            <Item title={post.blogPostTitle} desc={post.blogPostCon} author={post.blogId}
+                                src={post.src} date={post.rgsnTs} like={post.postViewsCnt} comments={post.postCommentCnt}
                             />
                         </Link>
                     ))}
