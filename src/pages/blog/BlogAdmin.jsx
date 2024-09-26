@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import banner from '../../assets/img/til_banner.png';
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { getMyBlogList } from '../../api/blog';
 
 export const AdminData =
 {
@@ -31,6 +32,12 @@ const BlogAdmin = () => {
   const [bannerImage, setBannerImage] = useState(banner);
   const [text, setText] = useState(AdminData.introduce)
 
+  useEffect(() => {
+    const getMyList = async () => {
+      await getMyBlogList(JSON.parse(localStorage.getItem('userInfo')).userId)
+    }
+    getMyList()
+  }, [])
 
   const fileInputRef = useRef(null);
 
@@ -73,7 +80,7 @@ const BlogAdmin = () => {
           <div className="admin_inner">
             <button onClick={handleButtonClick}>메인 이미지 배너 업로드</button>
             <br /><br />
-            <Link to='/blog/post/:id/create'>
+            <Link to='/blog/post/create'>
               <button>글 작성하기</button>
             </Link>
             <label htmlFor="fileupload" className='visually-hidden'></label>
@@ -117,6 +124,9 @@ const BlogAdmin = () => {
           </li>
         </ul>
 
+        <div className="content_wrap">
+          {/* 내 블로그 글 들어갈 자리 */}
+        </div>
         <div className="content_wrap">
           {activeTab === 0 && (
             <div className="content_item">

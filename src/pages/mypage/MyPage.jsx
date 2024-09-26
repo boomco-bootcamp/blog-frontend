@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { DeleteIcon, PlusIcon } from "../../assets/svg/Icon";
 import { useUser } from '../../context/UserContext';
+import { getUserInfo } from '../../api/user';
+import { getCategoryList } from '../../api/blog';
+
 
 
 const MyPage = () => {
@@ -23,19 +26,28 @@ const MyPage = () => {
   const [chipActive, setChipActive] = useState([])
 
   useEffect(() => {
-    const getBlog = async () => {
+    const getMyInfo = async () => {
+      const resCategory = await getCategoryList()
+      console.log(resCategory.data)
+      setCategories(resCategory.data)
       // let result = await getBlogDetail(id)
       // setDetail(result.data)
     }
-    getBlog()
+    getMyInfo()
   }, [])
 
   useEffect(() => {
-    const getBlog = async () => {
-      // let result = await getBlogDetail(id)
-      // setDetail(result.data)
-    }
-    getBlog()
+
+    // const getBlog = async () => {
+
+    //   const info = await getUserInfo({
+    //     userId: JSON.parse(localStorage.getItem('userInfo')).userId,
+    //     userPswd: JSON.parse(localStorage.getItem('userInfo')).userPswd,
+    //   })
+
+    //   console.log(info)
+    // }
+    // getBlog()
   }, [])
 
   const handleChipClick = (idx) => {
@@ -64,23 +76,23 @@ const MyPage = () => {
 
 
   // 카테고리
-  const addCategory = () => {
-    if (inputValue.trim() && !categories.includes(inputValue)) {
-      setCategories([...categories, inputValue]);
-      setInputValue('');
-    }
-  };
+  // const addCategory = () => {
+  //   if (inputValue.trim() && !categories.includes(inputValue)) {
+  //     setCategories([...categories, inputValue]);
+  //     setInputValue('');
+  //   }
+  // };
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      addCategory();
-    }
-  };
+  // const handleKeyPress = (e) => {
+  //   if (e.key === 'Enter') {
+  //     addCategory();
+  //   }
+  // };
 
-  const removeCategory = (index) => {
-    const updatedCategories = categories.filter((_, i) => i !== index);
-    setCategories(updatedCategories);
-  };
+  // const removeCategory = (index) => {
+  //   const updatedCategories = categories.filter((_, i) => i !== index);
+  //   setCategories(updatedCategories);
+  // };
 
 
   // 태그
@@ -261,24 +273,22 @@ const MyPage = () => {
 
               <button className="category_btn">저장</button>
 
-              {BlogCategoryData.map((item, index) => {
-                return (
-                  <div className="category_item" key={`${item.category} +  ${index}`}>
-                    <div className="category_title" key={index}>{item.category}</div>
-                    <div className="chip_list">
-                      {item.topics.map((topic, idx) => (
-                        <div
-                          className={`chip_item ${chipActive.includes(`${item.category} + ${idx}`) ? 'active' : ''}`}
-                          key={`${item.category} + ${idx}`}
-                          onClick={() => handleChipClick(`${item.category} + ${idx}`)}
-                        >
-                          {topic}
-                        </div>
-                      ))}
+
+              <div className="category_item" >
+
+                <div className="chip_list">
+                  {categories.map((item, idx) => (
+                    <div
+                      className={`chip_item ${chipActive.includes(`${item.blogPostCatId} + ${idx}`) ? 'active' : ''}`}
+                      key={item.blogPostCatId}
+                      onClick={() => handleChipClick(`${item.blogPostCatId} + ${idx}`)}
+                    >
+                      {item.blogPostCatNm}
                     </div>
-                  </div>
-                )
-              })}
+                  ))}
+                </div>
+              </div>
+
             </div>
           </div>
         )}

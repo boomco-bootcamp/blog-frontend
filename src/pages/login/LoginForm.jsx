@@ -28,15 +28,11 @@ const LoginForm = () => {
                     userId: formData.id,
                     userPswd: formData.pw,
                 })
-                const info = await getUserInfo({
-                    userId: formData.id,
-                    userPswd: formData.pw,
-                })
 
-                console.log(info)
                 localStorage.setItem('authToken', res.data);
                 login({
-                    name: formData.id,
+                    userId: formData.id,
+                    userPswd: formData.pw,
                 })
                 window.location.href = '/'
             }

@@ -7,11 +7,11 @@ import CategoryArticle from '../../components/articles/CategoryArticle';
 import TagArticle from '../../components/articles/TagArticle';
 import { useUser } from '../../context/UserContext';
 import TagList from '../../components/common/tag/TagList';
+import { useParams } from 'react-router-dom';
 
 const Blog = () => {
-    const { user, login, logout } = useUser();
     const [tab, setTab] = useState('tag')
-
+    const { userId } = useParams();
     const handleClickTab = (value) => () => {
         setTab(value)
     }
@@ -25,7 +25,7 @@ const Blog = () => {
             <div className="section_wrap">
                 <section className='flex'>
                     <div>
-                        <h3 className='banner_title'>{user.name}님의 블로그</h3>
+                        <h3 className='banner_title'>{userId}님의 블로그</h3>
                         <div className="text_wrap">
                             <div className='banner_text'>
                                 <div className="rrr">{AdminData.introduce}</div>

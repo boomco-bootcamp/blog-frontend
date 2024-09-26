@@ -8,13 +8,13 @@ const BlogDetail = () => {
   const { userId, id } = useParams();
 
   useEffect(() => {
-
     const getBlog = async () => {
       let result = await getBlogDetail(id)
       setDetail(result.data)
     }
     getBlog()
   }, [])
+
   return (
     <div className="blog_detail_wrap">
       <div className="detail_title_wrap">
@@ -39,7 +39,8 @@ const BlogDetail = () => {
           ))
         }
       </div>
-      <div className="content_wrap" dangerouslySetInnerHTML={{ __html: detail.blogPostCon }}>
+      <div className="content_wrap">
+        {detail.blogPostCon}
       </div>
       <div className="button_wrap">
         <button className="btn">목록</button>

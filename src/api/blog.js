@@ -4,7 +4,7 @@ import Axios from "./api";
 export const getBlogList = async (params) => {
     if (params) {
         return await Axios.get(`/api/post/list`, {
-            params,
+            ...params,
         })
     }
     else {
@@ -20,6 +20,13 @@ export const getBlogDetail = async (postId) => {
     return await Axios.get(`/api/post/detail?blogPostId=${postId}`);
 
 };
+
+
+// 내 blog list 가져오기 -> tag category recommend 에 따라서 파라미터 추가
+export const getMyBlogList = async (id) => {
+    return await Axios.get(`/api/post/list?blogId=${id}`)
+};
+
 
 // blog 작성하기
 export const createArticle = async (data) => {
