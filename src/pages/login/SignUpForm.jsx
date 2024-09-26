@@ -9,7 +9,7 @@ const SignUpForm = () => {
         name: "",
         pw: "",
         pwCheck: "",
-        em: "",
+        email: "",
         phone: ""
     })
 
@@ -54,7 +54,7 @@ const SignUpForm = () => {
                 </div>
                 <div className='input_wrap'>
                     <label htmlFor='name' className='form_label'>이름</label>
-                    <input type='text' id='name' name='이름' onChange={handleChangeInput} value={formData.name} placeholder='Name' className='form_input' />
+                    <input type='text' id='name' name='name' onChange={handleChangeInput} value={formData.name} placeholder='Name' className='form_input' />
                 </div>
                 <div className='input_wrap'>
                     <label htmlFor='pw' className='form_label'>비밀번호</label>
@@ -66,7 +66,7 @@ const SignUpForm = () => {
                 </div>
                 <div className='input_wrap'>
                     <label htmlFor='email' className='form_label'>이메일</label>
-                    <input type='text' id='email' name='email' onChange={handleChangeInput} value={formData.em} placeholder='E-mail' className='form_input' />
+                    <input type='text' id='email' name='email' onChange={handleChangeInput} value={formData.email} placeholder='E-mail' className='form_input' />
                 </div>
                 <div className='input_wrap'>
                     <label htmlFor='phone' className='form_label'>연락처</label>

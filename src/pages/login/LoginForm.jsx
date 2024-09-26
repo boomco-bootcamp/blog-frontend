@@ -1,3 +1,4 @@
+import { getUserInfo } from '../../api/user';
 import { postSignIn } from '../../api/auth';
 import { useUser } from '../../context/UserContext';
 import React, { useState } from 'react'
@@ -27,6 +28,12 @@ const LoginForm = () => {
                     userId: formData.id,
                     userPswd: formData.pw,
                 })
+                const info = await getUserInfo({
+                    userId: formData.id,
+                    userPswd: formData.pw,
+                })
+
+                console.log(info)
                 localStorage.setItem('authToken', res.data);
                 login({
                     name: formData.id,
