@@ -4,7 +4,7 @@ import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import { DeleteIcon } from "../../assets/svg/Icon";
 import TagList from '../../components/common/tag/TagList';
-import {createArticle, getCategoryList} from '../../api/blog';
+import { createArticle, getCategoryList } from '../../api/blog';
 import { useNavigate } from 'react-router-dom';
 
 const formats = [
@@ -28,7 +28,7 @@ const formats = [
 
 
 const BlogCreate = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const [title, setTitle] = useState('');
   const [values, setValues] = useState();
@@ -85,7 +85,7 @@ const BlogCreate = () => {
 
     try {
       await createArticle(result)
-      navigate('/blog/post/list'); // 임시로 navigate 위치 설정
+      navigate('/blog/list'); // 임시로 navigate 위치 설정
     } catch (err) {
       console.error(err)
     }

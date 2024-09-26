@@ -1,3 +1,15 @@
+import Axios from "./api";
+
+// user 정보 가져오기
+export const getUserInfo = async (userData) => {
+    return await Axios.post(
+        `/api/user/lnfo`,
+        {
+            ...userData
+        }
+    );
+};
+
 // user 수정하기
 export const updateUserInfo = async (userData) => {
     return await Axios.patch(

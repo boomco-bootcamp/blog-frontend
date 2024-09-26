@@ -32,7 +32,7 @@ const Router = () => {
                     {/* 유저 별 블로그 홈 내 블로그면 표시 */}
                     <Route path="/blog/:userId" element={<Blog />} />
                     {/* 블로그 글 리스트 & 상세 */}
-                    <Route path="/blog/:userId/list" element={<BlogList />} />
+                    <Route path="/blog/list" element={<BlogList />} />
                     <Route path="/blog/:userId/:id" element={<BlogDetail />} />
 
                     <Route path="/blog/:userId/list/recent" element={<BlogRecent />} />
@@ -40,7 +40,7 @@ const Router = () => {
 
 
                     {/* 블로그 글 작성 & 수정 */}
-                    <Route path="/blog/post/:id/create" element={
+                    <Route path="/blog/post/create" element={
                         <PrivateRoute>
                             <BlogCreate />
                         </PrivateRoute>

@@ -70,7 +70,7 @@ const BlogRecent = () => {
             <li className="blog_item" key={idx}>
               <a href="#" className="blog_item_inner">
                 <div className="img_wrap">
-                  <img src={item.image} alt="image"/>
+                  <img src={item.image} alt="image" />
                 </div>
                 <div className="content_wrap">
                   <p className="title">{item.blog_post_title}</p>

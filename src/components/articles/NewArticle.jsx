@@ -7,7 +7,7 @@ import { getBlogList } from '../../api/blog';
 
 const NewArticle = () => {
     const [postList, setPostList] = useState([])
-
+    console.log(postList)
     useEffect(() => {
         const getBlog = async () => {
             let result = await getBlogList({ orderType: 'desc' })
@@ -22,7 +22,7 @@ const NewArticle = () => {
 
                 {postList.slice(0, 6).map(post => (
                     <Link to={`/blog/${post.blogId}/${post.blogPostId}`}>
-                        <Item title={post.blogPostTitle} desc={post.blogPostCon} author={post.blogNm}
+                        <Item title={post.blogPostTitle} desc={post.blogPostCon} author={post.blogId}
                             src={post.src} date={post.rgsnTs} like={post.postViewsCnt} comments={post.postCommentCnt}
                         />
                     </Link>

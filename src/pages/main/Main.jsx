@@ -40,7 +40,7 @@ const Main = () => {
                 <div className='flex'>
                     <div>
                         <h3 className='sub'>최근 게시글</h3>
-                        <Link to={'/blog/post/list'}>
+                        <Link to={'/blog/list'}>
                             <p className='recommend_desc'>새콤달콤한 소식을 알아봐요!</p>
                         </Link>
                         <NewArticle />

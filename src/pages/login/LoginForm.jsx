@@ -1,3 +1,4 @@
+import { getUserInfo } from '../../api/user';
 import { postSignIn } from '../../api/auth';
 import { useUser } from '../../context/UserContext';
 import React, { useState } from 'react'
@@ -27,9 +28,11 @@ const LoginForm = () => {
                     userId: formData.id,
                     userPswd: formData.pw,
                 })
+
                 localStorage.setItem('authToken', res.data);
                 login({
-                    name: formData.id,
+                    userId: formData.id,
+                    userPswd: formData.pw,
                 })
                 window.location.href = '/'
             }

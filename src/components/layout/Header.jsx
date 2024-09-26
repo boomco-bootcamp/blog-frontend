@@ -5,7 +5,7 @@ import Logo from "../../assets/img/blogyul.png"
 
 const Header = () => {
     const { user, login, logout } = useUser();
-    console.log(user)
+
     return (
         <header className='header'>
             <Link to='/'>
