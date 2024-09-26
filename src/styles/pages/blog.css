@@ -137,6 +137,17 @@
 }
 .blog_create_wrap .title {
 }
+.blog_create_wrap .category {
+  margin-top:16px;
+  display:flex;
+  flex-direction:column;
+  justify-content:start;
+  align-items:start;
+  gap:4px;
+  width:400px;
+  color:gray;
+}
+
 .blog_create_wrap input {}
 .blog_create_wrap .title input {
   width: 100%;

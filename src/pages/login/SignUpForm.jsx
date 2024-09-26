@@ -6,7 +6,9 @@ const SignUpForm = () => {
     const [formData, setFormData] = useState({
         id: "",
         pw: "",
-        em: ""
+        pwCheck: "",
+        em: "",
+        phone: ""
     })
 
     const handleChangeInput = (e) => {
@@ -16,7 +18,13 @@ const SignUpForm = () => {
     }
 
     const handleClickSign = () => {
-        // userRow.find() 
+        let result = {
+            userId: "woojin222",
+            userPswd: "우진123",
+            userNm: "김우진",
+            userEml: "woo4266@boomco.org",
+            userTel: "010-2239-4266",
+        }
     }
 
     return (
@@ -36,12 +44,16 @@ const SignUpForm = () => {
                     <input type='password' id='pw' name='pw' onChange={handleChangeInput} value={formData.pw} placeholder='Password' className='form_input' />
                 </div>
                 <div className='input_wrap'>
-                    <label htmlFor='pw_re' className='form_label'>비밀번호 확인</label>
-                    <input type='password' id='pw_re' name='pw_re' onChange={handleChangeInput} value={formData.pw} placeholder='Password confirmation' className='form_input' />
+                    <label htmlFor='pwCheck' className='form_label'>비밀번호 확인</label>
+                    <input type='password' id='pwCheck' name='pwCheck' onChange={handleChangeInput} value={formData.pwCheck} placeholder='Password confirmation' className='form_input' />
                 </div>
                 <div className='input_wrap'>
                     <label htmlFor='email' className='form_label'>이메일</label>
                     <input type='text' id='email' name='email' onChange={handleChangeInput} value={formData.em} placeholder='E-mail' className='form_input' />
+                </div>
+                <div className='input_wrap'>
+                    <label htmlFor='phone' className='form_label'>연락처</label>
+                    <input type='text' id='phone' name='phone' onChange={handleChangeInput} value={formData.phone} placeholder='phone' className='form_input' />
                 </div>
                 <button type="submit" className="btn_submit">회원가입</button>
                 <div className='social_wrap'>

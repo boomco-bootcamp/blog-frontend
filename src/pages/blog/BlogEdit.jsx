@@ -1,8 +1,8 @@
-import React, {useMemo, useState} from 'react'
+import React, { useMemo, useState } from 'react'
 
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
-import {DeleteIcon} from "../../assets/svg/Icon";
+import { DeleteIcon } from "../../assets/svg/Icon";
 
 const formats = [
   'font',
@@ -37,15 +37,15 @@ const BlogEdit = () => {
     return {
       toolbar: {
         container: [
-          [{size: ['small', false, 'large', 'huge']}],
-          [{align: []}],
+          [{ size: ['small', false, 'large', 'huge'] }],
+          [{ align: [] }],
           ['bold', 'italic', 'underline', 'strike'],
-          [{list: 'ordered'}, {list: 'bullet'}],
+          [{ list: 'ordered' }, { list: 'bullet' }],
           [
             {
               color: [],
             },
-            {background: []},
+            { background: [] },
           ],
           ['image'],
         ],
@@ -58,7 +58,7 @@ const BlogEdit = () => {
   };
 
   const handleAddTag = () => {
-    if (tagInput && !tags.includes(tagInput)) {
+    if (tagInput && !tags.includes(tagInput) && tags.length < 4) {
       setTags([...tags, tagInput]);
       setTagInput('');
     }
@@ -72,7 +72,7 @@ const BlogEdit = () => {
   return (
     <div className='blog_create_wrap'>
       <div className="title">
-        <input type="text" placeholder={"제목을 입력하세요"}/>
+        <input type="text" placeholder={"제목을 입력하세요"} />
       </div>
       <div className="tag">
         <ul className="tag_list">

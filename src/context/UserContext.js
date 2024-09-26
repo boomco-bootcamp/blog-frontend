@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const initialUserState = {
     name: null,
@@ -27,6 +28,7 @@ export const UserProvider = ({ children }) => {
     const logout = () => {
         setUser(initialUserState);
         localStorage.removeItem('authToken');
+        window.location.href = '/';
     };
 
     const value = {

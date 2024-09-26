@@ -2,7 +2,6 @@
     width: 100%;
     max-width: 400px;
     margin: 0 auto;
-    height:64px;
 }
 
 
@@ -33,10 +32,10 @@
     flex-shrink: 0; /* 버튼 크기가 줄어들지 않도록 고정 */
 }
 
-/*.tag-button.selected {*/
-/*    border: 2px solid blue;*/
-/*    background-color: #e0f7fa;*/
-/*}*/
+.tag-button.selected {
+    background:white;
+    color:#F39C12;
+}
 
 .selected-tag-container {
     margin-top: 20px;
