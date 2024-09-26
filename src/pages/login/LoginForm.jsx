@@ -1,9 +1,10 @@
+import { postSignIn } from '../../api/auth';
 import { useUser } from '../../context/UserContext';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 const LoginForm = () => {
-    const { user, login, logout } = useUser();
+    const { login } = useUser();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         id: "",
@@ -19,13 +20,22 @@ const LoginForm = () => {
 
 
 
-    const handleClickLogin = () => {
+    const handleClickLogin = async () => {
         if (formData.id && formData.pw) {
-            login({
-                name: formData.id,
-                userId: formData.pw,
-            })
-            navigate('/')
+            try {
+                const res = await postSignIn({
+                    userId: formData.id,
+                    userPswd: formData.pw,
+                })
+                localStorage.setItem('authToken', res.data);
+                login({
+                    name: formData.id,
+                })
+                window.location.href = '/'
+            }
+            catch (err) {
+                alert('아이디 혹은 비밀번호를 확인해주세요.')
+            }
         }
     }
 

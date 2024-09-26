@@ -353,7 +353,7 @@ const MyPage = () => {
                 <button className="form_edit" onClick={handleEdit}>
                   수정하기
                 </button>
-                <button className="form_edit" onClick={logout()}>
+                <button className="form_edit" onClick={logout}>
                   로그아웃
                 </button>
               </>

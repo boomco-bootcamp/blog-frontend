@@ -1,7 +1,6 @@
 import React from 'react'
 
 const Post = ({ src, title, author }) => {
-    console.log(src)
     return (
         <div className={`post_wrapper ${!src && 'no_src'}`}>
             <img className='post_img' src={src} />
