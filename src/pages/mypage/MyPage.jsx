@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import {DeleteIcon, PlusIcon} from "../../assets/svg/Icon";
+import { DeleteIcon, PlusIcon } from "../../assets/svg/Icon";
 import BlogTempImage01 from "../../assets/sample/img/bg_img01.png";
 import BlogTempImage02 from "../../assets/sample/img/bg_img02.png";
 import BlogTempImage03 from "../../assets/sample/img/bg_img03.png";
 import BlogTempImage04 from "../../assets/sample/img/bg_img04.png";
 import BlogTempImage05 from "../../assets/sample/img/bg_img05.png";
+import { useUser } from '../../context/UserContext';
 
 
 
@@ -213,7 +214,7 @@ const BlogCategoryData = [
 
 const MyPage = () => {
   const [activeTab, setActiveTab] = useState(0);
-
+  const { user, login, logout } = useUser();
   const [edit, setEdit] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -352,7 +353,11 @@ const MyPage = () => {
                 <button className="form_edit" onClick={handleEdit}>
                   수정하기
                 </button>
+                <button className="form_edit" onClick={logout()}>
+                  로그아웃
+                </button>
               </>
+
             ) : (
               <>
                 <form className="mypage_form">
@@ -442,7 +447,7 @@ const MyPage = () => {
         {activeTab === 1 && (
           <div className="category_wrap">
             <h3>관심 카테고리 설정</h3>
-            
+
 
             <div className="category_list">
 
@@ -476,7 +481,7 @@ const MyPage = () => {
             <h3>관심 태그 설정</h3>
             <div className="edit_wrap">
               <button className="tag_btn">저장</button>
-              
+
               <div className="chip_input_wrap">
                 <input
                   type="text"
@@ -509,7 +514,7 @@ const MyPage = () => {
                     <li className="blog_item" key={idx}>
                       <a href="#" className="blog_item_inner">
                         <div className="img_wrap">
-                          <img src={item.image} alt="image"/>
+                          <img src={item.image} alt="image" />
                         </div>
                         <div className="content_wrap">
                           <p className="title">{item.blog_post_title}</p>

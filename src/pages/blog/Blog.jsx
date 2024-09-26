@@ -6,7 +6,6 @@ import NewArticle from '../../components/articles/NewArticle';
 import CategoryArticle from '../../components/articles/CategoryArticle';
 import TagArticle from '../../components/articles/TagArticle';
 import { useUser } from '../../context/UserContext';
-import { listSample } from '../../data/main';
 import TagList from '../../components/common/tag/TagList';
 
 const Blog = () => {
@@ -44,7 +43,7 @@ const Blog = () => {
                     <section>
                         <div className="search_input_wrap">
                             <div className="search_input">
-                                <input type="text" placeholder='게시글을 검색하세요.'/>
+                                <input type="text" placeholder='게시글을 검색하세요.' />
                                 <button>검색</button>
                             </div>
                         </div>
@@ -56,13 +55,13 @@ const Blog = () => {
                             </div>
                             <div>
                                 <h3 className='sub'><span onClick={handleClickTab('tag')}
-                                                          style={{ color: tab === 'category' ? 'gray' : "" }}
+                                    style={{ color: tab === 'category' ? 'gray' : "" }}
                                 >태그 별 게시글</span>/<span onClick={handleClickTab('category')}
-                                                       style={{ color: tab === 'tag' ? 'gray' : "" }}
+                                    style={{ color: tab === 'tag' ? 'gray' : "" }}
                                 >카테고리 별 게시글</span></h3>
-                                <TagList initialTags={tab === 'tag' ? listSample : listSample} />
+                                {tab === 'tag' ? <TagList /> : <TagList />}
                                 {tab === 'category' ? <CategoryArticle /> :
-                                  <TagArticle />}
+                                    <TagArticle />}
                             </div>
                         </div>
                     </section>

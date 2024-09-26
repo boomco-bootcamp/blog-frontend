@@ -4,27 +4,14 @@ import RecommendArticle from '../../components/articles/RecommendArticle';
 import NewArticle from '../../components/articles/NewArticle';
 import CategoryArticle from '../../components/articles/CategoryArticle';
 import TagArticle from '../../components/articles/TagArticle';
-import { listSample } from '../../data/main';
 import TagList from '../../components/common/tag/TagList';
 import { useUser } from '../../context/UserContext';
 import { Link } from 'react-router-dom';
-import { getCategoryList } from '../../api/blog';
 
 
 const Main = () => {
     const { user, login, logout } = useUser();
     const [tab, setTab] = useState('tag')
-    const [categoryList, setCategoryList] = useState([])
-
-    useEffect(() => {
-        const getCategory = async () => {
-            let result = await getCategoryList()
-            setCategoryList(result.data)
-
-            // setCategoryList(result)
-        }
-        getCategory()
-    }, [])
 
     const handleClickTab = (value) => () => {
         setTab(value)
@@ -64,7 +51,7 @@ const Main = () => {
                         >태그 별 게시글</span>/<span onClick={handleClickTab('category')}
                             style={{ color: tab === 'tag' ? 'gray' : "" }}
                         >카테고리 별 게시글</span></h3>
-                        <TagList initialTags={tab === 'tag' ? listSample : categoryList.map(ele => ele.blogPostCatNm)} />
+                        {tab === 'tag' ? <TagList /> : <TagList />}
                         {tab === 'category' ? <CategoryArticle /> :
                             <TagArticle />}
                     </div>

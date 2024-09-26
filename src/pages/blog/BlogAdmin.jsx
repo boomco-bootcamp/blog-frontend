@@ -1,25 +1,26 @@
+import { Link } from 'react-router-dom';
 import banner from '../../assets/img/til_banner.png';
 import { useRef, useState } from "react";
 
 export const AdminData =
-  {
-    introduce: '저의 블로그에 오신것을 환영합니다. 반가워요',
-    visitor: [
-      { date: '2024-01-01', visit: '30' },
-      { date: '2024-01-02', visit: '55' },
-      { date: '2024-01-03', visit: '333' },
-      { date: '2024-01-04', visit: '111' }
-    ],
-    total: 15000,
-    engagement:
-      { view: '555', like: '22' }
-    ,
-    reply: [
-      { title: '도움이 잘 되었어요. 감사합니다.', userId: 'mjkim93' },
-      { title: '맞아요. 자바스크립트는 어려워요', userId: 'hisong99' },
-      { title: '좋은글입니다.', userId: 'ms_kim87' },
-    ]
-  }
+{
+  introduce: '저의 블로그에 오신것을 환영합니다. 반가워요',
+  visitor: [
+    { date: '2024-01-01', visit: '30' },
+    { date: '2024-01-02', visit: '55' },
+    { date: '2024-01-03', visit: '333' },
+    { date: '2024-01-04', visit: '111' }
+  ],
+  total: 15000,
+  engagement:
+    { view: '555', like: '22' }
+  ,
+  reply: [
+    { title: '도움이 잘 되었어요. 감사합니다.', userId: 'mjkim93' },
+    { title: '맞아요. 자바스크립트는 어려워요', userId: 'hisong99' },
+    { title: '좋은글입니다.', userId: 'ms_kim87' },
+  ]
+}
 
 
 
@@ -71,6 +72,10 @@ const BlogAdmin = () => {
         <div className="admin_wrap">
           <div className="admin_inner">
             <button onClick={handleButtonClick}>메인 이미지 배너 업로드</button>
+            <br /><br />
+            <Link to='/blog/post/:id/create'>
+              <button>글 작성하기</button>
+            </Link>
             <label htmlFor="fileupload" className='visually-hidden'></label>
             <input
               type="file"
@@ -124,21 +129,21 @@ const BlogAdmin = () => {
                   </tr>
                 </thead>
                 <tbody>
-                {
-                  AdminData.visitor.map((item, idx) => (
-                    <tr key={idx}>
-                      <td>{item.date}</td>
-                      <td>{item.visit}</td>
-                    </tr>
+                  {
+                    AdminData.visitor.map((item, idx) => (
+                      <tr key={idx}>
+                        <td>{item.date}</td>
+                        <td>{item.visit}</td>
+                      </tr>
                     )
-                  )
-                }
+                    )
+                  }
                 </tbody>
                 <tfoot>
-                <tr>
-                  <th scope="row">총 방문자 수</th>
-                  <td>{AdminData.total}명</td>
-                </tr>
+                  <tr>
+                    <th scope="row">총 방문자 수</th>
+                    <td>{AdminData.total}명</td>
+                  </tr>
                 </tfoot>
               </table>
             </div>
@@ -173,7 +178,7 @@ const BlogAdmin = () => {
                       <div className="apply_title">{item.title}</div>
                       <div className="apply_user">{item.userId}</div>
                     </div>
-                    )
+                  )
                   )
                 }
               </div>
