@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import { DeleteIcon } from "../../assets/svg/Icon";
-import TagList from '../../components/common/tag/TagList';
+import CategoryList from '../../components/common/tag/CategoryList';
 import { createArticle, getCategoryList } from '../../api/blog';
 import { useNavigate } from 'react-router-dom';
 
@@ -35,7 +35,17 @@ const BlogCreate = () => {
   const [tags, setTags] = useState([]);
   const [category, setCategory] = useState('');
   const [tagInput, setTagInput] = useState('');
+  const [categoryList, setCategoryList] = useState([])
 
+  useEffect(() => {
+    const getCategory = async () => {
+      let result = await getCategoryList()
+      setCategoryList(result.data)
+
+      // setCategoryList(result)
+    }
+    getCategory()
+  }, [])
 
   const modules = useMemo(() => {
     return {
@@ -99,7 +109,8 @@ const BlogCreate = () => {
       </div>
       <div className='category'>
         <label>카테고리를 선택하세요</label>
-        <TagList onClick={(cate) => { setCategory(cate) }} />
+
+        <CategoryList categoryList={categoryList} onClick={(cate) => { setCategory(cate) }} />
       </div>
       <div className="tag">
         <ul className="tag_list">

@@ -1,30 +1,8 @@
 import { getCategoryList } from '../../../api/blog'
 import React, { useState, useEffect } from 'react'
 
-const TagList = ({ initialTags, onClick }) => {
-    // need to fix
+const CategoryList = ({ categoryList, onClick }) => {
 
-
-
-
-
-
-
-
-
-
-
-    const [categoryList, setCategoryList] = useState([])
-
-    useEffect(() => {
-        const getCategory = async () => {
-            let result = await getCategoryList()
-            setCategoryList(result.data)
-
-            // setCategoryList(result)
-        }
-        getCategory()
-    }, [])
     const [selectedTag, setSelectedTag] = useState(null);
 
     // 태그 선택/해제 함수
@@ -49,4 +27,4 @@ const TagList = ({ initialTags, onClick }) => {
     )
 }
 
-export default TagList
+export default CategoryList

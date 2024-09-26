@@ -7,7 +7,7 @@ import { getBlogList } from '../../api/blog';
 
 const NewArticle = () => {
     const [postList, setPostList] = useState([])
-    console.log(postList)
+
     useEffect(() => {
         const getBlog = async () => {
             let result = await getBlogList({ orderType: 'desc' })
