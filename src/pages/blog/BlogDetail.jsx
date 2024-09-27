@@ -2,6 +2,8 @@ import { formatDate } from '../../util/date'
 import { getBlogDetail } from '../../api/blog'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+
 
 const BlogDetail = () => {
   const [detail, setDetail] = useState([])
@@ -43,7 +45,9 @@ const BlogDetail = () => {
         {detail.blogPostCon}
       </div>
       <div className="button_wrap">
-        <button className="btn">목록</button>
+          <Link to="/" className="btn">
+              <button className="btn">목록</button>
+          </Link>
       </div>
 
 
