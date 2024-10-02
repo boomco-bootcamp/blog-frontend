@@ -1,18 +1,23 @@
 import { formatDate } from '../../util/date'
-import {getBlogDetail, postLikedEdit} from '../../api/blog'
+import { getBlogDetail, postComment, postLikedEdit, deleteComment } from '../../api/blog'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useUser } from '../../context/UserContext'
 
 const BlogDetail = () => {
-  const [detail, setDetail] = useState([])
+  const [detail, setDetail] = useState({})
   const [isLiked, setIsLiked] = useState(false)
+  const { user } = useUser();
   const { userId, id } = useParams();
+  const [commentContent, setCommentContent] = useState();
+
+
+  const getBlog = async () => {
+    let result = await getBlogDetail(id)
+    setDetail(result.data)
+  }
 
   useEffect(() => {
-    const getBlog = async () => {
-      let result = await getBlogDetail(id)
-      setDetail(result.data)
-    }
     getBlog()
   }, [])
 
@@ -29,10 +34,35 @@ const BlogDetail = () => {
     try {
       await postLikedEdit(id);
     } catch (error) {
-      console.error(error.response.data);
+      console.error(error);
     }
-
   };
+
+  const handleAddComment = async () => {
+    try {
+      await postComment({
+        blogPostId: detail?.blogPostId,
+        blogCommentCon: commentContent,
+      })
+      alert('댓글을 작성했습니다.')
+      getBlog()
+      setCommentContent("")
+    }
+    catch (err) {
+      console.error(err)
+    }
+  }
+
+  const handleDeleteComment = async (blogCommentId) => {
+    try {
+      await deleteComment(blogCommentId)
+      alert('댓글을 삭제했습니다.')
+      getBlog()
+    }
+    catch (err) {
+      console.error(err)
+    }
+  }
 
   return (
     <div className="blog_detail_wrap">
@@ -71,14 +101,20 @@ const BlogDetail = () => {
           <div className="reply_top">댓글 2</div>
           <div className="reply_form">
             <div className="textarea_button_wrap">
-              <textarea className="textarea" placeholder="댓글을 등록해보세요"></textarea>
-              <button className="button">댓글등록</button>
+              <textarea className="textarea" placeholder="댓글을 등록해보세요"
+                onChange={(e) => setCommentContent(e.target.value)}
+              >{commentContent}</textarea>
+              <button className="button" onClick={handleAddComment}>댓글등록</button>
             </div>
           </div>
         </div>
         <div className="reply_list">
           {detail.commentList && detail.commentList.map((com) => (
-            <div className="reply_item"><p className="writer">{com.rgsnUserNm ? com.rgsnUserNm : com.rgsmUserId}</p><p className="date">{formatDate(com.rgsnTs)}</p>
+            <div className="reply_item">
+              <p className="writer">{com.rgsnUserNm ? com.rgsnUserNm : com.rgsmUserId}
+                {com.amnnUserId === user.userId && <button onClick={() => handleDeleteComment(com.blogPostCommentId)}>X</button>}
+              </p>
+              <p className="date">{formatDate(com.rgsnTs)}</p>
               <div className="content">{com.blogCommentCon}</div>
               <div className="reply_form">
                 <div className="button_wrap">

@@ -67,3 +67,13 @@ export const postKakaoLogin = async (code) => {
         }
     );
 };
+
+// 카카오 로그아웃
+export const postKakaoLogout = async (code) => {
+    return await Axios.post(
+        `/api/user/logout/kakao`,
+        {
+            code
+        }
+    );
+};

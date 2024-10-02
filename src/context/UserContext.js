@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const initialUserState = {
     name: null,
@@ -25,7 +24,6 @@ export const UserProvider = ({ children }) => {
 
 
     const login = (userInfo) => {
-        console.log('userInfo', userInfo)
         const updatedUser = { ...userInfo, loginStatus: true };
         setUser((prevState) => ({
             ...prevState,
@@ -36,6 +34,19 @@ export const UserProvider = ({ children }) => {
     };
 
     const logout = () => {
+        if (localStorage.getItem('social') === 'kakao') {
+
+            const Rest_api_key = process.env.REACT_APP_KAKAO_API; // REST API KEY
+            const redirect_uri = `${process.env.REACT_APP_FRONT_URL}/kakao/oauth`; // Redirect URI
+            const encodedRedirectUri = encodeURIComponent(redirect_uri); // 인코딩된 URI
+            // OAuth 요청 URL
+            const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${encodedRedirectUri}&response_type=code`;
+            if (!Rest_api_key) {
+                console.error("Kakao API Key is missing!");
+                return;
+            }
+            window.location.href = kakaoURL;
+        }
         setUser(initialUserState);
         localStorage.removeItem('authToken');
         localStorage.removeItem('userInfo');
