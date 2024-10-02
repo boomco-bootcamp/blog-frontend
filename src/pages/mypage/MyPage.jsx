@@ -30,6 +30,9 @@ const MyPage = () => {
       const resCategory = await getCategoryList()
       console.log(resCategory.data)
       setCategories(resCategory.data)
+      const userInfo = await getUserInfo()
+      console.log(userInfo)
+      // setFormData()
       // let result = await getBlogDetail(id)
       // setDetail(result.data)
     }
