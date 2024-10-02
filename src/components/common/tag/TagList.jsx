@@ -1,7 +1,7 @@
 import { getCategoryList } from '../../../api/blog'
 import React, { useState, useEffect } from 'react'
 
-const CategoryList = ({ categoryList, onClick }) => {
+const TagList = ({ list, onClick }) => {
 
     const [selectedTag, setSelectedTag] = useState(null);
 
@@ -13,7 +13,7 @@ const CategoryList = ({ categoryList, onClick }) => {
     return (
         <div className="tag-list-container">
             <div className="tag-list">
-                {categoryList.map((tag) => (
+                {list.map((tag) => (
                     <button
                         key={tag.blogPostCatId}
                         onClick={() => { toggleTag(tag); onClick && onClick(tag.blogPostCatId) }}
@@ -27,4 +27,4 @@ const CategoryList = ({ categoryList, onClick }) => {
     )
 }
 
-export default CategoryList
+export default TagList

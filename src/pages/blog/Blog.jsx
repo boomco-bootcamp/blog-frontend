@@ -59,7 +59,7 @@ const Blog = () => {
                                 >태그 별 게시글</span>/<span onClick={handleClickTab('category')}
                                     style={{ color: tab === 'tag' ? 'gray' : "" }}
                                 >카테고리 별 게시글</span></h3>
-                                {tab === 'tag' ? <TagList /> : <TagList />}
+                                {/* {tab === 'tag' ? <TagList /> : <TagList />} */}
                                 {tab === 'category' ? <CategoryArticle /> :
                                     <TagArticle />}
                             </div>

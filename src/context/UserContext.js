@@ -13,11 +13,16 @@ export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(initialUserState);
 
     useEffect(() => {
-        const storedUser = localStorage.getItem('authToken');
+        const storedUser = JSON.parse(localStorage.getItem('userInfo'));
         if (storedUser) {
-            setUser({ ...user, loginStatus: true });
+            setUser((prevState) => ({
+                ...prevState,
+                ...storedUser,
+                loginStatus: true,
+            }));
         }
     }, []);
+
 
     const login = (userInfo) => {
         const updatedUser = { ...userInfo, loginStatus: true };
@@ -28,6 +33,7 @@ export const UserProvider = ({ children }) => {
     const logout = () => {
         setUser(initialUserState);
         localStorage.removeItem('authToken');
+        localStorage.removeItem('userInfo');
         window.location.href = '/';
     };
 

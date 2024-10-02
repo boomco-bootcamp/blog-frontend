@@ -16,11 +16,13 @@ const Main = () => {
         setTab(value)
     }
 
+    console.log(user)
+
     return (
         <div className='flex-col flex-center'>
             <section className='flex'>
                 <div>
-                    <h3 className='banner_title'>{user.loginStatus ? `${user.name}님, 안녕하세요.` :
+                    <h3 className='banner_title'>{user.loginStatus ? `${user.userId}님, 안녕하세요.` :
                         "나만의 공부 일기장"
                     }</h3>
                     <p className='banner_text'>{bannerText}
