@@ -13,7 +13,7 @@ const LoginForm = () => {
     })
 
     const Rest_api_key = process.env.REACT_APP_KAKAO_API; // REST API KEY
-    const redirect_uri = 'http://localhost:3000/kakao/oauth'; // Redirect URI
+    const redirect_uri = `${process.env.REACT_APP_FRONT_URL}/kakao/oauth`; // Redirect URI
     const encodedRedirectUri = encodeURIComponent(redirect_uri); // 인코딩된 URI
     // OAuth 요청 URL
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${encodedRedirectUri}&response_type=code`;
