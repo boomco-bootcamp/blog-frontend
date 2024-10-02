@@ -65,6 +65,17 @@ export const postLikedArticle = async (postId) => {
     );
 };
 
+// blog 게시글 좋아요 추가 및 삭제
+export const postLikedEdit = async (blogPostId) => {
+    return await Axios.post(
+      `/api/like/post/save`,
+      {
+          blogPostId: blogPostId
+      }
+    );
+};
+
+
 // blog 게시글 댓글 달기
 export const postComment = async (postId, commentId) => {
     return await Axios.post(

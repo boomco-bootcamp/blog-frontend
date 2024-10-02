@@ -1,10 +1,11 @@
 import { formatDate } from '../../util/date'
-import { getBlogDetail } from '../../api/blog'
+import {getBlogDetail, postLikedEdit} from '../../api/blog'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 const BlogDetail = () => {
   const [detail, setDetail] = useState([])
+  const [isLiked, setIsLiked] = useState(false)
   const { userId, id } = useParams();
 
   useEffect(() => {
@@ -15,12 +16,30 @@ const BlogDetail = () => {
     getBlog()
   }, [])
 
+  const handleLikeAdd = async () => {
+    const updatedLikeCount = isLiked
+      ? detail.postLikeCnt - 1
+      : detail.postLikeCnt + 1;
+
+    const updateLike = { ...detail, postLikeCnt: updatedLikeCount };
+
+    setDetail(updateLike);
+    setIsLiked(!isLiked); // 좋아요 상태를 반전
+
+    try {
+      await postLikedEdit(id);
+    } catch (error) {
+      console.error(error.response.data);
+    }
+
+  };
+
   return (
     <div className="blog_detail_wrap">
       <div className="detail_title_wrap">
         <h2 className="detail_title">{detail.blogPostTitle}</h2>
         <div className="like_wrap">
-          <button className="like">♥ {detail.postLikeCnt}</button>
+          <button className="like" onClick={handleLikeAdd}>♥ {detail.postLikeCnt}</button>
         </div>
       </div>
       <div className="detail_info">
