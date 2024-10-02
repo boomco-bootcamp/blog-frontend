@@ -3,6 +3,7 @@ import { postSignIn } from '../../api/auth';
 import { useUser } from '../../context/UserContext';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import Kakao from './Kakao';
 
 const LoginForm = () => {
     const { login } = useUser();
@@ -11,6 +12,20 @@ const LoginForm = () => {
         id: "",
         pw: ""
     })
+
+    const Rest_api_key = process.env.REACT_APP_KAKAO_API; // REST API KEY
+    const redirect_uri = 'http://localhost:3000/kakao/oauth'; // Redirect URI
+    const encodedRedirectUri = encodeURIComponent(redirect_uri); // 인코딩된 URI
+    // OAuth 요청 URL
+    const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${encodedRedirectUri}&response_type=code`;
+
+    const handleKakaoLogin = () => {
+        if (!Rest_api_key) {
+            console.error("Kakao API Key is missing!");
+            return;
+        }
+        window.location.href = kakaoURL;
+    };
 
     const handleChangeInput = (e) => {
         setFormData({
@@ -69,9 +84,11 @@ const LoginForm = () => {
                     </div>
                     <ul className='social_menu'>
                         <li className='social_item'>
-                            <Link to='/' className='link google'>
+                            <Link to='' className='link google'>
                                 <span className="visually-hidden">구글로 로그인</span>
                             </Link>
+
+                            <button className="kakao_button" onClick={handleKakaoLogin} type='button' />
                         </li>
                     </ul>
                 </div>

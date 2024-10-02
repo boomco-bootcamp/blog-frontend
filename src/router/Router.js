@@ -14,6 +14,7 @@ import BlogAdmin from "../pages/blog/BlogAdmin";
 import BlogRecent from "../pages/blog/BlogRecent";
 import BlogRecommend from "../pages/blog/BlogRecommend";
 import PrivateRoute from '../components/layout/PrivateRoute';
+import Kakao from '../pages/login/Kakao';
 
 const Router = () => {
     return (
@@ -37,6 +38,7 @@ const Router = () => {
 
                     <Route path="/blog/:userId/list/recent" element={<BlogRecent />} />
                     <Route path="/blog/:userId/list/recommend" element={<BlogRecommend />} />
+                    <Route path="/kakao/oauth" element={<Kakao />} />
 
 
                     {/* 블로그 글 작성 & 수정 */}

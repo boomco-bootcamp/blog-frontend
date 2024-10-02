@@ -99,6 +99,21 @@
     background-image: url("/src/assets/img/google.png");
 }
 
+.kakao_button {
+    background-image: url("/src/assets/img/kakao.png");
+    width:40px;
+    height:40px;
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:contain;
+    border: 1px solid #2d2d38;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.3);
+}
+
 .visually-hidden {
     position: absolute;
     width: 1px;

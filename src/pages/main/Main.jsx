@@ -16,7 +16,6 @@ const Main = () => {
         setTab(value)
     }
 
-    console.log(user)
 
     return (
         <div className='flex-col flex-center'>
