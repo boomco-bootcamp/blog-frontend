@@ -17,6 +17,7 @@ const MyPage = () => {
     pw_confirm: '',
     name: '',
     email: '',
+    phone: ''
   });
 
   const [categories, setCategories] = useState([]);
@@ -28,11 +29,18 @@ const MyPage = () => {
   useEffect(() => {
     const getMyInfo = async () => {
       const resCategory = await getCategoryList()
-      console.log(resCategory.data)
       setCategories(resCategory.data)
       const userInfo = await getUserInfo()
-      console.log(userInfo)
-      // setFormData()
+
+      setFormData(
+        {
+          ...formData,
+          id: userInfo.data.userId,
+          name: userInfo.data.userNm,
+          email: userInfo.data.userEml,
+          phone: userInfo.data.userTel
+        }
+      )
       // let result = await getBlogDetail(id)
       // setDetail(result.data)
     }
@@ -158,7 +166,7 @@ const MyPage = () => {
                   <h3>계정정보</h3>
                   <div className="input_wrap">
                     <p className="mypage_title">아이디</p>
-                    <p className="mypage_info">ks_kang91</p>
+                    <p className="mypage_info">{formData.id}</p>
                   </div>
                   <div className="input_wrap">
                     <p className="mypage_title">비밀번호</p>
@@ -166,12 +174,16 @@ const MyPage = () => {
                   </div>
                   <div className="input_wrap">
                     <p className="mypage_title">이름</p>
-                    <p className="mypage_info">강기성</p>
+                    <p className="mypage_info">{formData.name}</p>
                   </div>
-                  <div className="input_wrap">
+                  {formData.email && <div className="input_wrap">
                     <p className="mypage_title">이메일</p>
-                    <p className="mypage_info">kskang@email.com</p>
-                  </div>
+                    <p className="mypage_info">{formData.email}</p>
+                  </div>}
+                  {formData.phone && <div className="input_wrap">
+                    <p className="mypage_title">연락처</p>
+                    <p className="mypage_info">{formData.phone}</p>
+                  </div>}
                 </form>
                 <button className="form_edit" onClick={handleEdit}>
                   수정하기
