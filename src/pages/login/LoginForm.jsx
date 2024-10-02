@@ -3,7 +3,6 @@ import { postSignIn } from '../../api/auth';
 import { useUser } from '../../context/UserContext';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import Kakao from './Kakao';
 
 const LoginForm = () => {
     const { login } = useUser();
@@ -45,9 +44,11 @@ const LoginForm = () => {
                 })
 
                 localStorage.setItem('authToken', res.data);
+                const userInfo = await getUserInfo()
                 login({
                     userId: formData.id,
                     userPswd: formData.pw,
+                    userNm: userInfo.data.userNm
                 })
                 window.location.href = '/'
             }

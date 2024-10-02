@@ -1,12 +1,9 @@
 import Axios from "./api";
 
 // user 정보 가져오기
-export const getUserInfo = async (userData) => {
+export const getUserInfo = async () => {
     return await Axios.post(
-        `/api/user/lnfo`,
-        {
-            ...userData
-        }
+        `/api/user/info`,
     );
 };
 
@@ -59,4 +56,14 @@ export const getListByLike = async () => {
     return await (
         await Axios.get(`/blog/list/liked`)
     )
+};
+
+// 카카오 로그인
+export const postKakaoLogin = async (code) => {
+    return await Axios.post(
+        `/api/user/login/kakao`,
+        {
+            code
+        }
+    );
 };

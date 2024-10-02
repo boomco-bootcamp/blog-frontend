@@ -25,8 +25,13 @@ export const UserProvider = ({ children }) => {
 
 
     const login = (userInfo) => {
+        console.log('userInfo', userInfo)
         const updatedUser = { ...userInfo, loginStatus: true };
-        setUser(updatedUser);
+        setUser((prevState) => ({
+            ...prevState,
+            ...updatedUser,
+            loginStatus: true,
+        }));
         localStorage.setItem('userInfo', JSON.stringify(updatedUser));
     };
 
