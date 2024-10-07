@@ -13,6 +13,9 @@ const Header = () => {
             </Link>
             {
                 user.loginStatus ? <ul className='flex'>
+                    <Link to='/blog/post/create'>
+                        글 쓰기
+                    </Link>
                     <Link to='/blog/admin'>
                         블로그 관리
                     </Link>

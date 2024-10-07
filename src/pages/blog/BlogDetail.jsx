@@ -10,11 +10,15 @@ const BlogDetail = () => {
   const { user } = useUser();
   const { userId, id } = useParams();
   const [commentContent, setCommentContent] = useState();
+  const [reCommentContent, setReCommentContent] = useState([]);
 
 
   const getBlog = async () => {
     let result = await getBlogDetail(id)
     setDetail(result.data)
+    setReCommentContent(
+      result.data.commentList.map(ele => "")
+    )
   }
 
   useEffect(() => {
@@ -53,6 +57,22 @@ const BlogDetail = () => {
     }
   }
 
+  const handleReAddComment = async (blogParentCommentId, idx) => {
+    try {
+      await postComment({
+        blogPostId: detail?.blogPostId,
+        blogCommentCon: reCommentContent[idx],
+        blogParentCommentId
+      })
+      alert('답글을 작성했습니다.')
+      getBlog()
+      setReCommentContent("")
+    }
+    catch (err) {
+      console.error(err)
+    }
+  }
+
   const handleDeleteComment = async (blogCommentId) => {
     try {
       await deleteComment(blogCommentId)
@@ -79,7 +99,7 @@ const BlogDetail = () => {
         </div>
       </div>
       <div className="info_sec">
-        <div className="view">✍🏻 {detail.postCommentCnt}</div>
+        <div className="view">✍🏻 {detail.commentList?.length}</div>
       </div>
       <div className="tag_list">
         {
@@ -88,48 +108,59 @@ const BlogDetail = () => {
           ))
         }
       </div>
-      <div className="content_wrap">
-        {detail.blogPostCon}
-      </div>
-      <div className="button_wrap">
-        <button className="btn">목록</button>
-      </div>
+      <div className="content_wrap"
 
+        dangerouslySetInnerHTML={{ __html: detail.blogPostCon }} />
 
       <div className="reply_wrap">
         <div className="reply_form_wrap">
-          <div className="reply_top">댓글 2</div>
+          <div className="reply_top">댓글 {detail.commentList?.length}</div>
           <div className="reply_form">
             <div className="textarea_button_wrap">
               <textarea className="textarea" placeholder="댓글을 등록해보세요"
                 onChange={(e) => setCommentContent(e.target.value)}
-              >{commentContent}</textarea>
+                value={commentContent}
+              />
               <button className="button" onClick={handleAddComment}>댓글등록</button>
             </div>
           </div>
         </div>
         <div className="reply_list">
-          {detail.commentList && detail.commentList.map((com) => (
+          {detail.commentList && detail.commentList.map((com, idx) => (
             <div className="reply_item">
               <p className="writer">{com.rgsnUserNm ? com.rgsnUserNm : com.rgsmUserId}
-                {com.amnnUserId === user.userId && <button onClick={() => handleDeleteComment(com.blogPostCommentId)}>X</button>}
+                {com.amnnUserId === user.userId && com.delYn === 'N' && <button onClick={() => handleDeleteComment(com.blogPostCommentId)}>X</button>}
               </p>
               <p className="date">{formatDate(com.rgsnTs)}</p>
-              <div className="content">{com.blogCommentCon}</div>
+              <div className={com.delYn === 'Y' ? "content_deleted" : "content"}>
+                {
+                  com.delYn === 'N' ?
+                    com.blogCommentCon : "삭제된 댓글입니다."}
+              </div>
               <div className="reply_form">
-                <div className="button_wrap">
-                  <button className="button">댓글달기</button>
-                </div>
-                <div className="textarea_button_wrap"><textarea className="textarea" placeholder="댓글을 등록해보세요"></textarea>
-                  <button className="button">댓글등록</button>
+                <div className="textarea_button_wrap">
+                  <textarea className="textarea" placeholder="답글을 등록해보세요"
+                    onChange={(e) => {
+                      let clone = [...reCommentContent]
+                      clone[idx] = e.target.value
+                      setReCommentContent(clone)
+                    }}
+                    value={reCommentContent[idx]}
+                  />
+                  <button className="button" onClick={() => handleReAddComment(com.blogPostCommentId, idx)}>답글등록</button>
                 </div>
               </div>
               {com.blogChildCommentList.map((recom) => (
                 <div className="re_reply_item">
-                  <div className="top_wrap"><p className="writer">{recom.rgsnUserNm ? recom.rgsnUserNm : recom.rgsmUserId}</p></div>
+                  <div className="top_wrap"><p className="writer">{recom.rgsnUserNm ? recom.rgsnUserNm : recom.rgsmUserId}
+                    {com.amnnUserId === user.userId && recom.delYn === 'N' && <button onClick={() => handleDeleteComment(com.blogPostCommentId)}>X</button>}
+                  </p></div>
                   <p className="date">{formatDate(recom.rgsnTs)}</p>
-                  <div className="content">{recom.blogCommentCon}</div>
+                  <div className="content">{
+                    recom.delYn === 'N' ?
+                      recom.blogCommentCon : "삭제된 댓글입니다."}</div>
                 </div>
+
               ))}
             </div>
           ))
@@ -146,7 +177,7 @@ const BlogDetail = () => {
       </div>
 
 
-    </div>
+    </div >
   )
 }
 

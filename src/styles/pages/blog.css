@@ -508,6 +508,13 @@
 .blog_detail_wrap .reply_wrap .content {
   margin: 12px 0;
 }
+
+.blog_detail_wrap .reply_wrap .content_deleted {
+  margin: 12px 0;
+  color:gray;
+}
+
+
 .blog_detail_wrap .reply_wrap .button_wrap {
   margin-bottom: 10px;
 }
