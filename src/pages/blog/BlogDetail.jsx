@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useUser } from '../../context/UserContext'
 
+
 const BlogDetail = () => {
   const navigate = useNavigate();
   const [detail, setDetail] = useState({})
@@ -126,7 +127,6 @@ const BlogDetail = () => {
         }
       </div>
       <div className="content_wrap"
-
         dangerouslySetInnerHTML={{ __html: detail.blogPostCon }} />
 
       <div className="reply_wrap">
