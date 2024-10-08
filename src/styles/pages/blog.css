@@ -339,7 +339,7 @@
 
 .blog_admin_wrap .apply_wrap {
   display: grid;
-  grid-template-columns: repeat(2,1fr);
+  grid-template-columns: repeat(5,1fr);
   grid-gap: 24px;
 }
 .blog_admin_wrap .apply_item {

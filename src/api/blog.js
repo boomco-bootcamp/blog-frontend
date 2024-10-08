@@ -112,7 +112,16 @@ export const updateBlogInfo = async (data) => {
     );
 };
 
+// 방문자수
+export const getViewCount = async (blogPostId) => {
+    return await Axios.get(`/api/post/view/list?blogPostId=${blogPostId}`)
+};
 
+
+// 좋아요
+export const getLikeCount = async (blogPostId) => {
+    return await Axios.get(`/api/post/like/list?blogPostId=${blogPostId}`)
+};
 
 
 export const getCategoryList = async () => {

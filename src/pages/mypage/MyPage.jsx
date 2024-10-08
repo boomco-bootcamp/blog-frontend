@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { DeleteIcon, PlusIcon } from "../../assets/svg/Icon";
 import { useUser } from '../../context/UserContext';
-import { deleteMyTag, getListByCategory, getListByLike, getListByTag, getUserInfo, postMyTag, updateUserInfo } from '../../api/user';
+import { deleteMyTag, getListByCategory, getListByLike, getListByTag, getUserInfo, postMyCategory, postMyTag, updateUserInfo } from '../../api/user';
 import { getCategoryList } from '../../api/blog';
 import { formatDate } from '../../util/date';
 import { Link } from 'react-router-dom';
@@ -23,9 +23,10 @@ const MyPage = () => {
   });
 
   const [categories, setCategories] = useState([]);
+  const [myCategories, setMyCategories] = useState([]);
+
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState('');
-  const [chipActive, setChipActive] = useState([])
   const [likedArticles, setLikedArticles] = useState([])
 
 
@@ -53,29 +54,26 @@ const MyPage = () => {
   }
 
   const getCategory = async () => {
+    let result = await getCategoryList()
+    setCategories(result.data)
+  }
+
+  const getMyCategory = async () => {
     const resCategory = await getListByCategory()
-    setCategories(resCategory.data)
+    setMyCategories(resCategory.data.map(ele => ele.blogPostCatId))
   }
 
 
   useEffect(() => {
     getMyInfo()
     getTag()
-    // getCategory()
+    getCategory()
+    getMyCategory()
     getLikedArticles()
   }, [])
 
 
 
-
-
-  const handleChipClick = (idx) => {
-    if (chipActive.includes(idx)) {
-      setChipActive(chipActive.filter((chipIdx) => chipIdx !== idx));
-    } else {
-      setChipActive([...chipActive, idx]);
-    }
-  };
 
   const handleEdit = () => {
     setEdit(!edit);
@@ -116,26 +114,16 @@ const MyPage = () => {
     setActiveTab(index);
   };
 
+  const handleClickCategory = async (id) => {
+    try {
+      await postMyCategory(id)
+      getMyCategory()
+    }
+    catch (err) {
+      console.log(err)
+    }
 
-  // 카테고리
-  // const addCategory = () => {
-  //   if (inputValue.trim() && !categories.includes(inputValue)) {
-  //     setCategories([...categories, inputValue]);
-  //     setInputValue('');
-  //   }
-  // };
-
-  // const handleKeyPress = (e) => {
-  //   if (e.key === 'Enter') {
-  //     addCategory();
-  //   }
-  // };
-
-  // const removeCategory = (index) => {
-  //   const updatedCategories = categories.filter((_, i) => i !== index);
-  //   setCategories(updatedCategories);
-  // };
-
+  }
 
   // 태그
   const addTag = async () => {
@@ -155,8 +143,6 @@ const MyPage = () => {
   const removeTag = async (blogLikeTagId) => {
     await deleteMyTag(blogLikeTagId)
     await getTag()
-
-
   };
 
   return (
@@ -313,21 +299,17 @@ const MyPage = () => {
         {activeTab === 1 && (
           <div className="category_wrap">
             <h3>관심 카테고리 설정</h3>
-
-
             <div className="category_list">
-
-              <button className="category_btn">저장</button>
-
-
               <div className="category_item" >
 
                 <div className="chip_list">
                   {categories.map((item, idx) => (
                     <div
-                      className={`chip_item ${chipActive.includes(`${item.blogPostCatId} + ${idx}`) ? 'active' : ''}`}
+                      className={`chip_item ${myCategories.includes(item.blogPostCatId) ? 'active' : ''}`}
                       key={item.blogPostCatId}
-                      onClick={() => handleChipClick(`${item.blogPostCatId} + ${idx}`)}
+                      onClick={() =>
+                        handleClickCategory(item.blogPostCatId)
+                      }
                     >
                       {item.blogPostCatNm}
                     </div>

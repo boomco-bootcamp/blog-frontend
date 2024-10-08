@@ -24,11 +24,11 @@ export const getListByCategory = async () => {
 };
 
 // 관심 카테고리 수정
-export const postMyCategory = async (data) => {
+export const postMyCategory = async (blogPostCatId) => {
     return await Axios.post(
-        `/blog/my/category`,
+        `/api/my/category/save`,
         {
-            data
+            blogPostCatId
         }
     );
 };
@@ -50,7 +50,7 @@ export const postMyTag = async (blogLikeTagCon) => {
 };
 
 
-// 관심 태그 추가
+// 관심 태그 삭제
 export const deleteMyTag = async (blogLikeTagId) => {
     return await Axios.post(
         `/api/my/tag/delete`,
@@ -59,6 +59,12 @@ export const deleteMyTag = async (blogLikeTagId) => {
         }
     );
 };
+
+export const getCurrentComments = async () => {
+    return await Axios.get(`/api/my/post/comment/list`)
+
+};
+
 
 // 좋아요 리스트
 export const getListByLike = async () => {

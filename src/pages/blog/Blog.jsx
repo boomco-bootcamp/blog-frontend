@@ -2,14 +2,18 @@ import banner from '../../assets/img/til_banner.png';
 import React, { useEffect, useState } from 'react'
 import RecommendArticle from '../../components/articles/RecommendArticle';
 import { Link, useParams } from 'react-router-dom';
-import { getMyBlogList } from '../../api/blog';
+import { getBlogInfo, getMyBlogList } from '../../api/blog';
 import sampleImg from '../../assets/sample/img/bg_img01.png'
 import { formatDate } from '../../util/date'
 import Pagination from '../../components/common/Pagination';
+import { useUser } from '../../context/UserContext';
 
 const Blog = () => {
+    const { user } = useUser();
     const [postList, setPostList] = useState([])
-
+    const [bannerImage, setBannerImage] = useState("");
+    const [text, setText] = useState("")
+    const { userId } = useParams()
     const [paging, setPaging] = useState({
         endPage: "",
         next: "",
@@ -21,11 +25,21 @@ const Blog = () => {
         totalPage: ""
     })
 
+    useEffect(() => {
+        const getMyData = async () => {
+            const res = await getBlogInfo(user.userId ?? userId);
+            setText(res.data.blogCon)
+
+            setBannerImage(`${process.env.REACT_APP_BASE_URL}/api/file/download/${res.data.blogBannerFileId}`)
+            // const res = await getMyBlogList(JSON.parse(localStorage.getItem('userInfo')).userId)
+            // setBlogData(res.data.list)
+        }
+        getMyData()
+    }, [])
+
     const handlePaging = (current) => {
         setPaging({ ...paging, page: current.page })
     }
-
-    const { userId } = useParams();
 
     useEffect(() => {
         const getBlog = async () => {
@@ -38,7 +52,7 @@ const Blog = () => {
     return (
         <div className="blog_admin_wrap blog_mypage">
             <div className="img_banner">
-                <img src={banner} alt="banner" />
+                <img src={bannerImage} alt="banner" />
             </div>
             <div className="section_wrap">
                 <section className='flex'>
@@ -46,7 +60,7 @@ const Blog = () => {
                         <h3 className='banner_title'>{userId}님의 블로그</h3>
                         <div className="text_wrap">
                             <div className='banner_text'>
-                                <div className="rrr">블로그 소개글</div>
+                                <div className="rrr">{text}</div>
                                 <div className="rrr">오늘 방문자 : 10 / 전체 방문자 : 200</div>
                             </div>
                         </div>

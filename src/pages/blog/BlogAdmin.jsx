@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { getBlogInfo, getMyBlogList, updateBlogInfo } from '../../api/blog';
 import { useUser } from '../../context/UserContext';
 import { getBannerImg, updateBannerImg } from '../../api/admin';
+import { getCurrentComments } from '../../api/user';
 
 export const AdminData =
 {
@@ -35,17 +36,29 @@ const BlogAdmin = () => {
   const [bannerImage, setBannerImage] = useState("");
   const [text, setText] = useState("")
   const { userId } = useParams()
-  // const [blogData, setBlogData] = useState()
+  const [currentComments, setCurrentComments] = useState([])
+
+
+
+
+  const getComments = async () => {
+    const res = await getCurrentComments();
+    setCurrentComments(res.data)
+    // const res = await getMyBlogList(JSON.parse(localStorage.getItem('userInfo')).userId)
+    // setBlogData(res.data.list)
+  }
+
+  const getMyData = async () => {
+    const res = await getBlogInfo(user.userId ?? userId);
+    setText(res.data.blogCon)
+
+    setBannerImage(`${process.env.REACT_APP_BASE_URL}/api/file/download/${res.data.blogBannerFileId}`)
+    // const res = await getMyBlogList(JSON.parse(localStorage.getItem('userInfo')).userId)
+    // setBlogData(res.data.list)
+  }
 
   useEffect(() => {
-    const getMyData = async () => {
-      const res = await getBlogInfo(user.userId ?? userId);
-      setText(res.data.blogCon)
-
-      setBannerImage(`${process.env.REACT_APP_BASE_URL}/api/file/download/${res.data.blogBannerFileId}`)
-      // const res = await getMyBlogList(JSON.parse(localStorage.getItem('userInfo')).userId)
-      // setBlogData(res.data.list)
-    }
+    getComments()
     getMyData()
   }, [])
 
@@ -210,10 +223,10 @@ const BlogAdmin = () => {
             <div className="content_item">
               <div className="apply_wrap">
                 {
-                  AdminData.reply.map((item, idx) => (
+                  currentComments.map((item, idx) => (
                     <div className="apply_item" key={idx}>
-                      <div className="apply_title">{item.title}</div>
-                      <div className="apply_user">{item.userId}</div>
+                      <div className="apply_title">{item.blogCommentCon}</div>
+                      <div className="apply_user">{item.amnnUserNm}</div>
                     </div>
                   )
                   )
