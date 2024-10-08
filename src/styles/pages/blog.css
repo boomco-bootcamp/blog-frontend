@@ -144,7 +144,6 @@
   justify-content:start;
   align-items:start;
   gap:4px;
-  width:400px;
   color:gray;
 }
 
@@ -257,7 +256,7 @@
 .blog_admin_wrap .text_wrap {
   padding-bottom: 20px;
   display: flex;
-  flex-direction: column;
+  gap:10px;
 }
 .blog_admin_wrap .text {
   font-size: 20px;
@@ -266,7 +265,7 @@
   line-height: 30px;
 }
 .blog_admin_wrap .text_wrap button {
-  width: 100px;
+  width: 120px;
   height: 40px;
   background: #F39C12;
   color: white;
@@ -389,16 +388,17 @@
 }
 
 .blog_detail_wrap .like_wrap {
-  min-width: 80px;
-  height: 40px;
-  border: 1px solid #F39C12;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #F39C12;
-  border-radius: 4px;
+  gap:10px;
 }
 .blog_detail_wrap .like_wrap .like {
+  border: 1px solid #F39C12;
+  border-radius: 4px;
+  min-width: 80px;
+  height: 40px;
+  background: #F39C12;
   color: white;
 }
 

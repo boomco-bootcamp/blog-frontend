@@ -84,10 +84,6 @@ const LoginForm = () => {
                     </div>
                     <ul className='social_menu'>
                         <li className='social_item'>
-                            <Link to='' className='link google'>
-                                <span className="visually-hidden">구글로 로그인</span>
-                            </Link>
-
                             <button className="kakao_button" onClick={handleKakaoLogin} type='button' />
                         </li>
                     </ul>

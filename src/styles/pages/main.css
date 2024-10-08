@@ -37,6 +37,11 @@
     cursor: pointer;
 }
 
+.select_wrapper {
+    width:440px;
+    margin: 0 auto;
+}
+
 .article_wrapper {
     margin-top:40px;
 }

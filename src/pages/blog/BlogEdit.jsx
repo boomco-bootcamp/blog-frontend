@@ -1,8 +1,11 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import { DeleteIcon } from "../../assets/svg/Icon";
+import { createArticle, getBlogDetail, getCategoryList } from '../../api/blog';
+import { useNavigate, useParams } from 'react-router-dom';
+import CategoryList from '../../components/common/tag/CategoryList';
 
 const formats = [
   'font',
@@ -24,13 +27,37 @@ const formats = [
 ];
 
 const BlogEdit = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
 
-
+  const [title, setTitle] = useState('');
   const [values, setValues] = useState();
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState('');
+  const [category, setCategory] = useState('');
+  const [categoryList, setCategoryList] = useState([])
 
+  const getCategory = async () => {
+    let result = await getCategoryList()
+    setCategoryList(result.data)
 
+    // setCategoryList(result)
+  }
+
+  const getBlog = async () => {
+    let result = await getBlogDetail(id)
+    setTitle(result.data.blogPostTitle)
+    setTags(
+      result.data.tagList.map(ele => ele.blogTagCon)
+    )
+    setValues(result.data.blogPostCon)
+    // setDetail(result.data)
+  }
+
+  useEffect(() => {
+    getBlog()
+    getCategory()
+  }, [])
 
 
   const modules = useMemo(() => {
@@ -68,11 +95,36 @@ const BlogEdit = () => {
     setTags(tags.filter(t => t !== tag));
   };
 
+  const handleSubmit = async () => {
+    let result = {
+      blogPostTitle: title,
+      blogPostCon: values,
+      blogPostCatId: category,
+      tagList: tags.map(ele => ({
+        blogTagCon: ele
+      }))
+    }
+
+    try {
+      await createArticle(result)
+      navigate('/blog/list'); // 임시로 navigate 위치 설정
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
 
   return (
     <div className='blog_create_wrap'>
       <div className="title">
-        <input type="text" placeholder={"제목을 입력하세요"} />
+        <input type="text" placeholder={"제목을 입력하세요"}
+          onChange={(e) => setTitle(e.target.value)} value={title}
+        />
+      </div>
+      <div className='category'>
+        <label>카테고리를 선택하세요</label>
+
+        <CategoryList categoryList={categoryList} onClick={(cate) => { setCategory(cate) }} />
       </div>
       <div className="tag">
         <ul className="tag_list">
@@ -100,11 +152,11 @@ const BlogEdit = () => {
         modules={modules}
         formats={formats}
         onChange={setValues}
+        value={values}
       />
       <div className='btn_wrap'>
-        <button className='red'>게시글 삭제</button>
-        <button className='red'>수정취소</button>
-        <button className="default">수정완료</button>
+        <button className='red' onClick={() => navigate(-1)}>수정취소</button>
+        <button className="default" onClick={handleSubmit}>수정완료</button>
       </div>
     </div>
   )

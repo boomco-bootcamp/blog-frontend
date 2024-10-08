@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { DeleteIcon, PlusIcon } from "../../assets/svg/Icon";
 import { useUser } from '../../context/UserContext';
-import { getUserInfo } from '../../api/user';
+import { deleteMyTag, getListByCategory, getListByLike, getListByTag, getUserInfo, postMyTag, updateUserInfo } from '../../api/user';
 import { getCategoryList } from '../../api/blog';
+import { formatDate } from '../../util/date';
+import { Link } from 'react-router-dom';
 
 
 
@@ -21,45 +23,51 @@ const MyPage = () => {
   });
 
   const [categories, setCategories] = useState([]);
-  const [inputValue, setInputValue] = useState('');
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState('');
   const [chipActive, setChipActive] = useState([])
+  const [likedArticles, setLikedArticles] = useState([])
+
+
+  const getMyInfo = async () => {
+    const userInfo = await getUserInfo()
+    setFormData(
+      {
+        ...formData,
+        id: userInfo.data.userId,
+        name: userInfo.data.userNm,
+        email: userInfo.data.userEml,
+        phone: userInfo.data.userTel
+      }
+    )
+  }
+
+  const getTag = async () => {
+    const res = await getListByTag();
+    setTags(res.data)
+  }
+
+  const getLikedArticles = async () => {
+    const res = await getListByLike();
+    setLikedArticles(res.data.list)
+  }
+
+  const getCategory = async () => {
+    const resCategory = await getListByCategory()
+    setCategories(resCategory.data)
+  }
+
 
   useEffect(() => {
-    const getMyInfo = async () => {
-      const resCategory = await getCategoryList()
-      setCategories(resCategory.data)
-      const userInfo = await getUserInfo()
-
-      setFormData(
-        {
-          ...formData,
-          id: userInfo.data.userId,
-          name: userInfo.data.userNm,
-          email: userInfo.data.userEml,
-          phone: userInfo.data.userTel
-        }
-      )
-      // let result = await getBlogDetail(id)
-      // setDetail(result.data)
-    }
     getMyInfo()
+    getTag()
+    // getCategory()
+    getLikedArticles()
   }, [])
 
-  useEffect(() => {
 
-    // const getBlog = async () => {
 
-    //   const info = await getUserInfo({
-    //     userId: JSON.parse(localStorage.getItem('userInfo')).userId,
-    //     userPswd: JSON.parse(localStorage.getItem('userInfo')).userPswd,
-    //   })
 
-    //   console.log(info)
-    // }
-    // getBlog()
-  }, [])
 
   const handleChipClick = (idx) => {
     if (chipActive.includes(idx)) {
@@ -72,6 +80,29 @@ const MyPage = () => {
   const handleEdit = () => {
     setEdit(!edit);
   };
+
+  const handleSave = async () => {
+    if (formData.pw !== formData.pw_confirm) {
+      alert('비밀번호를 확인해주세요.')
+      return
+    }
+    try {
+      await updateUserInfo({
+        "userId": formData.id,
+        "userPswd": formData.pw,
+        "userNm": formData.name,
+        "userEml": formData.email,
+        "userTel": formData.phone,
+        "sysAdmYn": "N"
+      })
+      alert('변경 되었습니다.')
+      await getMyInfo()
+      setEdit(!edit);
+    }
+    catch (err) {
+      alert(err)
+    }
+  }
 
   const handleChangeInput = (e) => {
     setFormData({
@@ -107,9 +138,10 @@ const MyPage = () => {
 
 
   // 태그
-  const addTag = () => {
+  const addTag = async () => {
     if (tagInput.trim() && !tags.includes(tagInput)) {
-      setTags([...tags, tagInput]);
+      await postMyTag(tagInput)
+      await getTag()
       setTagInput('');
     }
   };
@@ -120,13 +152,12 @@ const MyPage = () => {
     }
   };
 
-  const removeTag = (index) => {
-    const updatedTags = tags.filter((_, i) => i !== index);
-    setTags(updatedTags);
-  };
+  const removeTag = async (blogLikeTagId) => {
+    await deleteMyTag(blogLikeTagId)
+    await getTag()
 
-  const BlogCategoryData = []
-  const BlogData = []
+
+  };
 
   return (
     <div className="mypage_wrap">
@@ -272,7 +303,7 @@ const MyPage = () => {
                   <button className="form_edit" onClick={handleEdit}>
                     수정취소
                   </button>
-                  <button className="form_edit">수정완료</button>
+                  <button className="form_edit" onClick={handleSave}>수정완료</button>
                 </div>
               </>
             )}
@@ -313,8 +344,6 @@ const MyPage = () => {
           <div className="tag_wrap">
             <h3>관심 태그 설정</h3>
             <div className="edit_wrap">
-              <button className="tag_btn">저장</button>
-
               <div className="chip_input_wrap">
                 <input
                   type="text"
@@ -328,8 +357,8 @@ const MyPage = () => {
               <div className="chip_list">
                 {tags.map((tag, index) => (
                   <div className="chip_item" key={index}>
-                    {tag}
-                    <button onClick={() => removeTag(index)}><DeleteIcon /></button>
+                    {tag.blogLikeTagCon}
+                    <button onClick={() => removeTag(tag.blogLikeTagId)}><DeleteIcon /></button>
                   </div>
                 ))}
               </div>
@@ -343,28 +372,28 @@ const MyPage = () => {
             <div className="like_list">
               <ul className="blog_list">
                 {
-                  BlogData.map((item, idx) => (
-                    <li className="blog_item" key={idx}>
-                      <a href="#" className="blog_item_inner">
+                  likedArticles.map((item) => (
+                    <li className="blog_item" key={item.blogPostId}>
+                      <Link to={`/blog/${item.amnnUserId}/${item.blogPostId}`} className="blog_item_inner">
                         <div className="img_wrap">
-                          <img src={item.image} alt="image" />
+                          {/* <img src={item.image} alt="image" /> */}
                         </div>
                         <div className="content_wrap">
-                          <p className="title">{item.blog_post_title}</p>
-                          <p className="content_text">{item.blog_post_con}</p>
-                          <p className="date">{item.rgsn_ts}</p>
+                          <p className="title">{item.blogPostTitle}</p>
+                          <p className="content_text">{item.blogPostCon}</p>
+                          <p className="date">{formatDate(item.rgsnTs)}</p>
                         </div>
                         <div className="text_wrap">
-                          <div className="like">♥ {item.like}</div>
+                          <div className="like">♥ {item.postLikeCnt}</div>
                         </div>
                         <div className="tag_list">
                           {
-                            item.blog_tag_con.map((tag, idx) => (
-                              <div className="tag" key={idx}>{tag}</div>
+                            item.tagList.map((tag, idx) => (
+                              <div className="tag" key={idx}>{tag.blogTagCon}</div>
                             ))
                           }
                         </div>
-                      </a>
+                      </Link>
                     </li>
                   ))
                 }

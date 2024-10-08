@@ -1,10 +1,11 @@
 import { formatDate } from '../../util/date'
-import { getBlogDetail, postComment, postLikedEdit, deleteComment } from '../../api/blog'
+import { getBlogDetail, postComment, postLikedEdit, deleteComment, deleteArticle } from '../../api/blog'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useUser } from '../../context/UserContext'
 
 const BlogDetail = () => {
+  const navigate = useNavigate();
   const [detail, setDetail] = useState({})
   const [isLiked, setIsLiked] = useState(false)
   const { user } = useUser();
@@ -16,9 +17,11 @@ const BlogDetail = () => {
   const getBlog = async () => {
     let result = await getBlogDetail(id)
     setDetail(result.data)
+    let comments = result.data.commentList ? result.data.commentList.map(ele => "") : []
     setReCommentContent(
-      result.data.commentList.map(ele => "")
+      comments
     )
+    setIsLiked(result.data.likeYn === 'Y')
   }
 
   useEffect(() => {
@@ -84,17 +87,31 @@ const BlogDetail = () => {
     }
   }
 
+  const handleDeletePost = async () => {
+    await deleteArticle(detail.blogPostId)
+    alert('삭제 되었습니다.')
+    navigate(-1)
+  }
+
   return (
     <div className="blog_detail_wrap">
       <div className="detail_title_wrap">
         <h2 className="detail_title">{detail.blogPostTitle}</h2>
         <div className="like_wrap">
+          {detail.rgsnUserId === user.userId &&
+            <>
+              <Link to={`/blog/post/${detail.blogPostId}/edit`}><button className="like">수정</button></Link>
+              <button className="like" onClick={handleDeletePost}>삭제</button>
+            </>
+          }
           <button className="like" onClick={handleLikeAdd}>♥ {detail.postLikeCnt}</button>
         </div>
       </div>
       <div className="detail_info">
         <div className="info_left">
-          <p className="writer">{detail.blogNm ?? ""}</p>
+          <Link to={`/blog/${detail.userId}`}>
+            <p className="writer">{detail.blogNm ?? ""}</p>
+          </Link>
           <div className="date">{formatDate(detail.rgsnTs)}</div>
         </div>
       </div>
@@ -153,7 +170,7 @@ const BlogDetail = () => {
               {com.blogChildCommentList.map((recom) => (
                 <div className="re_reply_item">
                   <div className="top_wrap"><p className="writer">{recom.rgsnUserNm ? recom.rgsnUserNm : recom.rgsmUserId}
-                    {com.amnnUserId === user.userId && recom.delYn === 'N' && <button onClick={() => handleDeleteComment(com.blogPostCommentId)}>X</button>}
+                    {com.amnnUserId === user.userId && recom.delYn === 'N' && <button onClick={() => handleDeleteComment(recom.blogPostCommentId)}>X</button>}
                   </p></div>
                   <p className="date">{formatDate(recom.rgsnTs)}</p>
                   <div className="content">{

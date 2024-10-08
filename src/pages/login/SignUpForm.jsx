@@ -78,11 +78,11 @@ const SignUpForm = () => {
                         <span className='tit_name'>소셜 회원가입</span>
                     </div>
                     <ul className='social_menu'>
-                        <li className='social_item'>
+                        {/* <li className='social_item'>
                             <Link to='/' className='link google'>
                                 <span className="visually-hidden">구글로 회원가입</span>
                             </Link>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
             </form>

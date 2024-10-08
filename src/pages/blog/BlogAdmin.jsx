@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import banner from '../../assets/img/til_banner.png';
 import { useEffect, useRef, useState } from "react";
-import { getMyBlogList } from '../../api/blog';
+import { getBlogInfo, getMyBlogList, updateBlogInfo } from '../../api/blog';
+import { useUser } from '../../context/UserContext';
+import { getBannerImg, updateBannerImg } from '../../api/admin';
 
 export const AdminData =
 {
@@ -27,16 +29,24 @@ export const AdminData =
 
 
 const BlogAdmin = () => {
+  const { user } = useUser();
   const [activeTab, setActiveTab] = useState(0);
   const [edit, setEdit] = useState(false);
-  const [bannerImage, setBannerImage] = useState(banner);
-  const [text, setText] = useState(AdminData.introduce)
+  const [bannerImage, setBannerImage] = useState("");
+  const [text, setText] = useState("")
+  const { userId } = useParams()
+  // const [blogData, setBlogData] = useState()
 
   useEffect(() => {
-    const getMyList = async () => {
-      await getMyBlogList(JSON.parse(localStorage.getItem('userInfo')).userId)
+    const getMyData = async () => {
+      const res = await getBlogInfo(user.userId ?? userId);
+      setText(res.data.blogCon)
+
+      setBannerImage(`${process.env.REACT_APP_BASE_URL}/api/file/download/${res.data.blogBannerFileId}`)
+      // const res = await getMyBlogList(JSON.parse(localStorage.getItem('userInfo')).userId)
+      // setBlogData(res.data.list)
     }
-    getMyList()
+    getMyData()
   }, [])
 
   const fileInputRef = useRef(null);
@@ -45,7 +55,7 @@ const BlogAdmin = () => {
     setEdit(true);
   };
 
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -53,10 +63,17 @@ const BlogAdmin = () => {
         setBannerImage(reader.result);
       };
       reader.readAsDataURL(file);
+      let formData = new FormData();
+      formData.append('file', file);
+      const res = await updateBannerImg(formData)
+      await updateBlogInfo({
+        blogCon: text,
+        blogBannerFileId: res.data
+      })
     }
   };
 
-  const handleButtonClick = () => {
+  const handleUploadBanner = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
@@ -66,7 +83,11 @@ const BlogAdmin = () => {
     setText(event.target.value);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    await updateBlogInfo({
+      blogCon: text,
+      blogBannerFileId: banner
+    })
     setEdit(false);
   };
 
@@ -78,11 +99,34 @@ const BlogAdmin = () => {
       <div className="admin_cover">
         <div className="admin_wrap">
           <div className="admin_inner">
-            <button onClick={handleButtonClick}>메인 이미지 배너 업로드</button>
-            <br /><br />
+            <p className="text">{text}</p>
+            <br />
             <Link to='/blog/post/create'>
-              <button>글 작성하기</button>
+              <button>글 작성하러 가기</button>
             </Link>
+            <br /><br />
+          </div>
+          {
+            edit && <input
+              type="text"
+              value={text}
+              onChange={handleTextChange}
+              placeholder={'한 줄 소개를 입력해주세요'}
+            />
+          }
+          <div className="text_wrap">
+
+            {!edit ? (
+              <>
+                <button onClick={handleEdit}>소개글 수정하기</button>
+              </>
+            ) : (
+              <>
+                <button onClick={handleSave}>저장하기</button>
+              </>
+            )}
+            <button onClick={handleUploadBanner}>배너 업로드</button>
+
             <label htmlFor="fileupload" className='visually-hidden'></label>
             <input
               type="file"
@@ -92,24 +136,7 @@ const BlogAdmin = () => {
               id="fileupload"
             />
           </div>
-          <div className="text_wrap">
-            {!edit ? (
-              <>
-                <p className="text">{text}</p>
-                <button onClick={handleEdit}>수정하기</button>
-              </>
-            ) : (
-              <>
-                <input
-                  type="text"
-                  value={text}
-                  onChange={handleTextChange}
-                  placeholder={'한 줄 소개를 입력해주세요'}
-                />
-                <button onClick={handleSave}>저장하기</button>
-              </>
-            )}
-          </div>
+
         </div>
 
         <ul className="tab_list">

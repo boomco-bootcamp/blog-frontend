@@ -49,9 +49,10 @@ export const updateArticle = async (data) => {
 };
 
 // blog 삭제하기
-export const deleteArticle = async (postId) => {
-    return await Axios.delete(
-        `/api/post/delete/${postId}`
+export const deleteArticle = async (blogPostId) => {
+    return await Axios.post(
+        `/api/post/delete`,
+        { blogPostId }
     );
 };
 
@@ -96,7 +97,29 @@ export const deleteComment = async (id) => {
     );
 };
 
+// blog 정보 가져오기
+
+export const getBlogInfo = async (blogId) => {
+    return await Axios.get(`/api/blog/info?blogId=${blogId}`)
+};
+
+
+// blog 업데이트
+export const updateBlogInfo = async (data) => {
+    return await Axios.post(
+        `/api/blog/update`,
+        data
+    );
+};
+
+
+
 
 export const getCategoryList = async () => {
     return await Axios.get(`/api/category/list/all`)
 };
+
+export const getTagList = async () => {
+    return await Axios.get(`/api/my/tag/list`)
+};
+

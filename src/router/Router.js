@@ -54,7 +54,7 @@ const Router = () => {
                     } />
 
                     {/* 블로그 관리 */}
-                    <Route path="/blog/admin" element={
+                    <Route path="/blog/admin/:userId" element={
                         <PrivateRoute>
                             <BlogAdmin />
                         </PrivateRoute>
