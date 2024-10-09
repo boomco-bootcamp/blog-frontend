@@ -31,16 +31,25 @@ const MyPage = () => {
 
 
   const getMyInfo = async () => {
-    const userInfo = await getUserInfo()
-    setFormData(
-      {
-        ...formData,
-        id: userInfo.data.userId,
-        name: userInfo.data.userNm,
-        email: userInfo.data.userEml,
-        phone: userInfo.data.userTel
-      }
-    )
+    try {
+      const userInfo = await getUserInfo()
+      setFormData(
+        {
+          ...formData,
+          id: userInfo.data.userId,
+          name: userInfo.data.userNm,
+          email: userInfo.data.userEml,
+          phone: userInfo.data.userTel
+        }
+      )
+    }
+    catch (err) {
+      alert(err)
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('userInfo');
+      window.location.href = '/';
+    }
+
   }
 
   const getTag = async () => {
@@ -362,7 +371,9 @@ const MyPage = () => {
                         </div>
                         <div className="content_wrap">
                           <p className="title">{item.blogPostTitle}</p>
-                          <p className="content_text">{item.blogPostCon}</p>
+                          <p className="content_text"
+                            dangerouslySetInnerHTML={{ __html: item.blogPostCon }}
+                          />
                           <p className="date">{formatDate(item.rgsnTs)}</p>
                         </div>
                         <div className="text_wrap">

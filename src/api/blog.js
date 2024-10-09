@@ -103,6 +103,14 @@ export const getBlogInfo = async (blogId) => {
     return await Axios.get(`/api/blog/info?blogId=${blogId}`)
 };
 
+export const getBlogViewCount = async (blogPostId) => {
+    return await Axios.get(`/api/post/view/list?blogPostId==${blogPostId}`)
+};
+
+export const getBlogLikeCount = async (blogPostId) => {
+    return await Axios.get(`/api/post/like/list?blogPostId==${blogPostId}`)
+};
+
 
 // blog 업데이트
 export const updateBlogInfo = async (data) => {
