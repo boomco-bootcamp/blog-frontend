@@ -105,7 +105,8 @@ const BlogCreate = () => {
   return (
     <div className='blog_create_wrap'>
       <div className="title">
-        <input type="text" placeholder={"제목을 입력하세요"} onChange={(e) => setTitle(e.target.value)} />
+        <input type="text" placeholder={"제목을 입력하세요"}
+          onChange={(e) => setTitle(e.target.value)} value={title} />
       </div>
       <div className='category'>
         <label>카테고리를 선택하세요</label>
@@ -138,9 +139,10 @@ const BlogCreate = () => {
         modules={modules}
         formats={formats}
         onChange={setValues}
+        value={values}
       />
       <div className='btn_wrap'>
-        <button className="red">나가기</button>
+        <button className="red" onClick={() => navigate(-1)}>나가기</button>
         <button className="default" onClick={handleSubmit}>저장하기</button>
       </div>
     </div>

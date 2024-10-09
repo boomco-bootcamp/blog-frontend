@@ -1,4 +1,3 @@
-import { postList } from '../../data/post';
 import React, { useEffect, useState } from 'react'
 import Item from '../common/post/Item';
 import { Link } from 'react-router-dom';

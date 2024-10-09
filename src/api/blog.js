@@ -49,9 +49,10 @@ export const updateArticle = async (data) => {
 };
 
 // blog 삭제하기
-export const deleteArticle = async (postId) => {
-    return await Axios.delete(
-        `/api/post/delete/${postId}`
+export const deleteArticle = async (blogPostId) => {
+    return await Axios.post(
+        `/api/post/delete`,
+        { blogPostId }
     );
 };
 
@@ -65,27 +66,77 @@ export const postLikedArticle = async (postId) => {
     );
 };
 
-// blog 게시글 댓글 달기
-export const postComment = async (postId, commentId) => {
+// blog 게시글 좋아요 추가 및 삭제
+export const postLikedEdit = async (blogPostId) => {
     return await Axios.post(
-        `/blog/post/comment`,
+        `/api/like/post/save`,
         {
-            postId, commentId
+            blogPostId: blogPostId
         }
     );
 };
 
+
 // blog 게시글 댓글 달기
-export const updateComment = async (postId, commentId) => {
+export const postComment = async (params) => {
     return await Axios.post(
-        `/blog/update/comment`,
+        `/api/comment/post/save`,
         {
-            postId, commentId
+            ...params
         }
     );
+};
+
+// blog 게시글 댓글 삭제
+export const deleteComment = async (id) => {
+    return await Axios.post(
+        `/api/comment/post/delete`,
+        {
+            blogCommentId: id
+        }
+    );
+};
+
+// blog 정보 가져오기
+
+export const getBlogInfo = async (blogId) => {
+    return await Axios.get(`/api/blog/info?blogId=${blogId}`)
+};
+
+export const getBlogViewCount = async (blogPostId) => {
+    return await Axios.get(`/api/post/view/list?blogPostId==${blogPostId}`)
+};
+
+export const getBlogLikeCount = async (blogPostId) => {
+    return await Axios.get(`/api/post/like/list?blogPostId==${blogPostId}`)
+};
+
+
+// blog 업데이트
+export const updateBlogInfo = async (data) => {
+    return await Axios.post(
+        `/api/blog/update`,
+        data
+    );
+};
+
+// 방문자수
+export const getViewCount = async (blogPostId) => {
+    return await Axios.get(`/api/post/view/list?blogPostId=${blogPostId}`)
+};
+
+
+// 좋아요
+export const getLikeCount = async (blogPostId) => {
+    return await Axios.get(`/api/post/like/list?blogPostId=${blogPostId}`)
 };
 
 
 export const getCategoryList = async () => {
     return await Axios.get(`/api/category/list/all`)
 };
+
+export const getTagList = async () => {
+    return await Axios.get(`/api/my/tag/list`)
+};
+

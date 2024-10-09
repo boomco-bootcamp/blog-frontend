@@ -14,8 +14,6 @@ const CategoryArticle = () => {
         const getCategory = async () => {
             let result = await getCategoryList()
             setCategoryList(result.data)
-
-            // setCategoryList(result)
         }
         getCategory()
     }, [])
@@ -30,7 +28,7 @@ const CategoryArticle = () => {
         getBlog()
     }, [currentCategory])
     return (
-        <div>
+        <div className='select_wrapper'>
             <CategoryList categoryList={categoryList} onClick={(curr) => setCurrentCategory(curr)} />
             <div className='article_wrapper'>
                 <div className='flex-col'>
@@ -41,7 +39,6 @@ const CategoryArticle = () => {
                             />
                         </Link>
                     ))}
-
                 </div>
             </div>
         </div>

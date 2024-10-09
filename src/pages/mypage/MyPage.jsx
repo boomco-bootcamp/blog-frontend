@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { DeleteIcon, PlusIcon } from "../../assets/svg/Icon";
 import { useUser } from '../../context/UserContext';
-import { getUserInfo } from '../../api/user';
+import { deleteMyTag, getListByCategory, getListByLike, getListByTag, getUserInfo, postMyCategory, postMyTag, updateUserInfo } from '../../api/user';
 import { getCategoryList } from '../../api/blog';
+import { formatDate } from '../../util/date';
+import { Link } from 'react-router-dom';
 
 
 
@@ -17,50 +19,97 @@ const MyPage = () => {
     pw_confirm: '',
     name: '',
     email: '',
+    phone: ''
   });
 
   const [categories, setCategories] = useState([]);
-  const [inputValue, setInputValue] = useState('');
+  const [myCategories, setMyCategories] = useState([]);
+
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState('');
-  const [chipActive, setChipActive] = useState([])
+  const [likedArticles, setLikedArticles] = useState([])
+
+
+  const getMyInfo = async () => {
+    try {
+      const userInfo = await getUserInfo()
+      setFormData(
+        {
+          ...formData,
+          id: userInfo.data.userId,
+          name: userInfo.data.userNm,
+          email: userInfo.data.userEml,
+          phone: userInfo.data.userTel
+        }
+      )
+    }
+    catch (err) {
+      alert(err)
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('userInfo');
+      window.location.href = '/';
+    }
+
+  }
+
+  const getTag = async () => {
+    const res = await getListByTag();
+    setTags(res.data)
+  }
+
+  const getLikedArticles = async () => {
+    const res = await getListByLike();
+    setLikedArticles(res.data.list)
+  }
+
+  const getCategory = async () => {
+    let result = await getCategoryList()
+    setCategories(result.data)
+  }
+
+  const getMyCategory = async () => {
+    const resCategory = await getListByCategory()
+    setMyCategories(resCategory.data.map(ele => ele.blogPostCatId))
+  }
+
 
   useEffect(() => {
-    const getMyInfo = async () => {
-      const resCategory = await getCategoryList()
-      console.log(resCategory.data)
-      setCategories(resCategory.data)
-      // let result = await getBlogDetail(id)
-      // setDetail(result.data)
-    }
     getMyInfo()
+    getTag()
+    getCategory()
+    getMyCategory()
+    getLikedArticles()
   }, [])
 
-  useEffect(() => {
 
-    // const getBlog = async () => {
 
-    //   const info = await getUserInfo({
-    //     userId: JSON.parse(localStorage.getItem('userInfo')).userId,
-    //     userPswd: JSON.parse(localStorage.getItem('userInfo')).userPswd,
-    //   })
-
-    //   console.log(info)
-    // }
-    // getBlog()
-  }, [])
-
-  const handleChipClick = (idx) => {
-    if (chipActive.includes(idx)) {
-      setChipActive(chipActive.filter((chipIdx) => chipIdx !== idx));
-    } else {
-      setChipActive([...chipActive, idx]);
-    }
-  };
 
   const handleEdit = () => {
     setEdit(!edit);
   };
+
+  const handleSave = async () => {
+    if (formData.pw !== formData.pw_confirm) {
+      alert('비밀번호를 확인해주세요.')
+      return
+    }
+    try {
+      await updateUserInfo({
+        "userId": formData.id,
+        "userPswd": formData.pw,
+        "userNm": formData.name,
+        "userEml": formData.email,
+        "userTel": formData.phone,
+        "sysAdmYn": "N"
+      })
+      alert('변경 되었습니다.')
+      await getMyInfo()
+      setEdit(!edit);
+    }
+    catch (err) {
+      alert(err)
+    }
+  }
 
   const handleChangeInput = (e) => {
     setFormData({
@@ -74,31 +123,22 @@ const MyPage = () => {
     setActiveTab(index);
   };
 
+  const handleClickCategory = async (id) => {
+    try {
+      await postMyCategory(id)
+      getMyCategory()
+    }
+    catch (err) {
+      console.log(err)
+    }
 
-  // 카테고리
-  // const addCategory = () => {
-  //   if (inputValue.trim() && !categories.includes(inputValue)) {
-  //     setCategories([...categories, inputValue]);
-  //     setInputValue('');
-  //   }
-  // };
-
-  // const handleKeyPress = (e) => {
-  //   if (e.key === 'Enter') {
-  //     addCategory();
-  //   }
-  // };
-
-  // const removeCategory = (index) => {
-  //   const updatedCategories = categories.filter((_, i) => i !== index);
-  //   setCategories(updatedCategories);
-  // };
-
+  }
 
   // 태그
-  const addTag = () => {
+  const addTag = async () => {
     if (tagInput.trim() && !tags.includes(tagInput)) {
-      setTags([...tags, tagInput]);
+      await postMyTag(tagInput)
+      await getTag()
       setTagInput('');
     }
   };
@@ -109,13 +149,10 @@ const MyPage = () => {
     }
   };
 
-  const removeTag = (index) => {
-    const updatedTags = tags.filter((_, i) => i !== index);
-    setTags(updatedTags);
+  const removeTag = async (blogLikeTagId) => {
+    await deleteMyTag(blogLikeTagId)
+    await getTag()
   };
-
-  const BlogCategoryData = []
-  const BlogData = []
 
   return (
     <div className="mypage_wrap">
@@ -155,7 +192,7 @@ const MyPage = () => {
                   <h3>계정정보</h3>
                   <div className="input_wrap">
                     <p className="mypage_title">아이디</p>
-                    <p className="mypage_info">ks_kang91</p>
+                    <p className="mypage_info">{formData.id}</p>
                   </div>
                   <div className="input_wrap">
                     <p className="mypage_title">비밀번호</p>
@@ -163,12 +200,16 @@ const MyPage = () => {
                   </div>
                   <div className="input_wrap">
                     <p className="mypage_title">이름</p>
-                    <p className="mypage_info">강기성</p>
+                    <p className="mypage_info">{formData.name}</p>
                   </div>
-                  <div className="input_wrap">
+                  {formData.email && <div className="input_wrap">
                     <p className="mypage_title">이메일</p>
-                    <p className="mypage_info">kskang@email.com</p>
-                  </div>
+                    <p className="mypage_info">{formData.email}</p>
+                  </div>}
+                  {formData.phone && <div className="input_wrap">
+                    <p className="mypage_title">연락처</p>
+                    <p className="mypage_info">{formData.phone}</p>
+                  </div>}
                 </form>
                 <button className="form_edit" onClick={handleEdit}>
                   수정하기
@@ -257,7 +298,7 @@ const MyPage = () => {
                   <button className="form_edit" onClick={handleEdit}>
                     수정취소
                   </button>
-                  <button className="form_edit">수정완료</button>
+                  <button className="form_edit" onClick={handleSave}>수정완료</button>
                 </div>
               </>
             )}
@@ -267,21 +308,17 @@ const MyPage = () => {
         {activeTab === 1 && (
           <div className="category_wrap">
             <h3>관심 카테고리 설정</h3>
-
-
             <div className="category_list">
-
-              <button className="category_btn">저장</button>
-
-
               <div className="category_item" >
 
                 <div className="chip_list">
                   {categories.map((item, idx) => (
                     <div
-                      className={`chip_item ${chipActive.includes(`${item.blogPostCatId} + ${idx}`) ? 'active' : ''}`}
+                      className={`chip_item ${myCategories.includes(item.blogPostCatId) ? 'active' : ''}`}
                       key={item.blogPostCatId}
-                      onClick={() => handleChipClick(`${item.blogPostCatId} + ${idx}`)}
+                      onClick={() =>
+                        handleClickCategory(item.blogPostCatId)
+                      }
                     >
                       {item.blogPostCatNm}
                     </div>
@@ -298,8 +335,6 @@ const MyPage = () => {
           <div className="tag_wrap">
             <h3>관심 태그 설정</h3>
             <div className="edit_wrap">
-              <button className="tag_btn">저장</button>
-
               <div className="chip_input_wrap">
                 <input
                   type="text"
@@ -313,8 +348,8 @@ const MyPage = () => {
               <div className="chip_list">
                 {tags.map((tag, index) => (
                   <div className="chip_item" key={index}>
-                    {tag}
-                    <button onClick={() => removeTag(index)}><DeleteIcon /></button>
+                    {tag.blogLikeTagCon}
+                    <button onClick={() => removeTag(tag.blogLikeTagId)}><DeleteIcon /></button>
                   </div>
                 ))}
               </div>
@@ -328,28 +363,30 @@ const MyPage = () => {
             <div className="like_list">
               <ul className="blog_list">
                 {
-                  BlogData.map((item, idx) => (
-                    <li className="blog_item" key={idx}>
-                      <a href="#" className="blog_item_inner">
+                  likedArticles.map((item) => (
+                    <li className="blog_item" key={item.blogPostId}>
+                      <Link to={`/blog/${item.amnnUserId}/${item.blogPostId}`} className="blog_item_inner">
                         <div className="img_wrap">
-                          <img src={item.image} alt="image" />
+                          {/* <img src={item.image} alt="image" /> */}
                         </div>
                         <div className="content_wrap">
-                          <p className="title">{item.blog_post_title}</p>
-                          <p className="content_text">{item.blog_post_con}</p>
-                          <p className="date">{item.rgsn_ts}</p>
+                          <p className="title">{item.blogPostTitle}</p>
+                          <p className="content_text"
+                            dangerouslySetInnerHTML={{ __html: item.blogPostCon }}
+                          />
+                          <p className="date">{formatDate(item.rgsnTs)}</p>
                         </div>
                         <div className="text_wrap">
-                          <div className="like">♥ {item.like}</div>
+                          <div className="like">♥ {item.postLikeCnt}</div>
                         </div>
                         <div className="tag_list">
                           {
-                            item.blog_tag_con.map((tag, idx) => (
-                              <div className="tag" key={idx}>{tag}</div>
+                            item.tagList.map((tag, idx) => (
+                              <div className="tag" key={idx}>{tag.blogTagCon}</div>
                             ))
                           }
                         </div>
-                      </a>
+                      </Link>
                     </li>
                   ))
                 }

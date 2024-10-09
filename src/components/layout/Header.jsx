@@ -13,7 +13,10 @@ const Header = () => {
             </Link>
             {
                 user.loginStatus ? <ul className='flex'>
-                    <Link to='/blog/admin'>
+                    <Link to='/blog/post/create'>
+                        글 쓰기
+                    </Link>
+                    <Link to={`/blog/admin/${user.userId}`}>
                         블로그 관리
                     </Link>
                     <Link to='/mypage'>

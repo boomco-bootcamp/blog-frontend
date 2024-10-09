@@ -1,18 +1,22 @@
 .tag-list-container {
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
+    width: fit-content;
 }
 
 
 .tag-list {
     display: flex;
+    min-height:46px;
     gap: 10px;
     overflow-x: auto;
     padding: 10px 0;
     scroll-behavior: smooth;
     scrollbar-width: thin;
     margin-bottom:58px;
+}
+
+.tag-list-none {
+    width:100%;
+    text-align:center;
 }
 
 .tag-list::-webkit-scrollbar {
