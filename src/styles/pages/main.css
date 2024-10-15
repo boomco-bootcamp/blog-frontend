@@ -4,6 +4,11 @@
     max-height:700px;
 }
 
+.banner-wrapper {
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
 
 .banner_title {
     padding: 20px 16px;
@@ -12,10 +17,9 @@
     color:#E67E22;
 }
 
-
 .banner_text {
-    min-width:600px;
-    height:300px;
+    width:500px;
+    height:400px;
     margin-top:10px;
     white-space:pre-wrap;
     line-height:2;
@@ -38,7 +42,6 @@
 }
 
 .select_wrapper {
-    width:440px;
     margin: 0 auto;
 }
 
@@ -48,6 +51,7 @@
 
 .swiper_wrapper {
     width:500px;
+    height:400px;
     margin-top:16px;
     overflow:hidden;
 }
@@ -69,5 +73,12 @@
 }
 
 
+@media screen and (max-width: 600px) {
+    .banner_text  {
+      width: 360px;
+    }
 
-.rrr {}
+    .swiper_wrapper  {
+        width: 360px;
+      }
+  }

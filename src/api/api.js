@@ -24,7 +24,11 @@ Axios.interceptors.request.use(
         return config;
     },
     (error) => {
+        alert('로그인이 만료되었습니다. 다시 로그인해주세요.')
+        localStorage.removeItem('authToken')
+        localStorage.removeItem('userInfo')
         return Promise.reject(error);
+
     }
 );
 

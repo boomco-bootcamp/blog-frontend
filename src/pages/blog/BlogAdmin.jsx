@@ -145,6 +145,7 @@ const BlogAdmin = () => {
           <div className="admin_inner">
             <p className="text">{text}</p>
             <br />
+            <br />
             <Link to='/blog/post/create'>
               <button>글 작성하러 가기</button>
             </Link>

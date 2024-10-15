@@ -55,7 +55,7 @@ const Blog = () => {
                 <img src={bannerImage} alt="banner" />
             </div>
             <div className="section_wrap">
-                <section className='flex'>
+                <section className='section_wrap'>
                     <div>
                         <h3 className='banner_title'>{userId}님의 블로그</h3>
                         <div className="text_wrap">

@@ -9,7 +9,7 @@
 
 .post_img{
     width:500px;
-    height:300px;
+    height:400px;
     border-radius:16px;
     object-fit:cover;
 }
@@ -34,8 +34,8 @@
     font-weight:bold;
 }
 
-.item_wrapper{
-    width:560px;
+.item_wrapper {
+    width:500px;
     height:164px;
     border-top: solid 0.5px #f0f0f0;
     display:flex;
@@ -44,6 +44,12 @@
     overflow: hidden;
     padding:16px;
 }
+
+@media screen and (max-width: 600px) {
+    .item_wrapper  {
+      width: 360px;
+    }
+  }
 
 .item_title{
     text-overflow: ellipsis;

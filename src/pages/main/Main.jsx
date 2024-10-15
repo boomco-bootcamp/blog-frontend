@@ -19,7 +19,7 @@ const Main = () => {
 
     return (
         <div className='flex-col flex-center'>
-            <section className='flex'>
+            <section className='banner-wrapper'>
                 <div>
                     <h3 className='banner_title'>{user.loginStatus ? `${user.userNm}님, 안녕하세요.` :
                         "나만의 공부 일기장"
@@ -37,7 +37,7 @@ const Main = () => {
                 <RecommendArticle />
             </section>
             <section>
-                <div className='flex'>
+                <div className='banner-wrapper'>
                     <div>
                         <h3 className='sub'>최근 게시글</h3>
                         <Link to={'/blog/list'}>
