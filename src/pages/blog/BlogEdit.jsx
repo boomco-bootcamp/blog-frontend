@@ -1,35 +1,21 @@
-import React, { useEffect, useMemo, useState } from 'react'
-
-import ReactQuill from "react-quill";
-import 'react-quill/dist/quill.snow.css';
+import React, { useEffect, useMemo, useRef, useState } from 'react'
+import Quill from 'quill';
+import ReactQuill from 'react-quill';
+import "react-quill/dist/quill.snow.css";
+import ImageResize from 'quill-image-resize';
 import { DeleteIcon } from "../../assets/svg/Icon";
+import CategoryList from '../../components/common/tag/CategoryList';
 import { createArticle, getBlogDetail, getCategoryList } from '../../api/blog';
 import { useNavigate, useParams } from 'react-router-dom';
-import CategoryList from '../../components/common/tag/CategoryList';
 
-const formats = [
-  'font',
-  'header',
-  'bold',
-  'italic',
-  'underline',
-  'strike',
-  'blockquote',
-  'list',
-  'bullet',
-  'indent',
-  'link',
-  'align',
-  'color',
-  'background',
-  'size',
-  'h1',
-];
+
+Quill.register('modules/imageResize', ImageResize);
+
 
 const BlogEdit = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-
+  const quillRef = useRef(null);
   const [title, setTitle] = useState('');
   const [values, setValues] = useState();
   const [tags, setTags] = useState([]);
@@ -148,9 +134,10 @@ const BlogEdit = () => {
         />
       </div>
       <ReactQuill
+        ref={quillRef}
+        style={{ height: 'auto' }}
         theme="snow"
         modules={modules}
-        formats={formats}
         onChange={setValues}
         value={values}
       />

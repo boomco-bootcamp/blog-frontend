@@ -1,35 +1,19 @@
-import React, { useEffect, useMemo, useState } from 'react'
-
-import ReactQuill from "react-quill";
-import 'react-quill/dist/quill.snow.css';
+import React, { useEffect, useMemo, useRef, useState } from 'react'
+import Quill from 'quill';
+import ReactQuill from 'react-quill';
+import "react-quill/dist/quill.snow.css";
+import ImageResize from 'quill-image-resize';
 import { DeleteIcon } from "../../assets/svg/Icon";
 import CategoryList from '../../components/common/tag/CategoryList';
 import { createArticle, getCategoryList } from '../../api/blog';
 import { useNavigate } from 'react-router-dom';
 
-const formats = [
-  'font',
-  'header',
-  'bold',
-  'italic',
-  'underline',
-  'strike',
-  'blockquote',
-  'list',
-  'bullet',
-  'indent',
-  'link',
-  'align',
-  'color',
-  'background',
-  'size',
-  'h1',
-];
 
+Quill.register('modules/imageResize', ImageResize);
 
 const BlogCreate = () => {
   const navigate = useNavigate();
-
+  const quillRef = useRef(null);
   const [title, setTitle] = useState('');
   const [values, setValues] = useState();
   const [tags, setTags] = useState([]);
@@ -134,12 +118,15 @@ const BlogCreate = () => {
           }}
         />
       </div>
+
       <ReactQuill
+        ref={quillRef}
+        style={{ height: 'auto' }}
         theme="snow"
         modules={modules}
-        formats={formats}
         onChange={setValues}
         value={values}
+
       />
       <div className='btn_wrap'>
         <button className="red" onClick={() => navigate(-1)}>나가기</button>
