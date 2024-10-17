@@ -30,19 +30,21 @@ const BlogDetail = () => {
   }, [])
 
   const handleLikeAdd = async () => {
-    const updatedLikeCount = isLiked
-      ? detail.postLikeCnt - 1
-      : detail.postLikeCnt + 1;
+    if (user.loginStatus) {
+      try {
+        await postLikedEdit(id);
+        const updatedLikeCount = isLiked
+          ? detail.postLikeCnt - 1
+          : detail.postLikeCnt + 1;
 
-    const updateLike = { ...detail, postLikeCnt: updatedLikeCount };
+        const updateLike = { ...detail, postLikeCnt: updatedLikeCount };
 
-    setDetail(updateLike);
-    setIsLiked(!isLiked); // 좋아요 상태를 반전
+        setDetail(updateLike);
+        setIsLiked(!isLiked); // 좋아요 상태를 반전
 
-    try {
-      await postLikedEdit(id);
-    } catch (error) {
-      console.error(error);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 

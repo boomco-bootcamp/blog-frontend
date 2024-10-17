@@ -12,7 +12,7 @@ const TagArticle = () => {
     const [tagList, setTagList] = useState([])
     const { user } = useUser();
     useEffect(() => {
-        console.log(user)
+
         const getTag = async () => {
             let result = await getTagList()
             setTagList(result.data)
@@ -20,8 +20,6 @@ const TagArticle = () => {
         }
         user.loginStatus && getTag()
     }, [])
-
-    console.log(tagList, "@@@@@@@@@@@@@")
 
     useEffect(() => {
         const getBlog = async () => {
