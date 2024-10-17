@@ -20,7 +20,7 @@ const CategoryArticle = () => {
 
     useEffect(() => {
         const getBlog = async () => {
-            let result = currentCategory ? await getBlogList({ stdyCatId: currentCategory }) : await getBlogList()
+            let result = currentCategory ? await getBlogList({ blogPostCatId: currentCategory }) : await getBlogList()
             let data = result.data
             setPostList(data.list)
 

@@ -126,7 +126,6 @@ const BlogCreate = () => {
         modules={modules}
         onChange={setValues}
         value={values}
-
       />
       <div className='btn_wrap'>
         <button className="red" onClick={() => navigate(-1)}>나가기</button>
