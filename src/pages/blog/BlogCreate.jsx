@@ -76,6 +76,7 @@ const BlogCreate = () => {
         blogTagCon: ele
       }))
     }
+    console.log(result, tags)
 
     try {
       await createArticle(result)

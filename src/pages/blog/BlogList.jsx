@@ -89,71 +89,72 @@ const BlogList = () => {
 
   return (
     <div className='blog_list_wrap'>
-      <div className="blog_category">
-        <ul className="blog_cate_list">
-          {/*<li className="cate_item active">전체</li>*/}
-          {/*<li className="cate_item">카테고리</li>*/}
-          {/*<li className="cate_item">태그</li>*/}
-        </ul>
+      <div className='blog_list_container'>
+        <div className="blog_category">
+          <ul className="blog_cate_list">
+            {/*<li className="cate_item active">전체</li>*/}
+            {/*<li className="cate_item">카테고리</li>*/}
+            {/*<li className="cate_item">태그</li>*/}
+          </ul>
 
-        <div className="blog_search">
-          <input
-            type="text"
-            placeholder='검색어를 입력하세요'
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-            onKeyPress={handleKeyPress}
-          />
-          <button onClick={handleSearch}>검색</button>
+          <div className="blog_search">
+            <input
+              type="text"
+              placeholder='검색어를 입력하세요'
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              onKeyPress={handleKeyPress}
+            />
+            <button onClick={handleSearch}>검색</button>
+          </div>
+
+          <select name="" id="" onChange={(e) => {
+            setOrderType(e.target.value)
+          }}>
+            <option value="desc">최신순</option>
+            <option value="view">조회수순</option>
+            <option value="reply">댓글 많은 순</option>
+          </select>
         </div>
+        {
+          filterList && filterList.length > 0 ?
+            <ul className="blog_list">
+              {
+                filterList.map((item, idx) => (
+                  <Link to={`/blog/${item.blogId}/${item.blogPostId}`}>
+                    <li className="blog_item" key={idx}>
+                      <a href="#" className="blog_item_inner">
+                        <div className="img_wrap">
+                          <img src={item.img ? item.img : sampleImg} alt="image" />
+                        </div>
+                        <div className="content_wrap">
+                          <p className="title">{item.blogPostTitle}</p>
+                          <p className="content_text" dangerouslySetInnerHTML={{ __html: item.blogPostCon }}></p>
+                          <p className="date">{formatDate(item.rgsnTs)}</p>
+                        </div>
+                        <div className="text_wrap">
+                          <div className="like">♥ {item.postLikeCnt}</div>
+                          <div className="view">✍🏻 {item.postCommentCnt}</div>
+                        </div>
+                        <div className="tag_list">
+                          {
+                            item.tagList && item.tagList.map((tag, idx) => (
+                              <div className="tag" key={idx}>{tag.blogTagCon}</div>
+                            ))
+                          }
+                        </div>
+                      </a>
+                    </li>
+                  </Link>
+                ))
+              }
+            </ul> : <NoResult text={'게시글이 존재하지 않습니다.'} />
+        }
 
-        <select name="" id="" onChange={(e) => {
-          setOrderType(e.target.value)
-        }}>
-          <option value="desc">최신순</option>
-          <option value="view">조회수순</option>
-          <option value="reply">댓글 많은 순</option>
-        </select>
+
+
+        <Pagination pagingData={paging} handlePaging={handlePaging} />
       </div>
-      {
-        filterList && filterList.length > 0 ?
-          <ul className="blog_list">
-            {
-              filterList.map((item, idx) => (
-                <Link to={`/blog/${item.blogId}/${item.blogPostId}`}>
-                  <li className="blog_item" key={idx}>
-                    <a href="#" className="blog_item_inner">
-                      <div className="img_wrap">
-                        <img src={item.img ? item.img : sampleImg} alt="image" />
-                      </div>
-                      <div className="content_wrap">
-                        <p className="title">{item.blogPostTitle}</p>
-                        <p className="content_text" dangerouslySetInnerHTML={{ __html: item.blogPostCon }}></p>
-                        <p className="date">{formatDate(item.rgsnTs)}</p>
-                      </div>
-                      <div className="text_wrap">
-                        <div className="like">♥ {item.postLikeCnt}</div>
-                        <div className="view">✍🏻 {item.postCommentCnt}</div>
-                      </div>
-                      <div className="tag_list">
-                        {
-                          item.tagList && item.tagList.map((tag, idx) => (
-                            <div className="tag" key={idx}>{tag.blogTagCon}</div>
-                          ))
-                        }
-                      </div>
-                    </a>
-                  </li>
-                </Link>
-              ))
-            }
-          </ul> : <NoResult text={'게시글이 존재하지 않습니다.'} />
-      }
-
-
-
-      <Pagination pagingData={paging} handlePaging={handlePaging} />
-
     </div>
   )
 }
