@@ -35,7 +35,7 @@
   cursor: pointer;
   padding: 0 20px;
 }
-.mypage_wrap .mypage_item.active {
+.mypage_item.active {
   background: #F39C12;
   color: white;
 }
@@ -158,7 +158,7 @@
 }
 
 
-.mypage_wrap .chip_item.active {
+.chip_item.active {
   background: #F39C12;
   color: white;
   border: 1px solid #F39C12;
@@ -291,7 +291,7 @@
   color: white;
 }
 
-.mypage_wrap .tag_wrap .chip_item {
+.chip_item {
   background: #F39C12;
   border: 1px solid #F39C12;
   color: white;

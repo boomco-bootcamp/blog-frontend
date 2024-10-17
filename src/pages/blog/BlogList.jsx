@@ -42,7 +42,6 @@ const BlogList = () => {
       let data = result.data
       setPostList(data.list)
       setFilterList(data.list)
-      console.log(result, paging, paging.page, '@@@@@@@@', data.page)
       setPaging({
         endPage: data.endPage,
         next: data.next,

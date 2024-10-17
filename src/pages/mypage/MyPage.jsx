@@ -58,8 +58,31 @@ const MyPage = () => {
   }
 
   const getLikedArticles = async () => {
-    const res = await getListByLike();
-    setLikedArticles(res.data.list)
+    let res = await getListByLike();
+
+    res = res.data.list.map(ele => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(ele.blogPostCon, 'text/html');
+
+      // 첫 번째 img 태그 찾기
+      const imgElement = doc.querySelector('img');
+      if (imgElement) {
+        // 이미지 소스 추출
+        // img 태그를 제거한 HTML 생성
+        imgElement.remove();
+
+      }
+      return {
+        ...ele,
+        blogPostCon: doc.body.innerHTML,
+        thumbnail: imgElement.getAttribute('src') ?? ""
+      }
+    })
+
+
+    setLikedArticles(
+      res
+    )
   }
 
   const getCategory = async () => {
@@ -338,7 +361,7 @@ const MyPage = () => {
               <div className="chip_input_wrap">
                 <input
                   type="text"
-                  placeholder="관심 태그를 입력하세요"
+                  placeholder="관심 #태그를 추가해 보세요."
                   value={tagInput}
                   onChange={(e) => setTagInput(e.target.value)}
                   onKeyPress={handleTagKeyPress}
@@ -367,7 +390,7 @@ const MyPage = () => {
                     <li className="blog_item" key={item.blogPostId}>
                       <Link to={`/blog/${item.amnnUserId}/${item.blogPostId}`} className="blog_item_inner">
                         <div className="img_wrap">
-                          {/* <img src={item.image} alt="image" /> */}
+                          {item.thumbnail ? <img src={item.thumbnail} alt="Item thumbnail" /> : <></>}
                         </div>
                         <div className="content_wrap">
                           <p className="title">{item.blogPostTitle}</p>

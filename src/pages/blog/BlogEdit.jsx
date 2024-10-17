@@ -82,6 +82,10 @@ const BlogEdit = () => {
   };
 
   const handleSubmit = async () => {
+    if (title.length === 0 || values.length === 0) {
+      alert('제목과 내용은 필수 입력 사항입니다.')
+      return
+    }
     let result = {
       blogPostTitle: title,
       blogPostCon: values,
@@ -123,7 +127,7 @@ const BlogEdit = () => {
         </ul>
         <input
           type="text"
-          placeholder={"태그를 입력하세요"}
+          placeholder={"#태그를 추가해 보세요."}
           value={tagInput}
           onChange={handleTagInputChange}
           onKeyPress={(event) => {

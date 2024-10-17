@@ -3,6 +3,7 @@ import { getBlogDetail, postComment, postLikedEdit, deleteComment, deleteArticle
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useUser } from '../../context/UserContext'
+import comment from '../../assets/img/comment.png'
 
 
 const BlogDetail = () => {
@@ -49,17 +50,23 @@ const BlogDetail = () => {
   };
 
   const handleAddComment = async () => {
-    try {
-      await postComment({
-        blogPostId: detail?.blogPostId,
-        blogCommentCon: commentContent,
-      })
-      alert('댓글을 작성했습니다.')
-      getBlog()
-      setCommentContent("")
-    }
-    catch (err) {
-      console.error(err)
+    if (user.loginStatus) {
+
+
+      try {
+        await postComment({
+          blogPostId: detail?.blogPostId,
+          blogCommentCon: commentContent,
+        })
+        alert('댓글을 작성했습니다.')
+        getBlog()
+        setCommentContent("")
+      }
+      catch (err) {
+        console.error(err)
+      }
+    } else {
+      alert('로그인 후 이용해주세요.')
     }
   }
 
@@ -113,18 +120,18 @@ const BlogDetail = () => {
       <div className="detail_info">
         <div className="info_left">
           <Link to={`/blog/${detail.userId}`}>
-            <p className="writer">{detail.blogNm ?? ""}</p>
+            <p className="writer">{detail.blogNm ?? detail.userId}</p>
           </Link>
           <div className="date">{formatDate(detail.rgsnTs)}</div>
         </div>
       </div>
       <div className="info_sec">
-        <div className="view">✍🏻 {detail.commentList?.length}</div>
+        <div className="view"><img src={comment} className='icon' /> {detail.commentList?.length}개</div>
       </div>
       <div className="tag_list">
         {
           detail.tagList && detail.tagList.map(ele => (
-            <div className="tag_item">{ele.blogTagCon}</div>
+            <div className="tag_item">#{ele.blogTagCon}</div>
           ))
         }
       </div>

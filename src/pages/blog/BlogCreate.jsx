@@ -68,6 +68,11 @@ const BlogCreate = () => {
   };
 
   const handleSubmit = async () => {
+    if (title.length === 0 || values.length === 0) {
+      alert('제목과 내용은 필수 입력 사항입니다.')
+      return
+    }
+
     let result = {
       blogPostTitle: title,
       blogPostCon: values,
@@ -109,7 +114,7 @@ const BlogCreate = () => {
         </ul>
         <input
           type="text"
-          placeholder={"태그를 입력하세요"}
+          placeholder={"#태그를 추가해 보세요."}
           value={tagInput}
           onChange={handleTagInputChange}
           onKeyPress={(event) => {
@@ -129,8 +134,8 @@ const BlogCreate = () => {
         value={values}
       />
       <div className='btn_wrap'>
-        <button className="red" onClick={() => navigate(-1)}>나가기</button>
-        <button className="default" onClick={handleSubmit}>저장하기</button>
+        <button className="red" onClick={() => navigate(-1)}>취소</button>
+        <button className="default" onClick={handleSubmit}>업로드</button>
       </div>
     </div>
   )

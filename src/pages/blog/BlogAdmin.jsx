@@ -167,7 +167,7 @@ const BlogAdmin = () => {
               </>
             ) : (
               <>
-                <button onClick={handleSave}>저장하기</button>
+                <button onClick={handleSave}>업로드</button>
               </>
             )}
             <button onClick={handleUploadBanner}>배너 업로드</button>

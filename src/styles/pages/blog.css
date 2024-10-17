@@ -440,9 +440,14 @@
 .blog_detail_wrap .info_sec {
   margin-top: 20px;
   display: flex;
+  align-items:center;
   gap: 8px;
 }
-.blog_detail_wrap .view {}
+.blog_detail_wrap .view {
+  display:flex;
+  gap:4px;
+}
+.blog_detail_wrap .view .icon{ width:28px; height:24px;}
 .blog_detail_wrap .tag_list {
   margin-top: 20px;
   display: flex;
@@ -451,8 +456,9 @@
   border-bottom: 1px solid black;
 }
 .blog_detail_wrap .tag_item {
-  background: #F39C12;
-  color: white;
+  font-size:20px;
+  font-weight:bold;
+  color: #F39C12;
   padding: 10px;
   border-radius: 4px;
 }
@@ -680,4 +686,32 @@
   background: #F39C12;
   font-size: 12px;
   color: white;
+}
+
+.chip_list {
+  margin-top: 40px;
+}
+.chip_item {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin: 0 16px 16px 0;
+  padding: 12px;
+  background: white;
+  color: black;
+  border-radius: 4px;
+  border: 1px solid black;
+}
+.chip_item button {
+  display: inline-flex;
+  color:white;
+}
+
+
+.chip_item.active {
+  background: #F39C12;
+  color: white;
+  border: 1px solid #F39C12;
+  transition: all .3s;
 }

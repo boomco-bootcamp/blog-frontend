@@ -11,8 +11,8 @@ const CategoryList = ({ categoryList, onClick }) => {
     };
 
     return (
-        <div className="tag-list-container">
-            <div className="tag-list">
+        <div className="category_item">
+            <div className="chip_list">
                 {!categoryList ?
                     <div>
                         <Link to='/mypage'>등록된 카테고리가 없어요! 등록하러 가볼까요?</Link>
@@ -22,7 +22,7 @@ const CategoryList = ({ categoryList, onClick }) => {
                         <button
                             key={tag.blogPostCatId}
                             onClick={() => { toggleTag(tag); onClick && onClick(tag.blogPostCatId) }}
-                            className={`tag-button ${selectedTag === tag.blogPostCatId ? 'selected' : ''}`}
+                            className={`chip_item ${selectedTag === tag.blogPostCatId ? 'active' : ''}`}
                         >
                             {tag.blogPostCatNm}
                         </button>

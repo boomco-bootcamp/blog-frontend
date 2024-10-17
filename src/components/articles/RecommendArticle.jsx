@@ -22,7 +22,9 @@ const RecommendArticle = () => {
 
     return (
         <div className='article_wrapper'>
-            <h3 className='sub'>추천 게시글</h3>
+            <Link to='/'>
+                <h3 className='sub'>추천 게시글</h3>
+            </Link>
             <div className='flex-wrap swiper_wrapper'>
                 <Swiper
                     slidesPerView={1}
