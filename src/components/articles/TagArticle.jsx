@@ -15,10 +15,9 @@ const TagArticle = () => {
 
         const getTag = async () => {
             let result = await getTagList()
-            setTagList(result.data)
-            console.log(result)
+            setTagList(result.data ?? [])
         }
-        user.loginStatus && getTag()
+        getTag()
     }, [])
 
     useEffect(() => {

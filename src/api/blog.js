@@ -104,11 +104,11 @@ export const getBlogInfo = async (blogId) => {
 };
 
 export const getBlogViewCount = async (blogPostId) => {
-    return await Axios.get(`/api/post/view/list?blogPostId==${blogPostId}`)
+    return await Axios.get(`/api/post/view/list?blogPostId=${blogPostId}`)
 };
 
 export const getBlogLikeCount = async (blogPostId) => {
-    return await Axios.get(`/api/post/like/list?blogPostId==${blogPostId}`)
+    return await Axios.get(`/api/post/like/list?blogPostId=${blogPostId}`)
 };
 
 

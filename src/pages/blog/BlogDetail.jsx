@@ -141,7 +141,7 @@ const BlogDetail = () => {
 
       <div className="reply_wrap">
         <div className="reply_form_wrap">
-          <div className="reply_top">댓글 {detail.commentList?.length}</div>
+          <div className="reply_top">댓글 {detail.postCommentCount}</div>
           <div className="reply_form">
             <div className="textarea_button_wrap">
               <textarea className="textarea" placeholder="댓글을 등록해보세요"
