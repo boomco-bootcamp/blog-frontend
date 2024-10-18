@@ -94,3 +94,13 @@ export const postKakaoLogout = async (code) => {
         }
     );
 };
+
+export const postFindPassword = async (form) => {
+    return await Axios.post(
+        `/api/user/find`,
+        {
+            form
+        }
+    );
+
+}

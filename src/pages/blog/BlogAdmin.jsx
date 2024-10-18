@@ -5,6 +5,7 @@ import { getBlogInfo, getBlogLikeCount, getBlogViewCount, getMyBlogList, updateB
 import { useUser } from '../../context/UserContext';
 import { getBannerImg, updateBannerImg } from '../../api/admin';
 import { getCurrentComments } from '../../api/user';
+import logo from '../../assets/img/blogyul.png';
 
 export const AdminData =
 {
@@ -32,7 +33,7 @@ const BlogAdmin = () => {
   const { user } = useUser();
   const [activeTab, setActiveTab] = useState(0);
   const [edit, setEdit] = useState(false);
-  const [bannerImage, setBannerImage] = useState("");
+  const [bannerImage, setBannerImage] = useState(logo);
   const [text, setText] = useState("")
   const { userId } = useParams()
   const [myPostList, setMyPostList] = useState([])
@@ -53,7 +54,7 @@ const BlogAdmin = () => {
   const getMyData = async () => {
     const res = await getBlogInfo(user.userId ?? userId);
     setText(res.data.blogCon)
-    setBannerImage(`${process.env.REACT_APP_BASE_URL}/api/file/download/${res.data.blogBannerFileId}`)
+    res.data.blogBannerFileId && setBannerImage(`${process.env.REACT_APP_BASE_URL}/api/file/download/${res.data.blogBannerFileId}`)
     // const res = await getMyBlogList(JSON.parse(localStorage.getItem('userInfo')).userId)
     // setBlogData(res.data.list)
   }

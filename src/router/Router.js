@@ -15,6 +15,7 @@ import BlogRecent from "../pages/blog/BlogRecent";
 import BlogRecommend from "../pages/blog/BlogRecommend";
 import PrivateRoute from '../components/layout/PrivateRoute';
 import Kakao from '../pages/login/Kakao';
+import Password from '../pages/login/Password';
 
 const Router = () => {
     return (
@@ -25,6 +26,7 @@ const Router = () => {
                     {/* 로그인 & 회원가입 */}
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<SignUp />} />
+                    <Route path="/password" element={<Password />} />
                     {/* 마이페이지 */}
                     <Route path="/mypage" element={
                         <PrivateRoute>
@@ -34,6 +36,8 @@ const Router = () => {
                     <Route path="/blog/:userId" element={<Blog />} />
                     {/* 블로그 글 리스트 & 상세 */}
                     <Route path="/blog/list" element={<BlogList />} />
+                    <Route path="/blog/list/recommend" element={<BlogList type='view' />} />
+
                     <Route path="/blog/:userId/:id" element={<BlogDetail />} />
 
                     <Route path="/blog/:userId/list/recent" element={<BlogRecent />} />

@@ -1,5 +1,6 @@
 import { formatDate } from '../../../util/date'
 import React, { useEffect, useState } from 'react'
+import comment from '../../../assets/img/comment.png'
 
 const Item = ({ title, desc, author, like, comments, date }) => {
     const [src, setSrc] = useState(null);
@@ -34,7 +35,9 @@ const Item = ({ title, desc, author, like, comments, date }) => {
             </div>
             <div className='sub_wrapper'>
                 <p>♥{like}</p>
-                <p>✍🏻{comments}</p>
+                <p>
+                    <img src={comment} className='icon' />
+                    {comments}</p>
                 <p>{formatDate(date)}</p>
             </div>
         </div>

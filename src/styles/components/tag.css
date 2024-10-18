@@ -1,5 +1,6 @@
 .tag-list-container {
     width: fit-content;
+    margin:16px 0px;
 }
 
 
@@ -11,7 +12,7 @@
     padding: 10px 0;
     scroll-behavior: smooth;
     scrollbar-width: thin;
-    margin-bottom:58px;
+ 
 }
 
 .tag-list-none {

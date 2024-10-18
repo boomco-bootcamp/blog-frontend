@@ -489,6 +489,7 @@
 }
 .blog_detail_wrap .reply_wrap .reply_form_wrap {}
 .blog_detail_wrap .reply_wrap .reply_top {
+  color:#F39C12;
   margin-bottom: 12px;
   font-weight: 700;
 }
@@ -689,7 +690,7 @@
 }
 
 .chip_list {
-  margin-top: 40px;
+  margin-top: 20px;
 }
 .chip_item {
   display: inline-flex;

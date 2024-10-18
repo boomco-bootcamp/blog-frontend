@@ -7,6 +7,7 @@ import sampleImg from '../../assets/sample/img/bg_img01.png'
 import { formatDate } from '../../util/date'
 import Pagination from '../../components/common/Pagination';
 import { useUser } from '../../context/UserContext';
+import ListItem from '../../components/common/post/ListItem';
 
 const Blog = () => {
     const { user } = useUser();
@@ -27,7 +28,7 @@ const Blog = () => {
 
     useEffect(() => {
         const getMyData = async () => {
-            const res = await getBlogInfo(user.userId ?? userId);
+            const res = await getBlogInfo(userId);
             setText(res.data.blogCon)
 
             setBannerImage(`${process.env.REACT_APP_BASE_URL}/api/file/download/${res.data.blogBannerFileId}`)
@@ -81,31 +82,7 @@ const Blog = () => {
                                     <ul className="blog_list">
                                         {
                                             postList.map((item, idx) => (
-                                                <Link to={`/blog/${item.blogId}/${item.blogPostId}`}>
-                                                    <li className="blog_item" key={idx}>
-                                                        <a href="#" className="blog_item_inner">
-                                                            <div className="img_wrap">
-                                                                <img src={item.img ? item.img : sampleImg} alt="image" />
-                                                            </div>
-                                                            <div className="content_wrap">
-                                                                <p className="title">{item.blogPostTitle}</p>
-                                                                <p className="content_text" dangerouslySetInnerHTML={{ __html: item.blogPostCon }}></p>
-                                                                <p className="date">{formatDate(item.rgsnTs)}</p>
-                                                            </div>
-                                                            <div className="text_wrap">
-                                                                <div className="like">♥ {item.postLikeCnt}</div>
-                                                                <div className="view">✍🏻 {item.postCommentCnt}</div>
-                                                            </div>
-                                                            <div className="tag_list">
-                                                                {
-                                                                    item.tagList && item.tagList.map((tag, idx) => (
-                                                                        <div className="tag" key={idx}>{tag.blogTagCon}</div>
-                                                                    ))
-                                                                }
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </Link>
+                                                <ListItem item={item} idx={idx} />
                                             ))
                                         }
                                     </ul>

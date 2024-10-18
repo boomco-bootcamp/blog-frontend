@@ -21,8 +21,8 @@ const RecommendArticle = () => {
     }, [])
 
     return (
-        <div className='article_wrapper'>
-            <Link to='/'>
+        <div className='recommend_wrapper'>
+            <Link to='/blog/list/recommend'>
                 <h3 className='sub'>추천 게시글</h3>
             </Link>
             <div className='flex-wrap swiper_wrapper'>
@@ -34,8 +34,8 @@ const RecommendArticle = () => {
                 >
                     {postList.slice(0, 6).map(post => (
                         <SwiperSlide>
-                            <Link to={`/blog/1/1`}>
-                                <Post title={post.blogPostTitle} src={post.src} author={post.blogNm} />
+                            <Link to={`/blog/${post.amnnUserId}/${post.blogPostId}`}>
+                                <Post title={post.blogPostTitle} post={post} author={post.blogNm} />
                             </Link>
                         </SwiperSlide>
                     ))}

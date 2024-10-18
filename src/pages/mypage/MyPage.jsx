@@ -72,11 +72,16 @@ const MyPage = () => {
         imgElement.remove();
 
       }
-      return {
-        ...ele,
-        blogPostCon: doc.body.innerHTML,
-        thumbnail: imgElement.getAttribute('src') ?? ""
-      }
+
+      return imgElement ?
+        {
+          ...ele,
+          blogPostCon: doc.body.innerHTML,
+          thumbnail: imgElement.getAttribute('src') ?? ""
+        } : {
+          ...ele,
+          blogPostCon: doc.body.innerHTML,
+        }
     })
 
 
