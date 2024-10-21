@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
-import sampleImg from '../../../assets/sample/img/bg_img01.png'
+import sampleImg from '../../../assets/img/blogyul.png'
 import { formatDate } from '../../../util/date'
 
 

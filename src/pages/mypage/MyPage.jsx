@@ -5,7 +5,7 @@ import { deleteMyTag, getListByCategory, getListByLike, getListByTag, getUserInf
 import { getCategoryList } from '../../api/blog';
 import { formatDate } from '../../util/date';
 import { Link } from 'react-router-dom';
-
+import defaultImg from '../../assets/img/blogyul.png';
 
 
 const MyPage = () => {
@@ -395,7 +395,7 @@ const MyPage = () => {
                     <li className="blog_item" key={item.blogPostId}>
                       <Link to={`/blog/${item.amnnUserId}/${item.blogPostId}`} className="blog_item_inner">
                         <div className="img_wrap">
-                          {item.thumbnail ? <img src={item.thumbnail} alt="Item thumbnail" /> : <></>}
+                          <img src={item.thumbnail ? item.thumbnail : defaultImg} alt="Item thumbnail" />
                         </div>
                         <div className="content_wrap">
                           <p className="title">{item.blogPostTitle}</p>

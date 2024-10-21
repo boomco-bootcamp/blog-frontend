@@ -53,7 +53,7 @@ const Blog = () => {
     return (
         <div className="blog_admin_wrap blog_mypage">
             <div className="img_banner">
-                <img src={bannerImage} alt="banner" />
+                <img src={bannerImage} alt="banner" className='bg_img' />
             </div>
             <div className="section_wrap">
                 <section className='section_wrap'>
@@ -62,7 +62,6 @@ const Blog = () => {
                         <div className="text_wrap">
                             <div className='banner_text'>
                                 <div className="rrr">{text}</div>
-                                <div className="rrr">오늘 방문자 : 10 / 전체 방문자 : 200</div>
                             </div>
                         </div>
                     </div>

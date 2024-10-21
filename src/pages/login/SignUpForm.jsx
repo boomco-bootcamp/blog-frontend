@@ -43,6 +43,18 @@ const SignUpForm = () => {
         }
 
     }
+    const Rest_api_key = process.env.REACT_APP_KAKAO_API; // REST API KEY
+    const redirect_uri = `${process.env.REACT_APP_FRONT_URL}/kakao/oauth`; // Redirect URI
+    const encodedRedirectUri = encodeURIComponent(redirect_uri); // 인코딩된 URI
+    const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${encodedRedirectUri}&response_type=code`;
+
+    const handleKakaoLogin = () => {
+        if (!Rest_api_key) {
+            console.error("Kakao API Key is missing!");
+            return;
+        }
+        window.location.href = kakaoURL;
+    };
 
     return (
         <div className='form'>
@@ -78,11 +90,9 @@ const SignUpForm = () => {
                         <span className='tit_name'>소셜 회원가입</span>
                     </div>
                     <ul className='social_menu'>
-                        {/* <li className='social_item'>
-                            <Link to='/' className='link google'>
-                                <span className="visually-hidden">구글로 회원가입</span>
-                            </Link>
-                        </li> */}
+                        <li className='social_item'>
+                            <button className="kakao_button" onClick={handleKakaoLogin} type='button' />
+                        </li>
                     </ul>
                 </div>
             </form>

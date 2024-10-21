@@ -244,7 +244,7 @@
 .blog_admin_wrap .img_banner img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   max-height: 700px;
 }
 .blog_admin_wrap .admin_cover {
@@ -715,4 +715,8 @@
   color: white;
   border: 1px solid #F39C12;
   transition: all .3s;
+}
+
+.bg_img {
+  object-fit:contain;
 }

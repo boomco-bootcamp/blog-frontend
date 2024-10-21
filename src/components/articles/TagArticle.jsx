@@ -14,11 +14,13 @@ const TagArticle = () => {
     useEffect(() => {
 
         const getTag = async () => {
-            let result = await getTagList()
-            setTagList(result.data ?? [])
+            if (user.loginStatus) {
+                let result = await getTagList()
+                setTagList(result.data ?? [])
+            }
         }
         getTag()
-    }, [])
+    }, [user])
 
     useEffect(() => {
         const getBlog = async () => {
