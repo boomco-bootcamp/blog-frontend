@@ -18,7 +18,7 @@
     width:100%;
     padding:0px 24px;
     position:absolute;
-    top:30%;
+    bottom:5%;
     color:white;
     font-size:24px;
     font-weight:bold;
@@ -88,6 +88,7 @@
 .item_author {
     font-size: 12px;
     line-height: 1.2;
+    margin-bottom:6px;
 }
 
 .sub_wrapper {

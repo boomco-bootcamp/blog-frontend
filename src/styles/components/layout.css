@@ -45,6 +45,10 @@
     gap:16px;
 }
 
+.flex-origin {
+    display: flex;
+}
+
 
 .flex-wrap {
     display: flex;
